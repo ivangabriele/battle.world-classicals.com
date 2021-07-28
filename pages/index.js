@@ -1,4 +1,29 @@
+import moment from "moment";
+import React from "react";
+
 function HomePage() {
+  const eventDate = moment("2021-07-26T10:00:00.00Z");
+  const [[leftDays, leftHours, leftMinutes, leftSeconds], setTimer] =
+    React.useState([`00`, `00`, `00`, `00`]);
+
+  const tick = () => {
+    const nowDate = moment();
+    const timeLeft = eventDate.diff(nowDate);
+    const _leftDays = String(
+      Number(moment.utc(timeLeft).format("D")) - 1,
+    ).padStart(2, `0`);
+    const _leftHours = moment.utc(timeLeft).format("HH");
+    const _leftMinutes = moment.utc(timeLeft).format("mm");
+    const _leftSeconds = moment.utc(timeLeft).format("ss");
+
+    setTimer([_leftDays, _leftHours, _leftMinutes, _leftSeconds]);
+  };
+
+  React.useEffect(() => {
+    const timerID = setInterval(() => tick(), 1000);
+    return () => clearInterval(timerID);
+  });
+
   return (
     <main className="page-wrapper">
       <header
@@ -85,9 +110,7 @@ function HomePage() {
         <div className="container py-2 py-md-0">
           <div className="row align-items-center">
             <div className="col-xl-4 text-center text-xl-start">
-              <h2 className="mb-4 mb-xl-0">
-                New weekly tournament will start in:
-              </h2>
+              <h2 className="mb-4 mb-xl-0">Next tournament in:</h2>
             </div>
             <div className="col-xl-8">
               <div
@@ -95,19 +118,27 @@ function HomePage() {
                 data-countdown="10/01/2021 07:00:00 PM"
               >
                 <div className="countdown-days mb-0 mt-3 me-0 px-4 border-end">
-                  <span className="countdown-value fw-normal px-4">0</span>
+                  <span className="countdown-value fw-normal px-4 text-monospace">
+                    {leftDays}
+                  </span>
                   <span className="countdown-label fs-lg text-body">Days</span>
                 </div>
                 <div className="countdown-hours mb-0 mt-3 me-0 px-4 border-end">
-                  <span className="countdown-value fw-normal px-4">0</span>
+                  <span className="countdown-value fw-normal px-4">
+                    {leftHours}
+                  </span>
                   <span className="countdown-label fs-lg text-body">Hours</span>
                 </div>
                 <div className="countdown-minutes mb-0 mt-3 me-0 px-4 border-end">
-                  <span className="countdown-value fw-normal px-4">0</span>
+                  <span className="countdown-value fw-normal px-4">
+                    {leftMinutes}
+                  </span>
                   <span className="countdown-label fs-lg text-body">Mins</span>
                 </div>
                 <div className="countdown-seconds mb-0 mt-3 me-0 px-4">
-                  <span className="countdown-value fw-normal px-4">0</span>
+                  <span className="countdown-value fw-normal px-4">
+                    {leftSeconds}
+                  </span>
                   <span className="countdown-label fs-lg text-body">Secs</span>
                 </div>
               </div>
