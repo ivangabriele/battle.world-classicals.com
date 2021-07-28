@@ -7,7 +7,7 @@
   "rules": {
     "no-console": ["error", { "allow": ["error", "warn"] }],
     // "no-return-assign": "off",
-    // "no-underscore-dangle": "off",
+    "no-underscore-dangle": "off",
 
     "prettier/prettier": "error",
 
