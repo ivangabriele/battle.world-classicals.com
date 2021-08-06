@@ -1,17 +1,10 @@
 {
-  "extends": ["airbnb", "prettier"],
-  "plugins": ["prettier"],
-  "env": {
-    "browser": true
-  },
+  "extends": "@ivangabriele/eslint-config-react",
   "rules": {
-    "no-console": ["error", { "allow": ["error", "warn"] }],
-    // "no-return-assign": "off",
-    "no-underscore-dangle": "off",
+    "no-shadow": "off",
 
     "prettier/prettier": "error",
 
-    "react/jsx-filename-extension": "off",
     "react/jsx-props-no-spreading": "off",
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off"

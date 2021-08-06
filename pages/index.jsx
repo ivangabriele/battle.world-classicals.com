@@ -1,28 +1,25 @@
-import moment from "moment";
-import React from "react";
+import moment from 'moment'
+import React from 'react'
 
-function HomePage() {
-  const eventDate = moment("2021-07-26T10:00:00.00Z");
-  const [[leftDays, leftHours, leftMinutes, leftSeconds], setTimer] =
-    React.useState([`00`, `00`, `00`, `00`]);
+export default function IndexPage() {
+  const eventDate = moment('2021-07-26T10:00:00.00Z')
+  const [[leftDays, leftHours, leftMinutes, leftSeconds], setTimer] = React.useState([`00`, `00`, `00`, `00`])
 
   const tick = () => {
-    const nowDate = moment();
-    const timeLeft = eventDate.diff(nowDate);
-    const _leftDays = String(
-      Number(moment.utc(timeLeft).format("D")) - 1,
-    ).padStart(2, `0`);
-    const _leftHours = moment.utc(timeLeft).format("HH");
-    const _leftMinutes = moment.utc(timeLeft).format("mm");
-    const _leftSeconds = moment.utc(timeLeft).format("ss");
+    const nowDate = moment()
+    const timeLeft = eventDate.diff(nowDate)
+    const leftDays = String(Number(moment.utc(timeLeft).format('D')) - 1).padStart(2, `0`)
+    const leftHours = moment.utc(timeLeft).format('HH')
+    const leftMinutes = moment.utc(timeLeft).format('mm')
+    const leftSeconds = moment.utc(timeLeft).format('ss')
 
-    setTimer([_leftDays, _leftHours, _leftMinutes, _leftSeconds]);
-  };
+    setTimer([leftDays, leftHours, leftMinutes, leftSeconds])
+  }
 
   React.useEffect(() => {
-    const timerID = setInterval(() => tick(), 1000);
-    return () => clearInterval(timerID);
-  });
+    const timerID = setInterval(() => tick(), 1000)
+    return () => clearInterval(timerID)
+  })
 
   return (
     <main className="page-wrapper">
@@ -40,10 +37,7 @@ function HomePage() {
           >
             <span className="navbar-toggler-icon" />
           </button>
-          <a
-            className="navbar-brand flex-shrink-0 order-lg-1 mx-auto ms-lg-0 pe-lg-2 me-lg-4"
-            href="index.html"
-          >
+          <a className="navbar-brand flex-shrink-0 order-lg-1 mx-auto ms-lg-0 pe-lg-2 me-lg-4" href="index.html">
             {/* <img
               className="d-none d-lg-block"
               src="img/logo/logo-dark.png"
@@ -58,18 +52,10 @@ function HomePage() {
             /> */}
             WCTB
           </a>
-          <div
-            className="offcanvas offcanvas-collapse order-lg-2"
-            id="primaryMenu"
-          >
+          <div className="offcanvas offcanvas-collapse order-lg-2" id="primaryMenu">
             <div className="offcanvas-header navbar-shadow">
               <h5 className="mt-1 mb-0">Menu</h5>
-              <button
-                className="btn-close lead"
-                type="button"
-                data-bs-dismiss="offcanvas"
-                aria-label="Close"
-              />
+              <button className="btn-close lead" type="button" data-bs-dismiss="offcanvas" aria-label="Close" />
             </div>
           </div>
         </div>
@@ -118,27 +104,19 @@ function HomePage() {
                 data-countdown="10/01/2021 07:00:00 PM"
               >
                 <div className="countdown-days mb-0 mt-3 me-0 px-4 border-end">
-                  <span className="countdown-value fw-normal px-4 text-monospace">
-                    {leftDays}
-                  </span>
+                  <span className="countdown-value fw-normal px-4 text-monospace">{leftDays}</span>
                   <span className="countdown-label fs-lg text-body">Days</span>
                 </div>
                 <div className="countdown-hours mb-0 mt-3 me-0 px-4 border-end">
-                  <span className="countdown-value fw-normal px-4">
-                    {leftHours}
-                  </span>
+                  <span className="countdown-value fw-normal px-4">{leftHours}</span>
                   <span className="countdown-label fs-lg text-body">Hours</span>
                 </div>
                 <div className="countdown-minutes mb-0 mt-3 me-0 px-4 border-end">
-                  <span className="countdown-value fw-normal px-4">
-                    {leftMinutes}
-                  </span>
+                  <span className="countdown-value fw-normal px-4">{leftMinutes}</span>
                   <span className="countdown-label fs-lg text-body">Mins</span>
                 </div>
                 <div className="countdown-seconds mb-0 mt-3 me-0 px-4">
-                  <span className="countdown-value fw-normal px-4">
-                    {leftSeconds}
-                  </span>
+                  <span className="countdown-value fw-normal px-4">{leftSeconds}</span>
                   <span className="countdown-label fs-lg text-body">Secs</span>
                 </div>
               </div>
@@ -147,7 +125,5 @@ function HomePage() {
         </div>
       </section>
     </main>
-  );
+  )
 }
-
-export default HomePage;
