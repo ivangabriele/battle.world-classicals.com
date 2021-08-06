@@ -17,6 +17,8 @@
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "@ivangabriele/eslint-config-react": "1.1.0",
+    "@ivangabriele/prettier-config": "1.1.0",
     "eslint": "7.31.0",
     "eslint-config-airbnb": "18.2.1",
     "eslint-config-next": "11.0.1",
@@ -28,6 +30,7 @@
     "eslint-plugin-react-hooks": "4.2.0",
     "prettier": "2.3.2"
   },
+  "prettier": "@ivangabriele/prettier-config",
   "engines": {
     "node": "16"
   }
