@@ -1,10 +1,12 @@
+import generateKey from '../libs/helpers/generateKey'
 import Spinner from './elements/Spinner'
 
 function StandingsRow(standing) {
-  const { name, rank, score } = standing
+  const { id, name, rank, score } = standing
+  const key = `${id}-${score}`
 
   return (
-    <tr key={rank}>
+    <tr key={key}>
       <th className="text-end" scope="row" style={{ width: '2rem' }}>
         {rank}
       </th>
@@ -21,6 +23,7 @@ export default function Standings({ data }) {
     const loadingData = new Array(10)
     loadingData.fill(
       {
+        id: generateKey(),
         name: <Spinner />,
         score: '-',
       },
@@ -29,7 +32,7 @@ export default function Standings({ data }) {
     )
 
     return (
-      <div className="table-responsive">
+      <div key={generateKey()} className="table-responsive">
         <table className="table table-dark">
           <tbody>{loadingData.map((dataRow, index) => ({ ...dataRow, rank: index + 1 })).map(StandingsRow)}</tbody>
         </table>
