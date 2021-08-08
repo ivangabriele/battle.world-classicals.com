@@ -20,6 +20,8 @@ async function getCurrentTeamsStandings(tournamentId) {
   while (++index < 10) {
     const { id } = teamsStandings[index]
 
+    teamsStandings[index].url = `https://lichess.org/team/${id}`
+
     const teamsIdName = cache.get('teamIdToName')
     if (teamsIdName[id] !== undefined) {
       teamsStandings[index].name = teamsIdName[id]
@@ -46,16 +48,11 @@ export default function LiveTeamsStandings({ tournamentId }) {
   useEffect(() => {
     async function updateTeamsStandings() {
       const teamsStanding = await getCurrentTeamsStandings(tournamentId)
-      // console.log()
 
       setTeamsStandings(teamsStanding)
     }
 
-    if (isFirstLoad) {
-      updateTeamsStandings()
-    }
-
-    // setTimeout(updateTeamsStandings, !isFirstLoad ? 15000 : 50000)
+    setTimeout(updateTeamsStandings, !isFirstLoad ? 15000 : 0)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tournamentId, teamsStandings])
 

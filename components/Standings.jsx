@@ -1,8 +1,21 @@
 import generateKey from '../libs/helpers/generateKey'
 import Spinner from './elements/Spinner'
 
-function StandingsRow(standing) {
-  const { id, name, rank, score } = standing
+function StandingsRow({ data, index, isLoading }) {
+  if (isLoading) {
+    return (
+      <tr key={generateKey()}>
+        <th className="text-end" scope="row" style={{ width: '2rem' }}>
+          {index + 1}
+        </th>
+        <td>
+          <Spinner />
+        </td>
+      </tr>
+    )
+  }
+
+  const { id, name, rank, score, url } = data
   const key = `${id}-${score}`
 
   return (
@@ -10,7 +23,11 @@ function StandingsRow(standing) {
       <th className="text-end" scope="row" style={{ width: '2rem' }}>
         {rank}
       </th>
-      <td>{name}</td>
+      <td>
+        <a href={url} rel="noreferrer" target="_blank">
+          {name}
+        </a>
+      </td>
       <td className="text-end" style={{ width: '2rem' }}>
         {score}
       </td>
@@ -20,31 +37,43 @@ function StandingsRow(standing) {
 
 export default function Standings({ data }) {
   if (data.length === 0) {
-    const loadingData = new Array(10)
-    loadingData.fill(
-      {
-        id: generateKey(),
-        name: <Spinner />,
-        score: '-',
-      },
-      0,
-      10,
-    )
+    const data = new Array(10)
+    data.fill(0, 0, 10)
 
     return (
       <div key={generateKey()} className="table-responsive">
         <table className="table table-dark">
-          <tbody>{loadingData.map((dataRow, index) => ({ ...dataRow, rank: index + 1 })).map(StandingsRow)}</tbody>
+          <tbody>
+            {data.map((_, index) => (
+              <StandingsRow index={index} isLoading />
+            ))}
+          </tbody>
         </table>
       </div>
     )
   }
 
   return (
-    <div className="table-responsive">
-      <table className="table table-dark">
-        <tbody>{data.map(StandingsRow)}</tbody>
-      </table>
-    </div>
+    <>
+      <div className="table-responsive">
+        <table className="table table-dark">
+          <tbody>
+            {data.map(dataRow => (
+              <StandingsRow data={dataRow} />
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <style jsx>{`
+        a {
+          color: white;
+          text-decoration: none;
+        }
+        a:hover {
+          color: yellow;
+        }
+      `}</style>
+    </>
   )
 }
