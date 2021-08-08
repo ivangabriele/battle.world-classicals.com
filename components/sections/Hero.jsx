@@ -45,6 +45,8 @@ export default function Hero({ tournamentData }) {
           padding-top: 0.7rem;
           transition: none;
         }
+        .button-join:active > .icon-lichess,
+        .button-join:focus > .icon-lichess,
         .button-join:hover > .icon-lichess {
           background-image: url('/logos/lichess.svg');
         }
