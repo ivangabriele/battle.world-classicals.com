@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "data:update": "node ./scripts/data/updateTournaments.js",
+    "data:update": "node ./scripts/data/index.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p $PORT",
@@ -31,6 +31,7 @@
     "eslint-plugin-react": "7.24.0",
     "eslint-plugin-react-hooks": "4.2.0",
     "prettier": "2.3.2",
+    "ramda": "0.27.1",
     "swr": "0.5.6"
   },
   "prettier": "@ivangabriele/prettier-config",

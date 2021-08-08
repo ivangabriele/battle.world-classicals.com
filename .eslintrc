@@ -13,5 +13,15 @@
     "react/jsx-props-no-spreading": "off",
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["./scripts/**/*.js"],
+      "rules": {
+        "global-require": "off",
+
+        "import/no-extraneous-dependencies": "off"
+      }
+    }
+  ]
 }

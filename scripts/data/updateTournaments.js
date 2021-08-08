@@ -2,6 +2,8 @@ const fs = require('fs')
 const fetch = require('isomorphic-unfetch')
 const moment = require('moment')
 const path = require('path')
+const prettier = require('prettier')
+const R = require('ramda')
 
 const localPastTournaments = require('../../data/pastTournaments.json')
 const normalizeLichessTournamentsList = require('../../libs/helpers/normalizeLichessTournamentsList')
@@ -17,24 +19,30 @@ async function updateTournaments() {
     // eslint-disable-next-line no-nested-ternary
     .sort((a, b) => (a.startsAt < b.startsAt ? -1 : b.startsAt > a.startsAt ? 1 : 0))
 
-  const localPastTournamentIds = localPastTournaments.map(({ id }) => id)
+  const localPastTournamentIds = R.map(R.prop('id'))(localPastTournaments)
+  const remotePastTournamentIds = R.map(R.prop('id'))(remotePastTournaments)
+  const newPastTournamentIds = R.difference(remotePastTournamentIds, localPastTournamentIds)
+
+  if (newPastTournamentIds.length === 0) {
+    console.info('Tournaments data is up to date.')
+
+    return
+  }
 
   let index = -1
-  while (++index < remotePastTournaments.length) {
-    const { fullName, id } = remotePastTournaments[index]
-    if (localPastTournamentIds.includes(id)) {
-      continue
-    }
+  while (++index < newPastTournamentIds.length) {
+    const id = newPastTournamentIds[index]
 
-    console.info(`Updating data for the ${fullName}…`)
+    console.info(`Updating tournament data for: ${id}…`)
     const res = await fetch(`https://lichess.org/api/tournament/${id}`)
     const data = await res.json()
     localPastTournaments.push(data)
   }
 
   const filePath = path.resolve(__dirname, '../../data/pastTournaments.json')
-  const fileSource = JSON.stringify(localPastTournaments, null, 2)
-  fs.writeFileSync(filePath, fileSource)
+  const fileSource = JSON.stringify(localPastTournaments)
+  const fileSourceFormatted = prettier.format(fileSource, { parser: 'json' })
+  fs.writeFileSync(filePath, fileSourceFormatted)
 }
 
-updateTournaments()
+module.exports = updateTournaments
