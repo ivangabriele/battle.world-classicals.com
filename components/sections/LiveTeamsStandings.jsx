@@ -2,7 +2,7 @@ import fetch from 'isomorphic-unfetch'
 import { useEffect, useState } from 'react'
 
 import cache from '../../libs/cache'
-import Standings from '../Standings'
+import Standings from '../shared/Standings'
 
 async function getTeamName(teamId) {
   const res = await fetch(`https://lichess.org/api/team/${teamId}`)
