@@ -43,7 +43,7 @@ async function getActiveTournamentBasicData() {
   return activeTournament
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const now = moment()
   const tournament = await getActiveTournamentBasicData()
   const hasStarted = tournament.startsAt <= Number(now.format('x'))
