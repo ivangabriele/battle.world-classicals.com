@@ -35,7 +35,7 @@ export default function Hero({ tournamentData }) {
       <style jsx>{`
         .hero {
           background-image: url('/photos/hero.png');
-          background-position: top;
+          background-position: 0 10%;
           background-opacity: 0.5;
         }
 
