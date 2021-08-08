@@ -4,6 +4,15 @@ import { useEffect, useState } from 'react'
 function getLeftDHMS(eventDate) {
   const nowDate = moment()
   const timeLeft = eventDate.diff(nowDate)
+
+  if (timeLeft <= 0) {
+    if (process.browser) {
+      window.location.reload()
+    }
+
+    return [0, 0, 0, 0]
+  }
+
   const leftDays = String(Number(moment.utc(timeLeft).format('D')) - 1).padStart(2, `0`)
   const leftHours = moment.utc(timeLeft).format('HH')
   const leftMinutes = moment.utc(timeLeft).format('mm')
