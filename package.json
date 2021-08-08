@@ -9,7 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "bootstrap": "5.0.2",
+    "bootstrap": "5.1.0",
+    "isomorphic-unfetch": "3.1.0",
     "moment": "2.29.1",
     "next": "11.0.1",
     "react": "17.0.2",
@@ -17,7 +18,7 @@
     "react-dom": "17.0.2"
   },
   "devDependencies": {
-    "@ivangabriele/eslint-config-react": "1.1.0",
+    "@ivangabriele/eslint-config-react": "1.2.0",
     "@ivangabriele/prettier-config": "1.1.0",
     "eslint": "7.31.0",
     "eslint-config-airbnb": "18.2.1",
@@ -28,7 +29,8 @@
     "eslint-plugin-prettier": "3.4.0",
     "eslint-plugin-react": "7.24.0",
     "eslint-plugin-react-hooks": "4.2.0",
-    "prettier": "2.3.2"
+    "prettier": "2.3.2",
+    "swr": "0.5.6"
   },
   "prettier": "@ivangabriele/prettier-config",
   "engines": {

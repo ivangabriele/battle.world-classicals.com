@@ -1,129 +1,65 @@
+import fetch from 'isomorphic-unfetch'
 import moment from 'moment'
-import React from 'react'
+import Head from 'next/head'
 
-export default function IndexPage() {
-  const eventDate = moment('2021-07-26T10:00:00.00Z')
-  const [[leftDays, leftHours, leftMinutes, leftSeconds], setTimer] = React.useState([`00`, `00`, `00`, `00`])
+import Countdown from '../components/Countdown'
+import Hero from '../components/Hero'
+import normalizeLichessTournamentsList from '../libs/helpers/normalizeLichessTournamentsList'
 
-  const tick = () => {
-    const nowDate = moment()
-    const timeLeft = eventDate.diff(nowDate)
-    const leftDays = String(Number(moment.utc(timeLeft).format('D')) - 1).padStart(2, `0`)
-    const leftHours = moment.utc(timeLeft).format('HH')
-    const leftMinutes = moment.utc(timeLeft).format('mm')
-    const leftSeconds = moment.utc(timeLeft).format('ss')
-
-    setTimer([leftDays, leftHours, leftMinutes, leftSeconds])
-  }
-
-  React.useEffect(() => {
-    const timerID = setInterval(() => tick(), 1000)
-    return () => clearInterval(timerID)
-  })
-
+export default function IndexPage({ data }) {
   return (
-    <main className="page-wrapper">
-      <header
-        className="header navbar navbar-expand-lg navbar-dark bg-dark navbar-sticky"
-        data-scroll-header
-        data-fixed-element
-      >
-        <div className="container px-0 px-xl-3">
-          <button
-            className="navbar-toggler ms-n2 me-2"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#primaryMenu"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-          <a className="navbar-brand flex-shrink-0 order-lg-1 mx-auto ms-lg-0 pe-lg-2 me-lg-4" href="index.html">
-            {/* <img
-              className="d-none d-lg-block"
-              src="img/logo/logo-dark.png"
-              alt="Around"
-              width="153"
-            />
-            <img
-              className="d-lg-none"
-              src="img/logo/logo-icon.png"
-              alt="Around"
-              width="58"
-            /> */}
-            WCTB
-          </a>
-          <div className="offcanvas offcanvas-collapse order-lg-2" id="primaryMenu">
-            <div className="offcanvas-header navbar-shadow">
-              <h5 className="mt-1 mb-0">Menu</h5>
-              <button className="btn-close lead" type="button" data-bs-dismiss="offcanvas" aria-label="Close" />
-            </div>
-          </div>
-        </div>
-      </header>
+    <>
+      <Head>
+        <title>World Classical Team Battle - The Lichess Tournament for Classical Chess Lovers</title>
+      </Head>
 
-      <section className="bg-dark bg-size-cover overflow-hidden pt-5 pt-md-6 pt-lg-7 pb-5">
-        <div className="container position-relative zindex-5 pt-2 pb-4 pb-md-2">
-          <div className="row justify-content-center">
-            <div className="col-xl-6 col-lg-7 col-md-8 text-center">
-              <h1 className="display-4 text-light mb-1">World Classicals</h1>
-              <h1 className="display-5 text-light mb-5">Team Battle</h1>
-              <div className="d-inline-flex align-items-center mx-1 px-3 mb-4">
-                <i className="ai-calendar h2 mb-0 me-2 text-light" />
-                <span className="text-light">September 11-13, 2020</span>
-              </div>
-              <div className="d-inline-flex align-items-center mx-1 px-3 mb-4">
-                <i className="ai-map-pin h2 mb-0 me-2 text-light" />
-                <span className="text-light">Lichess</span>
-              </div>
-              <div className="pt-2">
-                <a className="btn btn-success" href="#tickets" data-scroll>
-                  Buy Tickets
-                </a>
+      <main className="page-wrapper">
+        <header className="header navbar navbar-expand-lg navbar-dark bg-dark navbar-sticky">
+          <div className="container px-0 px-xl-3">
+            <button
+              className="navbar-toggler ms-n2 me-2"
+              data-bs-target="#primaryMenu"
+              data-bs-toggle="offcanvas"
+              type="button"
+            >
+              <span className="navbar-toggler-icon" />
+            </button>
+            <a className="navbar-brand flex-shrink-0 order-lg-1 mx-auto ms-lg-0 pe-lg-2 me-lg-4" href="index.html">
+              WCTB
+            </a>
+            <div className="offcanvas offcanvas-collapse order-lg-2" id="primaryMenu">
+              <div className="offcanvas-header navbar-shadow">
+                <h5 className="mt-1 mb-0">Menu</h5>
+                <button aria-label="Close" className="btn-close lead" data-bs-dismiss="offcanvas" type="button" />
               </div>
             </div>
           </div>
-        </div>
-        <div data-jarallax-element="50" data-disable-parallax-down="md">
-          {/* <img
-            className="d-block mx-auto"
-            src="img/demo/event-landing/people.png"
-            alt="People"
-          /> */}
-        </div>
-      </section>
+        </header>
 
-      <section className="bg-secondary py-5 py-md-6">
-        <div className="container py-2 py-md-0">
-          <div className="row align-items-center">
-            <div className="col-xl-4 text-center text-xl-start">
-              <h2 className="mb-4 mb-xl-0">Next tournament in:</h2>
-            </div>
-            <div className="col-xl-8">
-              <div
-                className="countdown h2 display-2 justify-content-center justify-content-xl-start"
-                data-countdown="10/01/2021 07:00:00 PM"
-              >
-                <div className="countdown-days mb-0 mt-3 me-0 px-4 border-end">
-                  <span className="countdown-value fw-normal px-4 text-monospace">{leftDays}</span>
-                  <span className="countdown-label fs-lg text-body">Days</span>
-                </div>
-                <div className="countdown-hours mb-0 mt-3 me-0 px-4 border-end">
-                  <span className="countdown-value fw-normal px-4">{leftHours}</span>
-                  <span className="countdown-label fs-lg text-body">Hours</span>
-                </div>
-                <div className="countdown-minutes mb-0 mt-3 me-0 px-4 border-end">
-                  <span className="countdown-value fw-normal px-4">{leftMinutes}</span>
-                  <span className="countdown-label fs-lg text-body">Mins</span>
-                </div>
-                <div className="countdown-seconds mb-0 mt-3 me-0 px-4">
-                  <span className="countdown-value fw-normal px-4">{leftSeconds}</span>
-                  <span className="countdown-label fs-lg text-body">Secs</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
+        <Hero tournamentData={data.tournament} />
+        <Countdown tournamentData={data.tournament} />
+      </main>
+    </>
   )
+}
+
+export async function getStaticProps() {
+  const now = Number(moment().format('x'))
+  const res = await fetch(`https://lichess.org/api/team/world-classicals/arena`)
+  const body = await res.text()
+  const worldClassicalsTeamArenas = normalizeLichessTournamentsList(body)
+  const sortedActiveTournaments = worldClassicalsTeamArenas
+    .filter(({ fullName }) => fullName.endsWith(`Weekly World Classicals Team Battle`))
+    .filter(({ finishesAt }) => finishesAt >= now)
+    // eslint-disable-next-line no-nested-ternary
+    .sort((a, b) => (a.startsAt < b.startsAt ? -1 : b.startsAt > a.startsAt ? 1 : 0))
+  const activeTournament = sortedActiveTournaments[0]
+
+  return {
+    props: {
+      data: {
+        tournament: activeTournament,
+      },
+    },
+  }
 }
