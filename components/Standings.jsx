@@ -64,16 +64,6 @@ export default function Standings({ data }) {
           </tbody>
         </table>
       </div>
-
-      <style jsx>{`
-        a {
-          color: white;
-          text-decoration: none;
-        }
-        a:hover {
-          color: yellow;
-        }
-      `}</style>
     </>
   )
 }

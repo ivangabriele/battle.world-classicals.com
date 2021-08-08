@@ -46,6 +46,14 @@ export default function WwctbApp({ Component, pageProps }) {
           background-color: #121117 !important;
           font-family: 'Cinzel Decorative', cursive;
         }
+        a {
+          color: white;
+          text-decoration: none;
+        }
+        a:hover {
+          color: yellow;
+          text-decoration: none;
+        }
 
         .bg-dark {
           background-color: #121117 !important;
