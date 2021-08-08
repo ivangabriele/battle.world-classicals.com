@@ -1,6 +1,10 @@
 {
   "extends": "@ivangabriele/eslint-config-react",
   "rules": {
+    "no-await-in-loop": "off",
+    "no-console": ["error", { "allow": ["error", "info", "warn"] }],
+    "no-continue": "off",
+    "no-plusplus": "off",
     "no-shadow": "off",
 
     "prettier/prettier": "error",
