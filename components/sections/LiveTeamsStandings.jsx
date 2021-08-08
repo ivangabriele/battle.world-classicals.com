@@ -28,6 +28,7 @@ async function getCurrentTeamsStandings(tournamentId) {
     }
 
     const name = await getTeamName(teamsStandings[index].id)
+    teamsStandings[index].name = name
     cache.set('teamIdToName', { ...teamsIdName, [id]: name })
   }
 
@@ -45,20 +46,22 @@ export default function LiveTeamsStandings({ tournamentId }) {
   useEffect(() => {
     async function updateTeamsStandings() {
       const teamsStanding = await getCurrentTeamsStandings(tournamentId)
+      // console.log()
 
       setTeamsStandings(teamsStanding)
     }
 
     if (isFirstLoad) {
-      setIsFirstLoad(false)
       updateTeamsStandings()
-
-      return
     }
 
-    setTimeout(updateTeamsStandings, 15000)
+    // setTimeout(updateTeamsStandings, !isFirstLoad ? 15000 : 50000)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tournamentId, teamsStandings])
+
+  useEffect(() => {
+    setIsFirstLoad(false)
+  }, [])
 
   return (
     <>
