@@ -1,5 +1,5 @@
-import generateKey from '../libs/helpers/generateKey'
-import Spinner from './elements/Spinner'
+import generateKey from '../../libs/helpers/generateKey'
+import Spinner from '../elements/Spinner'
 
 function StandingsRow({ data, index, isLoading }) {
   if (isLoading) {
