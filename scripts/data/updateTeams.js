@@ -1,6 +1,7 @@
 const R = require('ramda')
 
 const lichessTeams = require('../../data/lichess/teams.json')
+const teamsBlacklist = require('../../data/teamsBlacklist.json')
 const fetchLichess = require('./helpers/fetchLichess')
 const writeData = require('./helpers/writeData')
 
@@ -8,7 +9,7 @@ module.exports = async function updateTeams() {
   const teamIds = require('../../data/teamIds.json')
 
   const lichessTeamIds = R.map(R.prop('id'))(lichessTeams)
-  const newTeamIds = R.difference(teamIds, lichessTeamIds)
+  const newTeamIds = R.pipe(R.difference(teamIds), R.difference(teamsBlacklist))(lichessTeamIds)
 
   if (newTeamIds.length === 0) {
     console.info('Lichess Teams data is up to date.')
