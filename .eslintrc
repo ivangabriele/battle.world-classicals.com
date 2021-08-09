@@ -22,6 +22,7 @@
       "files": ["./scripts/**/*.js"],
       "rules": {
         "global-require": "off",
+        "no-restricted-syntax": "off",
 
         "import/no-dynamic-require": "off",
         "import/no-extraneous-dependencies": "off"
