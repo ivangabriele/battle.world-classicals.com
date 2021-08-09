@@ -1,3 +1,5 @@
 # https://yarnpkg.com/advanced/qa#which-files-should-be-gitignored
 /.yarn/releases/** binary
 /.yarn/plugins/** binary
+# https://docs.github.com/en/github/managing-large-files/versioning-large-files/configuring-git-large-file-storage
+data/** filter=lfs diff=lfs merge=lfs -text

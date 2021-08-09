@@ -4,10 +4,10 @@ const path = require('path')
 const prettier = require('prettier')
 const R = require('ramda')
 
-const localTeams = require('../../data/teams.json')
+const localTeams = require('../../data/lichess/teams.json')
 
 async function updateTeams() {
-  const pastTournaments = require('../../data/pastTournaments.json')
+  const pastTournaments = require('../../data/lichess/pastTournaments.json')
 
   const localTeamIds = R.map(R.prop('id'))(localTeams)
   const remoteTeamIds = R.pipe(
@@ -35,7 +35,7 @@ async function updateTeams() {
     localTeams.push(data)
   }
 
-  const filePath = path.resolve(__dirname, '../../data/teams.json')
+  const filePath = path.resolve(__dirname, '../../data/lichess/teams.json')
   const fileSource = JSON.stringify(localTeams)
   const fileSourceFormatted = prettier.format(fileSource, { parser: 'json' })
   fs.writeFileSync(filePath, fileSourceFormatted)

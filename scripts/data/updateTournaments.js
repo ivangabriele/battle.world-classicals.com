@@ -5,7 +5,7 @@ const path = require('path')
 const prettier = require('prettier')
 const R = require('ramda')
 
-const localPastTournaments = require('../../data/pastTournaments.json')
+const localPastTournaments = require('../../data/lichess/pastTournaments.json')
 const normalizeLichessTournamentsList = require('../../libs/helpers/normalizeLichessTournamentsList')
 
 async function updateTournaments() {
@@ -39,7 +39,7 @@ async function updateTournaments() {
     localPastTournaments.push(data)
   }
 
-  const filePath = path.resolve(__dirname, '../../data/pastTournaments.json')
+  const filePath = path.resolve(__dirname, '../../data/lichess/pastTournaments.json')
   const fileSource = JSON.stringify(localPastTournaments)
   const fileSourceFormatted = prettier.format(fileSource, { parser: 'json' })
   fs.writeFileSync(filePath, fileSourceFormatted)
