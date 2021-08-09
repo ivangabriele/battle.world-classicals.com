@@ -13,7 +13,7 @@ export default function IndexPage({ data: { player, results } }) {
   return (
     <>
       <Head>
-        <title>All-Time WCTB Player Standings ● World Classical Team Battle</title>
+        <title>{player.username} ● World Classical Team Battle</title>
       </Head>
 
       <main className="page-wrapper">
