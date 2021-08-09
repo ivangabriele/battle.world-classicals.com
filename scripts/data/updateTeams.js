@@ -4,39 +4,41 @@ const path = require('path')
 const prettier = require('prettier')
 const R = require('ramda')
 
-const localTeams = require('../../data/lichess/teams.json')
+const lichessTeams = require('../../data/lichess/teams.json')
+const waitFor = require('./helpers/waitFor')
 
 async function updateTeams() {
-  const tournaments = require('../../data/lichess/tournaments.json')
+  const teamIds = require('../../data/teamIds.json')
 
-  const localTeamIds = R.map(R.prop('id'))(localTeams)
-  const remoteTeamIds = R.pipe(
-    R.map(R.prop('teamStanding')),
-    R.unnest,
-    R.map(R.prop('id')),
-    R.uniq,
-    R.sortBy(R.prop(0)),
-  )(tournaments)
-  const newTeamIds = R.difference(remoteTeamIds, localTeamIds)
+  const lichessTeamIds = R.map(R.prop('id'))(lichessTeams)
+  const newTeamIds = R.difference(teamIds, lichessTeamIds)
 
   if (newTeamIds.length === 0) {
-    console.info('Teams data is up to date.')
+    console.info('Lichess Teams data is up to date.')
 
     return
   }
 
-  let index = -1
-  while (++index < newTeamIds.length) {
-    const id = newTeamIds[index]
+  // eslint-disable-next-line no-restricted-syntax
+  for (const newTeamId of newTeamIds) {
+    console.info(`Updating Lichess Teams data for: ${newTeamId}…`)
+    try {
+      const res = await fetch(`https://lichess.org/api/team/${newTeamId}`)
+      const lichessTeam = await res.json()
 
-    console.info(`Updating teams data for: ${id}…`)
-    const res = await fetch(`https://lichess.org/api/team/${id}`)
-    const data = await res.json()
-    localTeams.push(data)
+      lichessTeams.push(lichessTeam)
+
+      await waitFor(1)
+    } catch (err) {
+      console.error(`Error: ${err}`)
+
+      break
+    }
   }
+  const lichessTeamsSorted = R.sortBy(R.prop('id'))(lichessTeams)
 
   const filePath = path.resolve(__dirname, '../../data/lichess/teams.json')
-  const fileSource = JSON.stringify(localTeams)
+  const fileSource = JSON.stringify(lichessTeamsSorted)
   const fileSourceFormatted = prettier.format(fileSource, { parser: 'json' })
   fs.writeFileSync(filePath, fileSourceFormatted)
 }
