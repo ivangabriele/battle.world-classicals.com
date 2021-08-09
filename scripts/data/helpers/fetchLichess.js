@@ -10,6 +10,10 @@ module.exports = async function fetchLichess(path) {
     const res = await fetch(`https://lichess.org/api${path}`)
     const data = await res.json()
 
+    if (data.error !== undefined) {
+      throw new Error(`Fetched data with an error: ${data.error}`)
+    }
+
     return data
   } catch (err) {
     if (err.type === 'invalid-json') {
