@@ -21,7 +21,7 @@ module.exports = async function normalizePlayerResults() {
         continue
       }
 
-      playerResult.performances[1].push(maybeLichessPlayerStandingsPlayer.performance)
+      playerResult.performances[1].push(maybeLichessPlayerStandingsPlayer.performance || null)
       playerResult.ranks[1].push(maybeLichessPlayerStandingsPlayer.rank)
       playerResult.scores[0] += maybeLichessPlayerStandingsPlayer.score
       playerResult.scores[1].push(maybeLichessPlayerStandingsPlayer.score)
