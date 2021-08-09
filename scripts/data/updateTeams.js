@@ -7,7 +7,7 @@ const R = require('ramda')
 const localTeams = require('../../data/lichess/teams.json')
 
 async function updateTeams() {
-  const pastTournaments = require('../../data/lichess/pastTournaments.json')
+  const tournaments = require('../../data/lichess/tournaments.json')
 
   const localTeamIds = R.map(R.prop('id'))(localTeams)
   const remoteTeamIds = R.pipe(
@@ -16,7 +16,7 @@ async function updateTeams() {
     R.map(R.prop('id')),
     R.uniq,
     R.sortBy(R.prop(0)),
-  )(pastTournaments)
+  )(tournaments)
   const newTeamIds = R.difference(remoteTeamIds, localTeamIds)
 
   if (newTeamIds.length === 0) {

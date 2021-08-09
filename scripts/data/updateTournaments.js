@@ -5,7 +5,7 @@ const path = require('path')
 const prettier = require('prettier')
 const R = require('ramda')
 
-const localPastTournaments = require('../../data/lichess/pastTournaments.json')
+const localTournaments = require('../../data/lichess/tournaments.json')
 const normalizeLichessTournamentsList = require('../../libs/helpers/normalizeLichessTournamentsList')
 
 async function updateTournaments() {
@@ -13,34 +13,34 @@ async function updateTournaments() {
   const res = await fetch(`https://lichess.org/api/team/world-classicals/arena`)
   const rawData = await res.text()
   const worldClassicalsTeamArenas = normalizeLichessTournamentsList(rawData)
-  const remotePastTournaments = worldClassicalsTeamArenas
+  const remoteTournaments = worldClassicalsTeamArenas
     .filter(({ fullName }) => fullName.endsWith(`Weekly World Classicals Team Battle`))
     .filter(({ finishesAt }) => finishesAt < now)
     // eslint-disable-next-line no-nested-ternary
     .sort((a, b) => (a.startsAt < b.startsAt ? -1 : b.startsAt > a.startsAt ? 1 : 0))
 
-  const localPastTournamentIds = R.map(R.prop('id'))(localPastTournaments)
-  const remotePastTournamentIds = R.map(R.prop('id'))(remotePastTournaments)
-  const newPastTournamentIds = R.difference(remotePastTournamentIds, localPastTournamentIds)
+  const localTournamentIds = R.map(R.prop('id'))(localTournaments)
+  const remoteTournamentIds = R.map(R.prop('id'))(remoteTournaments)
+  const newTournamentIds = R.difference(remoteTournamentIds, localTournamentIds)
 
-  if (newPastTournamentIds.length === 0) {
+  if (newTournamentIds.length === 0) {
     console.info('Tournaments data is up to date.')
 
     return
   }
 
   let index = -1
-  while (++index < newPastTournamentIds.length) {
-    const id = newPastTournamentIds[index]
+  while (++index < newTournamentIds.length) {
+    const id = newTournamentIds[index]
 
     console.info(`Updating tournament data for: ${id}…`)
     const res = await fetch(`https://lichess.org/api/tournament/${id}`)
     const data = await res.json()
-    localPastTournaments.push(data)
+    localTournaments.push(data)
   }
 
-  const filePath = path.resolve(__dirname, '../../data/lichess/pastTournaments.json')
-  const fileSource = JSON.stringify(localPastTournaments)
+  const filePath = path.resolve(__dirname, '../../data/lichess/tournaments.json')
+  const fileSource = JSON.stringify(localTournaments)
   const fileSourceFormatted = prettier.format(fileSource, { parser: 'json' })
   fs.writeFileSync(filePath, fileSourceFormatted)
 }
