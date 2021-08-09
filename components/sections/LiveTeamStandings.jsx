@@ -37,7 +37,7 @@ async function getCurrentTeamsStandings(tournamentId) {
   return teamsStandings
 }
 
-export default function LiveTeamsStandings({ tournamentId }) {
+export default function LiveTeamStandings({ tournamentId }) {
   if (process.browser && cache.get('teamIdToName') === undefined) {
     cache.set('teamIdToName', {})
   }

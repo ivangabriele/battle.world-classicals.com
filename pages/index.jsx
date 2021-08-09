@@ -5,7 +5,7 @@ import Head from 'next/head'
 import Navbar from '../components/layouts/Navbar'
 import Countdown from '../components/sections/Countdown'
 import Hero from '../components/sections/Hero'
-import LiveTeamsStandings from '../components/sections/LiveTeamsStandings'
+import LiveTeamsStandings from '../components/sections/LiveTeamStandings'
 import normalizeLichessTournamentsList from '../libs/helpers/normalizeLichessTournamentsList'
 
 export default function IndexPage({ data }) {

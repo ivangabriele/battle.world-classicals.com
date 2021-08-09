@@ -11,7 +11,7 @@ export default function StandingsRowScore({ value }) {
       <style jsx>{`
         span {
           display: inline-block;
-          font-size: 150%;
+          font-size: 130%;
           text-align: center;
           width: 1rem;
         }

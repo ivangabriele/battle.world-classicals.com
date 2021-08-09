@@ -1,12 +1,12 @@
 import Standings from '../shared/Standings'
 
-export default function AllTimeTeamsStandings({ data }) {
-  const standingsData = data.map(({ id, name, result: [allTimeScore] }, index) => ({
-    id,
-    name,
+export default function AllTimePlayerStandings({ data }) {
+  const standingsData = data.map(({ username, result: [allTimeScore] }, index) => ({
+    id: username,
+    name: username,
     rank: index + 1,
     score: allTimeScore,
-    url: `/teams/${id}`,
+    url: `/player/${username}`,
   }))
 
   return (
@@ -14,7 +14,7 @@ export default function AllTimeTeamsStandings({ data }) {
       <section className="bg-dark py-5 py-md-6">
         <div className="container py-2 py-md-0">
           <div className="row align-items-center">
-            <h2 className="text-center text-light mb-5">All-Time WCTB Team Standings</h2>
+            <h2 className="text-center text-light mb-5">All-Time WCTB Player Standings</h2>
 
             <Standings data={standingsData} />
           </div>

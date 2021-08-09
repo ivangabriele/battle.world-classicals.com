@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
 import Navbar from '../../components/layouts/Navbar'
-import AllTimeTeamsStandings from '../../components/sections/AllTimeTeamsStandings'
+import AllTimeTeamStandings from '../../components/sections/AllTimeTeamStandings'
 import teamIdsNames from '../../data/teamIdsNames.json'
 import teamResults from '../../data/teamResults.json'
 
@@ -20,7 +20,7 @@ export default function IndexPage() {
       <main className="page-wrapper">
         <Navbar />
 
-        <AllTimeTeamsStandings data={teamResultsWithTeamName} />
+        <AllTimeTeamStandings data={teamResultsWithTeamName} />
       </main>
     </>
   )
