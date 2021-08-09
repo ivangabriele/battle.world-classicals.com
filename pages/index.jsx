@@ -17,8 +17,16 @@ export default function IndexPage({ data }) {
   return (
     <>
       <Head>
-        <link as="image" crossOrigin href="/logos/lichess.svg" rel="preload" />
         <title>World Classical Team Battle ♞ The Lichess Tournament for Classical Chess Lovers</title>
+        <meta
+          content={
+            `The Weekly World Classical Team Battle has become the biggest Classical Chess Team Battle ever on ` +
+            `Lichess. Gathering more than 100 teams, we are working hard towards the next goals to make it even more ` +
+            `fun and succesful.`
+          }
+          name="description"
+        />
+        <link as="image" crossOrigin href="/logos/lichess.svg" rel="preload" />
       </Head>
 
       <main className="page-wrapper">

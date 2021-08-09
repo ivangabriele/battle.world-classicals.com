@@ -1,6 +1,8 @@
 import { promises as fs } from 'fs'
 import Head from 'next/head'
+import numeral from 'numeral'
 import path from 'path'
+import * as R from 'ramda'
 
 import Navbar from '../../components/layouts/Navbar'
 import TeamHeader from '../../components/sections/TeamHeader'
@@ -9,11 +11,25 @@ import lichessTournaments from '../../data/lichess/tournaments.json'
 import playerResults from '../../data/playerResults.json'
 import playerUsernames from '../../data/playerUsernames.json'
 
-export default function IndexPage({ data: { player, results } }) {
+const getMetaDescription = ({ fullResults, player }) => {
+  const allTimeScore = numeral(fullResults.scores[0]).format('0,0')
+  const tournamentsCount = fullResults.scores[1].filter(score => score !== 0).length
+  const medianPerformance = numeral(R.median(fullResults.performances[1])).format('0,0')
+
+  return `${
+    `${player.title} ${player.username} has scored a total of ${allTimeScore} points ` +
+    `during ${tournamentsCount} Weekly World Classical Team Battles, `
+  }${`with a median performance of ${medianPerformance}.`.trim()}`
+}
+
+export default function IndexPage({ data: { fullResults, player, results } }) {
+  const metaDescription = getMetaDescription({ fullResults, player })
+
   return (
     <>
       <Head>
         <title>{player.username} ● World Classical Team Battle</title>
+        <meta content={metaDescription} name="description" />
       </Head>
 
       <main className="page-wrapper">
@@ -46,6 +62,7 @@ export async function getStaticProps(context) {
   return {
     props: {
       data: {
+        fullResults: playerResult,
         player: playerData,
         results: resultsData,
       },
