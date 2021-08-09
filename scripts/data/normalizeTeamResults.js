@@ -19,7 +19,7 @@ module.exports = async function normalizeTeamResults() {
         continue
       }
 
-      teamResult.result[0] += teamResult.result[0] + maybeLichessTeamStandingsTeam.score
+      teamResult.result[0] += maybeLichessTeamStandingsTeam.score
       teamResult.result[1].push(maybeLichessTeamStandingsTeam.score)
     }
 

@@ -1,7 +1,7 @@
 export default function Navbar() {
   return (
     <>
-      <header className="header navbar navbar-expand-lg navbar-dark bg-dark navbar-sticky">
+      <header className="header navbar navbar-expand-lg navbar-dark bg-dark navbar-sticky navbar-shadow">
         <div className="container px-0 px-xl-3">
           <button className="navbar-toggler ms-n2 me-2" type="button">
             <span className="navbar-toggler-icon" />

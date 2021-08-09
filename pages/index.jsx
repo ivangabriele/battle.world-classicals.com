@@ -13,7 +13,7 @@ export default function IndexPage({ data }) {
     <>
       <Head>
         <link as="image" crossOrigin href="/logos/lichess.svg" rel="preload" />
-        <title>World Classical Team Battle - The Lichess Tournament for Classical Chess Lovers</title>
+        <title>World Classical Team Battle ♞ The Lichess Tournament for Classical Chess Lovers</title>
       </Head>
 
       <main className="page-wrapper">

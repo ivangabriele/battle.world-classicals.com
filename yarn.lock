@@ -3398,6 +3398,13 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"numeral@npm:2.0.6":
+  version: 2.0.6
+  resolution: "numeral@npm:2.0.6"
+  checksum: 962d3200e283add3e47dae023fa9f928c749c90cbf393fc17924954b59ae49dd9bafa9cd8bb1257d551cea54278ca3a07a30df8e0a8b85388dd78a13cf89b118
+  languageName: node
+  linkType: hard
+
 "object-assign@npm:^4.1.0, object-assign@npm:^4.1.1":
   version: 4.1.1
   resolution: "object-assign@npm:4.1.1"
@@ -5209,7 +5216,9 @@ resolve@^2.0.0-next.3:
     isomorphic-unfetch: 3.1.0
     moment: 2.29.1
     next: 11.0.1
+    numeral: 2.0.6
     prettier: 2.3.2
+    prop-types: 15.7.2
     ramda: 0.27.1
     react: 17.0.2
     react-bootstrap: next
