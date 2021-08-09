@@ -7,21 +7,19 @@ module.exports = async function updatePlayerStandings() {
 
   let hasUpdated = false
   for (const tournamentId of tournamentIds) {
-    const filePath = `lichess/playerStandings/${tournamentId}.json`
-    if (hasData(filePath)) {
+    const dataPath = `./lichess/playerStandings/${tournamentId}.json`
+    if (hasData(dataPath)) {
       continue
     }
 
-    hasUpdated = true
-
     console.info(`Updating Lichess Player Standings data for: ${tournamentId}…`)
+    hasUpdated = true
     try {
       const playerStandings = await fetchLichess(`/tournament/${tournamentId}/results`)
 
-      writeData(filePath, playerStandings)
+      writeData(dataPath, playerStandings)
     } catch (err) {
       console.error(`Error: ${err}`)
-      console.error(err)
     }
   }
 

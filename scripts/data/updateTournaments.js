@@ -1,18 +1,13 @@
-const fs = require('fs')
-const fetch = require('isomorphic-unfetch')
 const moment = require('moment')
-const path = require('path')
-const prettier = require('prettier')
 const R = require('ramda')
 
 const localTournaments = require('../../data/lichess/tournaments.json')
-const normalizeLichessTournamentsList = require('../../libs/helpers/normalizeLichessTournamentsList')
+const fetchLichess = require('./helpers/fetchLichess')
+const writeData = require('./helpers/writeData')
 
-async function updateTournaments() {
+module.exports = async function updateTournaments() {
   const now = Number(moment().format('x'))
-  const res = await fetch(`https://lichess.org/api/team/world-classicals/arena`)
-  const rawData = await res.text()
-  const worldClassicalsTeamArenas = normalizeLichessTournamentsList(rawData)
+  const worldClassicalsTeamArenas = await fetchLichess(`/team/world-classicals/arena`)
   const remoteTournaments = worldClassicalsTeamArenas
     .filter(({ fullName }) => fullName.endsWith(`Weekly World Classicals Team Battle`))
     .filter(({ finishesAt }) => finishesAt < now)
@@ -24,7 +19,7 @@ async function updateTournaments() {
   const newTournamentIds = R.difference(remoteTournamentIds, localTournamentIds)
 
   if (newTournamentIds.length === 0) {
-    console.info('Tournaments data is up to date.')
+    console.info('Lichess Tournaments data is up to date.')
 
     return
   }
@@ -33,16 +28,10 @@ async function updateTournaments() {
   while (++index < newTournamentIds.length) {
     const id = newTournamentIds[index]
 
-    console.info(`Updating tournament data for: ${id}…`)
-    const res = await fetch(`https://lichess.org/api/tournament/${id}`)
-    const data = await res.json()
-    localTournaments.push(data)
+    console.info(`Updating Lichess Tournament data for: ${id}…`)
+    const lichessTournament = await fetchLichess(`/tournament/${id}`)
+    localTournaments.push(lichessTournament)
   }
 
-  const filePath = path.resolve(__dirname, '../../data/lichess/tournaments.json')
-  const fileSource = JSON.stringify(localTournaments)
-  const fileSourceFormatted = prettier.format(fileSource, { parser: 'json' })
-  fs.writeFileSync(filePath, fileSourceFormatted)
+  writeData('./lichess/tournaments.json')
 }
-
-module.exports = updateTournaments

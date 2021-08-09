@@ -1,17 +1,11 @@
-const fs = require('fs')
-const path = require('path')
-const prettier = require('prettier')
 const R = require('ramda')
 
-async function normalizeTournamentIds() {
+const writeData = require('./helpers/writeData')
+
+module.exports = async function normalizeTournamentIds() {
   console.info(`Normalizing Tournament Ids data…`)
-  const tournaments = require('../../data/lichess/tournaments.json')
-  const tournamentIds = R.map(R.prop('id'))(tournaments)
+  const lichessTournaments = require('../../data/lichess/tournaments.json')
+  const tournamentIds = R.map(R.prop('id'))(lichessTournaments)
 
-  const filePath = path.resolve(__dirname, '../../data/tournamentIds.json')
-  const fileSource = JSON.stringify(tournamentIds)
-  const fileSourceFormatted = prettier.format(fileSource, { parser: 'json' })
-  fs.writeFileSync(filePath, fileSourceFormatted)
+  writeData('./tournamentIds.json', tournamentIds)
 }
-
-module.exports = normalizeTournamentIds

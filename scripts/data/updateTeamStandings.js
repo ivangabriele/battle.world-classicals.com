@@ -1,33 +1,30 @@
-const fs = require('fs')
-const fetch = require('isomorphic-unfetch')
-const path = require('path')
-const prettier = require('prettier')
+const fetchLichess = require('./helpers/fetchLichess')
+const hasData = require('./helpers/hasData')
+const writeData = require('./helpers/writeData')
 
-async function updateTeamStandings() {
+module.exports = async function updateTeamStandings() {
   const tournamentIds = require('../../data/tournamentIds.json')
 
   let hasUpdated = false
   // eslint-disable-next-line no-restricted-syntax
   for (const tournamentId of tournamentIds) {
-    const filePath = path.resolve(__dirname, `../../data/lichess/teamStandings/${tournamentId}.json`)
-    if (fs.existsSync(filePath)) {
+    const dataPath = `./lichess/teamStandings/${tournamentId}.json`
+    if (hasData(dataPath)) {
       continue
     }
 
+    console.info(`Updating Lichess Team Standings data for: ${tournamentId}…`)
     hasUpdated = true
+    try {
+      const teamStandings = await fetchLichess(`/tournament/${tournamentId}/teams`)
 
-    console.info(`Updating team standings data for: ${tournamentId}…`)
-    const res = await fetch(`https://lichess.org/api/tournament/${tournamentId}/teams`)
-    const teamStandings = await res.json()
-
-    const fileSource = JSON.stringify(teamStandings)
-    const fileSourceFormatted = prettier.format(fileSource, { parser: 'json' })
-    fs.writeFileSync(filePath, fileSourceFormatted)
+      writeData(dataPath, teamStandings)
+    } catch (err) {
+      console.error(`Error: ${err}`)
+    }
   }
 
   if (!hasUpdated) {
-    console.info('Team standings data is up to date.')
+    console.info('Lichess Team Standings data is up to date.')
   }
 }
-
-module.exports = updateTeamStandings

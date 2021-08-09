@@ -1,13 +1,10 @@
-const fs = require('fs')
-const fetch = require('isomorphic-unfetch')
-const path = require('path')
-const prettier = require('prettier')
 const R = require('ramda')
 
 const lichessTeams = require('../../data/lichess/teams.json')
-const waitFor = require('./helpers/waitFor')
+const fetchLichess = require('./helpers/fetchLichess')
+const writeData = require('./helpers/writeData')
 
-async function updateTeams() {
+module.exports = async function updateTeams() {
   const teamIds = require('../../data/teamIds.json')
 
   const lichessTeamIds = R.map(R.prop('id'))(lichessTeams)
@@ -19,16 +16,12 @@ async function updateTeams() {
     return
   }
 
-  // eslint-disable-next-line no-restricted-syntax
   for (const newTeamId of newTeamIds) {
     console.info(`Updating Lichess Teams data for: ${newTeamId}…`)
     try {
-      const res = await fetch(`https://lichess.org/api/team/${newTeamId}`)
-      const lichessTeam = await res.json()
+      const lichessTeam = await fetchLichess(`/team/${newTeamId}`)
 
       lichessTeams.push(lichessTeam)
-
-      await waitFor(1)
     } catch (err) {
       console.error(`Error: ${err}`)
 
@@ -37,10 +30,5 @@ async function updateTeams() {
   }
   const lichessTeamsSorted = R.sortBy(R.prop('id'))(lichessTeams)
 
-  const filePath = path.resolve(__dirname, '../../data/lichess/teams.json')
-  const fileSource = JSON.stringify(lichessTeamsSorted)
-  const fileSourceFormatted = prettier.format(fileSource, { parser: 'json' })
-  fs.writeFileSync(filePath, fileSourceFormatted)
+  writeData('./lichess/teams.json', lichessTeamsSorted)
 }
-
-module.exports = updateTeams

@@ -1,27 +1,19 @@
-const fs = require('fs')
-const path = require('path')
-const prettier = require('prettier')
 const R = require('ramda')
 
-const localTeamIds = require('../../data/teamIds.json')
+const writeData = require('./helpers/writeData')
 
-async function normalizeTeamIds() {
+module.exports = async function normalizeTeamIds() {
   console.info(`Normalizing Team Ids data…`)
   const tournamentIds = require('../../data/tournamentIds.json')
 
-  // eslint-disable-next-line no-restricted-syntax
+  const teamIds = []
   for (const tournamentId of tournamentIds) {
-    const teamStandings = require(`../../data/lichess/teamStandings/${tournamentId}.json`)
-    const teamStandingsTeamIds = R.map(R.prop('id'))(teamStandings.teams)
+    const lichessTeamStandings = require(`../../data/lichess/teamStandings/${tournamentId}.json`)
+    const lichessTeamStandingsTeamIds = R.map(R.prop('id'))(lichessTeamStandings.teams)
 
-    localTeamIds.push(...teamStandingsTeamIds)
+    teamIds.push(...lichessTeamStandingsTeamIds)
   }
-  const teamIds = R.pipe(R.uniq, R.sortBy(R.prop(0)))(localTeamIds)
+  const teamIdsSorted = R.pipe(R.uniq, R.sortBy(R.prop(0)))(teamIds)
 
-  const filePath = path.resolve(__dirname, '../../data/teamIds.json')
-  const fileSource = JSON.stringify(teamIds)
-  const fileSourceFormatted = prettier.format(fileSource, { parser: 'json' })
-  fs.writeFileSync(filePath, fileSourceFormatted)
+  writeData('./teamIds.json', teamIdsSorted)
 }
-
-module.exports = normalizeTeamIds
