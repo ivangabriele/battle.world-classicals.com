@@ -26,8 +26,15 @@ export default function StandingsRow(props, index) {
         </tr>
 
         <style jsx>{`
-          tr {
-            font-size: 125%;
+          tr > th {
+            max-width: 4rem;
+            min-width: 4rem;
+            width: 4rem;
+          }
+          tr > td:last-child {
+            max-width: 7rem;
+            min-width: 7rem;
+            width: 7rem;
           }
         `}</style>
       </>
@@ -36,18 +43,19 @@ export default function StandingsRow(props, index) {
 
   const { id, name, rank, score, url } = props
   const key = `${id}-${score}`
+  const formattedRank = numeral(rank).format('0,0')
   const formattedScore = numeral(score).format('0,0')
 
   return (
     <>
       <tr key={key} onClick={event => goToPath(event, url)}>
-        <th className="align-middle text-end" scope="row" style={{ width: '2rem' }}>
-          {rank}
+        <th className="align-middle text-end" scope="row">
+          <StandingsRowScore value={formattedRank} />
         </th>
-        <td className="align-middle">
+        <td className="align-middle" style={{ paddingTop: '0.875rem' }}>
           <a href={url}>{name}</a>
         </td>
-        <td className="align-middle text-end" style={{ minWidth: '5rem' }}>
+        <td className="align-middle text-end">
           <StandingsRowScore value={formattedScore} />
         </td>
       </tr>
@@ -55,10 +63,20 @@ export default function StandingsRow(props, index) {
       <style jsx>{`
         tr {
           cursor: pointer;
-          font-size: 125%;
         }
         tr:hover * {
           color: yellow !important;
+        }
+
+        tr > th {
+          max-width: 4rem;
+          min-width: 4rem;
+          width: 4rem;
+        }
+        tr > td:last-child {
+          max-width: 7rem;
+          min-width: 7rem;
+          width: 7rem;
         }
       `}</style>
     </>

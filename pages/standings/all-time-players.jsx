@@ -14,7 +14,7 @@ export default function IndexPage() {
       <main className="page-wrapper">
         <Navbar />
 
-        <AllTimePlayerStandings data={playerResults} />
+        <AllTimePlayerStandings playerResults={playerResults} title="All-Time WCTB Player Standings" />
       </main>
     </>
   )

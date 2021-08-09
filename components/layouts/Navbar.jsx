@@ -11,11 +11,11 @@ export default function Navbar() {
             WCTB
           </a>
 
-          <div className="d-flex align-items-center order-lg-3">
+          {/* <div className="d-flex align-items-center order-lg-3">
             <a className="btn btn-primary d-none d-sm-inline-block ms-3" href="/register-my-team">
               Register my Team
             </a>
-          </div>
+          </div> */}
 
           <div className="collapse navbar-collapse order-lg-2" id="navbarCollapse1">
             <ul className="navbar-nav me-auto">

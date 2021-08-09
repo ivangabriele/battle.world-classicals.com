@@ -36,7 +36,6 @@ export default function Hero({ tournamentData }) {
         .hero {
           background-image: url('/photos/hero.png');
           background-position: 0 10%;
-          background-opacity: 0.5;
         }
 
         .button-join {

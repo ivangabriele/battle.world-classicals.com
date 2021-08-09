@@ -6,11 +6,6 @@ import teamIdsNames from '../../data/teamIdsNames.json'
 import teamResults from '../../data/teamResults.json'
 
 export default function IndexPage() {
-  const teamResultsWithTeamName = teamResults.map(teamResult => ({
-    ...teamResult,
-    name: teamIdsNames.find(({ id }) => id === teamResult.id).name,
-  }))
-
   return (
     <>
       <Head>
@@ -20,7 +15,11 @@ export default function IndexPage() {
       <main className="page-wrapper">
         <Navbar />
 
-        <AllTimeTeamStandings data={teamResultsWithTeamName} />
+        <AllTimeTeamStandings
+          teamIdsNames={teamIdsNames}
+          teamResults={teamResults}
+          title="All-Time WCTB Team Standings"
+        />
       </main>
     </>
   )

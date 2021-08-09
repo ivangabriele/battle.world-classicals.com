@@ -1,4 +1,4 @@
-export default function StandingsRowScore({ value }) {
+export default function ResultsRowNumber({ value }) {
   return (
     <>
       {String(value)
@@ -11,7 +11,7 @@ export default function StandingsRowScore({ value }) {
       <style jsx>{`
         span {
           display: inline-block;
-          font-size: 120% !important;
+          font-size: 120%;
           text-align: center;
           width: 0.9rem;
         }

@@ -9,25 +9,29 @@ module.exports = async function normalizePlayerResults() {
 
   const playerResults = []
   for (const playerUsername of playerUsernames) {
-    const playerResult = { result: [0, []], username: playerUsername }
+    const playerResult = { performances: [null, []], ranks: [null, []], scores: [0, []], username: playerUsername }
     for (const tournamentId of tournamentIds) {
       const lichessPlayerStandings = require(`../../data/lichess/playerStandings/${tournamentId}.json`)
       const maybeLichessPlayerStandingsPlayer = R.find(R.propEq('username', playerUsername))(lichessPlayerStandings)
       if (maybeLichessPlayerStandingsPlayer === undefined) {
-        playerResult.result[1].push(null)
+        playerResult.performances[1].push(null)
+        playerResult.ranks[1].push(null)
+        playerResult.scores[1].push(null)
 
         continue
       }
 
-      playerResult.result[0] += maybeLichessPlayerStandingsPlayer.score
-      playerResult.result[1].push(maybeLichessPlayerStandingsPlayer.score)
+      playerResult.performances[1].push(maybeLichessPlayerStandingsPlayer.performance)
+      playerResult.ranks[1].push(maybeLichessPlayerStandingsPlayer.rank)
+      playerResult.scores[0] += maybeLichessPlayerStandingsPlayer.score
+      playerResult.scores[1].push(maybeLichessPlayerStandingsPlayer.score)
     }
 
     playerResults.push(playerResult)
   }
   const playerResultsNormalized = R.pipe(
-    R.filter(R.complement(R.pathEq(['result', 0], 0))),
-    R.sort(R.descend(R.path(['result', 0]))),
+    R.filter(R.complement(R.pathEq(['scores', 0], 0))),
+    R.sort(R.descend(R.path(['scores', 0]))),
   )(playerResults)
 
   writeData('./playerResults.json', playerResultsNormalized)

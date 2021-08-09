@@ -3,15 +3,15 @@ import PropTypes from 'prop-types'
 import generateKey from '../../../libs/helpers/generateKey'
 import StandingsRow from './StandingsRow'
 
-function Standings({ data }) {
-  if (data.length === 0) {
-    const data = new Array(10)
-    data.fill(null, 0, 10)
+function Standings({ standings, title }) {
+  if (standings.length === 0) {
+    const placeholderData = new Array(10)
+    placeholderData.fill(null, 0, 10)
 
     return (
       <div key={generateKey()} className="table-responsive">
         <table className="table table-dark">
-          <tbody>{data.map(StandingsRow)}</tbody>
+          <tbody>{placeholderData.map(StandingsRow)}</tbody>
         </table>
       </div>
     )
@@ -19,17 +19,31 @@ function Standings({ data }) {
 
   return (
     <>
-      <div className="table-responsive">
-        <table className="table table-dark">
-          <tbody>{data.map(StandingsRow)}</tbody>
-        </table>
-      </div>
+      <section className="bg-dark pt-5 pt-md-6 pb-md-3">
+        <div className="container py-2 py-md-0">
+          <div className="row align-items-center">
+            <h2 className="text-center text-light mb-5">{title}</h2>
+
+            <div className="table-responsive">
+              <table className="table table-dark">
+                <tbody>{standings.map(StandingsRow)}</tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <style jsx>{`
+        h2 {
+          font-weight: 500;
+        }
+      `}</style>
     </>
   )
 }
 
 Standings.propTypes = {
-  data: PropTypes.arrayOf(
+  standings: PropTypes.arrayOf(
     PropTypes.exact({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
@@ -38,6 +52,7 @@ Standings.propTypes = {
       url: PropTypes.string.isRequired,
     }),
   ).isRequired,
+  title: PropTypes.string.isRequired,
 }
 
 export default Standings

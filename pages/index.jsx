@@ -3,9 +3,14 @@ import moment from 'moment'
 import Head from 'next/head'
 
 import Navbar from '../components/layouts/Navbar'
+import AllTimePlayerStandings from '../components/sections/AllTimePlayerStandings'
+import AllTimeTeamStandings from '../components/sections/AllTimeTeamStandings'
 import Countdown from '../components/sections/Countdown'
 import Hero from '../components/sections/Hero'
 import LiveTeamsStandings from '../components/sections/LiveTeamStandings'
+import playerResults from '../data/playerResults.json'
+import teamIdsNames from '../data/teamIdsNames.json'
+import teamResults from '../data/teamResults.json'
 import normalizeLichessTournamentsList from '../libs/helpers/normalizeLichessTournamentsList'
 
 export default function IndexPage({ data }) {
@@ -22,7 +27,18 @@ export default function IndexPage({ data }) {
         <Hero tournamentData={data.tournament} />
         <Countdown hasStarted={data.hasStarted} tournamentData={data.tournament} />
 
-        {data.hasStarted ? <LiveTeamsStandings tournamentId={data.tournament.id} /> : undefined}
+        {data.hasStarted ? (
+          <LiveTeamsStandings tournamentId={data.tournament.id} />
+        ) : (
+          <>
+            <AllTimeTeamStandings
+              teamIdsNames={teamIdsNames}
+              teamResults={teamResults.slice(0, 10)}
+              title="Top 10 All-Time Teams"
+            />
+            <AllTimePlayerStandings playerResults={playerResults.slice(0, 10)} title="Top 10 All-Time Players" />
+          </>
+        )}
       </main>
     </>
   )
