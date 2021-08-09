@@ -1,5 +1,6 @@
 const normalizePlayerUsernames = require('./normalizePlayerUsernames')
 const normalizeTeamIds = require('./normalizeTeamIds')
+const normalizeTeamIdsNames = require('./normalizeTeamIdsNames')
 const normalizeTeamResults = require('./normalizeTeamResults')
 const normalizeTournamentIds = require('./normalizeTournamentIds')
 const updatePlayers = require('./updatePlayers')
@@ -15,6 +16,7 @@ async function update() {
   await updateTeamStandings()
   await normalizeTeamIds()
   await updateTeams()
+  await normalizeTeamIdsNames()
 
   await updatePlayerStandings()
   await normalizePlayerUsernames()
