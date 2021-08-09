@@ -44,7 +44,7 @@ export default function Navbar() {
                   </li> */}
                 </ul>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <a className="nav-link" href="/teams">
                   Teams
                 </a>
@@ -53,7 +53,7 @@ export default function Navbar() {
                 <a className="nav-link" href="/players">
                   Players
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
