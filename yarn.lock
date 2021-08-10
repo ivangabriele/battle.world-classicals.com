@@ -71,6 +71,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@corex/deepmerge@npm:^2.6.20":
+  version: 2.6.20
+  resolution: "@corex/deepmerge@npm:2.6.20"
+  checksum: c0d01da581ef12c6af7803d030a8a97352f2e45e15249db1296cc0b43a28a27016237b0a9482b7a99a7b65add69d40a450a8babd2835982e73d02919a5562a49
+  languageName: node
+  linkType: hard
+
 "@eslint/eslintrc@npm:^0.4.3":
   version: 0.4.3
   resolution: "@eslint/eslintrc@npm:0.4.3"
@@ -2993,6 +3000,15 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"matcher@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "matcher@npm:4.0.0"
+  dependencies:
+    escape-string-regexp: ^4.0.0
+  checksum: 457f90baba61bef6210978422d8581dc1a08b032565f208abf3db9b063367bd9750f664c71fcc6c262b3b4201aa5c3aebb4c63c40341d92d65ff14ba2e607271
+  languageName: node
+  linkType: hard
+
 "md5.js@npm:^1.3.4":
   version: 1.3.5
   resolution: "md5.js@npm:1.3.5"
@@ -3199,6 +3215,21 @@ fsevents@~2.3.1:
   version: 1.4.0
   resolution: "natural-compare@npm:1.4.0"
   checksum: 2daf93d9bb516eddb06e2e80657a605af2e494d47c65d090ba43691aaffbc41f520840f1c9d3b7b641977af950217a4ab6ffb85bafcd5dfa8ba6fe4e68c43b53
+  languageName: node
+  linkType: hard
+
+"next-sitemap@npm:1.6.148":
+  version: 1.6.148
+  resolution: "next-sitemap@npm:1.6.148"
+  dependencies:
+    "@corex/deepmerge": ^2.6.20
+    matcher: ^4.0.0
+    minimist: ^1.2.5
+  peerDependencies:
+    next: "*"
+  bin:
+    next-sitemap: bin/next-sitemap
+  checksum: a1b3ae9717c844fe716b6d2901a2d98761b095dd42d9eb0de3f1ae3a56458e18d572232081a3e10c26f01d0c0f6c0f5dd187dfc7565918186f7914cb62f2c0ac
   languageName: node
   linkType: hard
 
@@ -5216,6 +5247,7 @@ resolve@^2.0.0-next.3:
     isomorphic-unfetch: 3.1.0
     moment: 2.29.1
     next: 11.0.1
+    next-sitemap: 1.6.148
     numeral: 2.0.6
     prettier: 2.3.2
     prop-types: 15.7.2

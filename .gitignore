@@ -171,3 +171,7 @@ temp/
 
 ################################################################################
 # Custom
+
+/public/robots.txt
+/public/sitemap.xml
+/public/sitemap-*.xml
