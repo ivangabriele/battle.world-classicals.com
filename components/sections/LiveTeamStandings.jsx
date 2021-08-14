@@ -60,17 +60,5 @@ export default function LiveTeamStandings({ tournamentId }) {
     setIsFirstLoad(false)
   }, [])
 
-  return (
-    <>
-      <section className="bg-dark py-5 py-md-6">
-        <div className="container py-2 py-md-0">
-          <div className="row align-items-center">
-            <h2 className="text-center text-light mb-5">Live WCTB Teams Standings</h2>
-
-            <Standings data={teamsStandings} />
-          </div>
-        </div>
-      </section>
-    </>
-  )
+  return <Standings standings={teamsStandings} title="Live WCTB Teams Standings" />
 }
