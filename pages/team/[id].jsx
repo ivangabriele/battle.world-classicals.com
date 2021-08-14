@@ -46,6 +46,15 @@ export async function getStaticProps(context) {
 
   const teamData = lichessTeams.find(({ id: _id }) => _id === id)
   const teamResult = teamResults.find(({ id: _id }) => _id === id)
+  if (teamResult === undefined) {
+    return {
+      notFound: true,
+      props: {
+        message: `This Team is not yet processed.`,
+      },
+    }
+  }
+
   const resultsData = teamResult.scores[1].map((_, index) => ({
     name: lichessTournaments[index].fullName,
     rank: teamResult.ranks[1][index],

@@ -17,7 +17,7 @@ export default function IndexPage({ data }) {
   return (
     <>
       <Head>
-        <title>World Classical Team Battle ♞ The Lichess Tournament for Classical Chess Lovers</title>
+        <title>World Classical Team Battle ● The Lichess Tournament for Classical Chess Lovers</title>
         <meta
           content={
             `The Weekly World Classical Team Battle has become the biggest Classical Chess Team Battle ever on ` +
