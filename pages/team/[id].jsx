@@ -51,12 +51,13 @@ export async function getStaticProps(context) {
     rank: teamResult.ranks[1][index],
     score: teamResult.scores[1][index],
   }))
+  const descendingResultsData = resultsData.reverse()
 
   return {
     props: {
       data: {
         fullResults: teamResult,
-        results: resultsData,
+        results: descendingResultsData,
         team: teamData,
       },
     },
