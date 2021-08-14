@@ -33,5 +33,5 @@ module.exports = async function updateTournaments() {
     localTournaments.push(lichessTournament)
   }
 
-  writeData('./lichess/tournaments.json')
+  await writeData('./lichess/tournaments.json', localTournaments)
 }

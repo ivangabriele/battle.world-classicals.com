@@ -7,5 +7,5 @@ module.exports = async function normalizeTournamentIds() {
   const lichessTournaments = require('../../data/lichess/tournaments.json')
   const tournamentIds = R.map(R.prop('id'))(lichessTournaments)
 
-  writeData('./tournamentIds.json', tournamentIds)
+  await writeData('./tournamentIds.json', tournamentIds)
 }

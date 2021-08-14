@@ -15,5 +15,5 @@ module.exports = async function normalizePlayerUsernames() {
   }
   const playerUsernamesSorted = R.pipe(R.uniq, R.sortBy(R.prop(0)))(playerUsernames)
 
-  writeData('./playerUsernames.json', playerUsernamesSorted)
+  await writeData('./playerUsernames.json', playerUsernamesSorted)
 }

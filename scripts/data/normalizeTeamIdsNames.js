@@ -8,5 +8,5 @@ module.exports = async function normalizeTeamIdsNames() {
 
   const teamIdsNames = R.map(({ id, name }) => ({ id, name }))(lichessTeams)
 
-  writeData('./teamIdsNames.json', teamIdsNames)
+  await writeData('./teamIdsNames.json', teamIdsNames)
 }

@@ -31,5 +31,5 @@ module.exports = async function updateTeams() {
   }
   const lichessTeamsSorted = R.sortBy(R.prop('id'))(lichessTeams)
 
-  writeData('./lichess/teams.json', lichessTeamsSorted)
+  await writeData('./lichess/teams.json', lichessTeamsSorted)
 }

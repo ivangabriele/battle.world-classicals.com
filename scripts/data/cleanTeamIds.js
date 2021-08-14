@@ -9,5 +9,5 @@ module.exports = async function cleanTeamIds() {
 
   const activeTeamIdsNormalized = R.sortBy(R.prop(0))(activeTeamIds)
 
-  writeData('./teamIds.json', activeTeamIdsNormalized)
+  await writeData('./teamIds.json', activeTeamIdsNormalized)
 }

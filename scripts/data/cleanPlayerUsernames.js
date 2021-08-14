@@ -9,5 +9,5 @@ module.exports = async function cleanPlayerUsernames() {
 
   const activePlayerUsernamesNormalized = R.sortBy(R.prop(0))(activePlayerUsernames)
 
-  writeData('./playerUsernames.json', activePlayerUsernamesNormalized)
+  await writeData('./playerUsernames.json', activePlayerUsernamesNormalized)
 }

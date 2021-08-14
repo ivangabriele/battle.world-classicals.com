@@ -18,7 +18,7 @@ module.exports = async function updateTeamStandings() {
     try {
       const teamStandings = await fetchLichess(`/tournament/${tournamentId}/teams`)
 
-      writeData(dataPath, teamStandings)
+      await writeData(dataPath, teamStandings)
     } catch (err) {
       console.error(`Error: ${err}`)
     }

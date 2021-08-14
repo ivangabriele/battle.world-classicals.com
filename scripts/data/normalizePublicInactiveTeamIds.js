@@ -11,5 +11,5 @@ module.exports = async function normalizePublicInactiveTeamIds() {
 
   const inactiveTeamIdsNormalized = R.sortBy(R.prop(0))(inactiveTeamIds)
 
-  writeData('./inactive-team-ids.json', inactiveTeamIdsNormalized, true)
+  await writeData('./inactive-team-ids.json', inactiveTeamIdsNormalized, true)
 }

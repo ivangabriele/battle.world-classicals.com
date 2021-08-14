@@ -15,5 +15,5 @@ module.exports = async function normalizeTeamIds() {
   }
   const teamIdsSorted = R.pipe(R.uniq, R.sortBy(R.prop(0)))(teamIds)
 
-  writeData('./teamIds.json', teamIdsSorted)
+  await writeData('./teamIds.json', teamIdsSorted)
 }

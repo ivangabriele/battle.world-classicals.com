@@ -34,5 +34,5 @@ module.exports = async function normalizePlayerResults() {
     R.sort(R.descend(R.path(['scores', 0]))),
   )(playerResults)
 
-  writeData('./playerResults.json', playerResultsNormalized)
+  await writeData('./playerResults.json', playerResultsNormalized)
 }
