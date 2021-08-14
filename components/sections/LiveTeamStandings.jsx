@@ -20,7 +20,7 @@ async function getCurrentTeamsStandings(tournamentId) {
   while (++index < 10) {
     const { id } = teamsStandings[index]
 
-    teamsStandings[index].url = `https://lichess.org/team/${id}`
+    teamsStandings[index].url = `/team/${id}`
 
     const teamsIdName = cache.get('teamIdToName')
     if (teamsIdName[id] !== undefined) {
