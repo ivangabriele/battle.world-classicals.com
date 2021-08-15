@@ -9,7 +9,8 @@ module.exports = async function updateTeams() {
   const teamIds = require('../../data/teamIds.json')
 
   const lichessTeamIds = R.map(R.prop('id'))(lichessTeams)
-  const newTeamIds = R.pipe(R.difference(teamIds), R.difference(teamsBlacklist))(lichessTeamIds)
+  const teamIdsWhiltelisted = R.difference(teamIds)(teamsBlacklist)
+  const newTeamIds = R.difference(teamIdsWhiltelisted)(lichessTeamIds)
 
   if (newTeamIds.length === 0) {
     console.info('Lichess Teams data is up to date.')
