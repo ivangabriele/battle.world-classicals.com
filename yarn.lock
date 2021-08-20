@@ -4417,6 +4417,13 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"simplex-noise@npm:2.4.0":
+  version: 2.4.0
+  resolution: "simplex-noise@npm:2.4.0"
+  checksum: 54ee8f662b58595926fdbcb2d5c51b00a386105c9b2674f6ed9b51fc35f0999a7e6d078411e2e9fec98dcde8b069f6e46215b332b6d6de42fb48e23b5134c53c
+  languageName: node
+  linkType: hard
+
 "slash@npm:^3.0.0":
   version: 3.0.0
   resolution: "slash@npm:3.0.0"
@@ -5255,6 +5262,7 @@ resolve@^2.0.0-next.3:
     react: 17.0.2
     react-bootstrap: next
     react-dom: 17.0.2
+    simplex-noise: 2.4.0
     swr: 0.5.6
   languageName: unknown
   linkType: soft

@@ -16,7 +16,7 @@ function Results({ emoji, results, title }) {
             </h2>
 
             <div className="table-responsive">
-              <table className="table table-dark table-bordered">
+              <table className="table table-dark">
                 <thead>
                   <tr>
                     <th>Name</th>
