@@ -58,11 +58,6 @@ export default function Hero({ tournamentData }) {
       </section>
 
       <style jsx>{`
-        .hero {
-          background-image: url('/photos/hero.png');
-          background-position: 0 10%;
-        }
-
         canvas {
           position: absolute;
         }
