@@ -17,8 +17,10 @@ export default function Hero({ tournamentData }) {
       return
     }
 
-    // eslint-disable-next-line no-new
-    new HeroAnimation(window, $canvas, $section)
+    setTimeout(() => {
+      // eslint-disable-next-line no-new
+      new HeroAnimation(window, $canvas, $section)
+    }, 250)
     // const heroAnimation = new HeroAnimation(window, $canvas, $section)
     // window.addEventListener('resize', heroAnimation.init.bind(heroAnimation))
 
