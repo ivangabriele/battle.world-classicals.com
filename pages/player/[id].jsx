@@ -5,7 +5,7 @@ import path from 'path'
 import * as R from 'ramda'
 
 import Navbar from '../../components/layouts/Navbar'
-import TeamHeader from '../../components/sections/TeamHeader'
+import PlayerHeader from '../../components/sections/PlayerHeader'
 import Results from '../../components/shared/Result'
 import lichessTournaments from '../../data/lichess/tournaments.json'
 import playerResults from '../../data/playerResults.json'
@@ -35,7 +35,7 @@ export default function IndexPage({ data: { fullResults, player, results } }) {
       <main className="page-wrapper">
         <Navbar />
 
-        <TeamHeader name={player.username} />
+        <PlayerHeader name={player.username} />
         <Results emoji="⚔️" results={results} title="Tournaments Results" />
       </main>
     </>
