@@ -1,36 +1,16 @@
 import moment from 'moment'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 
-import HeroAnimation from '../animations/HeroAnimation'
+import SwirlBackground from '../animations/SwirlBackground'
 
 export default function Hero({ tournamentData }) {
-  const canvasRef = useRef(null)
   const sectionRef = useRef(null)
   const todayAt1000 = moment().startOf('day').add(12, 'hours')
-  const [hasRendered, setHasRendered] = useState(false)
-
-  useEffect(() => {
-    const $canvas = canvasRef.current
-    const $section = sectionRef.current
-
-    if (!process.browser || hasRendered || $canvas === null || $section === null) {
-      return
-    }
-
-    setTimeout(() => {
-      // eslint-disable-next-line no-new
-      new HeroAnimation(window, $canvas, $section)
-    }, 250)
-    // const heroAnimation = new HeroAnimation(window, $canvas, $section)
-    // window.addEventListener('resize', heroAnimation.init.bind(heroAnimation))
-
-    setHasRendered(true)
-  }, [hasRendered])
 
   return (
     <>
       <section ref={sectionRef} className="bg-dark bg-size-cover overflow-hidden hero">
-        <canvas ref={canvasRef} />
+        <SwirlBackground baseRef={sectionRef} />
         <div className="pt-5 pt-md-6 pt-lg-7 pb-5">
           <div className="container position-relative zindex-5 pt-2 pb-4 pb-md-2">
             <div className="row justify-content-center">
