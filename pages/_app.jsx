@@ -1,8 +1,35 @@
 import Head from 'next/head'
+import { useEffect } from 'react'
 
 import '../assets/around/css/theme.min.css'
 
 export default function WwctbApp({ Component, pageProps }) {
+  useEffect(() => {
+    if (!process.browser) {
+      return
+    }
+
+    window.paq = window.paq || []
+    const { paq } = window
+
+    // Tracker methods like "setCustomDimension" should be called before "trackPageView"
+    paq.push(['trackPageView'])
+
+    paq.push(['enableLinkTracking'])
+
+    const u = '//matomo.ivangabriele.com/'
+    paq.push(['setTrackerUrl', `${u}matomo.php`])
+
+    paq.push(['setSiteId', '1'])
+
+    const d = document
+    const g = d.createElement('script')
+    const s = d.getElementsByTagName('script')[0]
+    g.async = true
+    g.src = `${u}matomo.js`
+    s.parentNode.insertBefore(g, s)
+  })
+
   return (
     <>
       <Head>
