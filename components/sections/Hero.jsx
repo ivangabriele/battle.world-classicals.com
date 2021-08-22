@@ -1,7 +1,13 @@
+import Swirl from '@reactnimations/swirl'
 import moment from 'moment'
 import { useRef } from 'react'
+import css from 'styled-jsx/css'
 
-import SwirlBackground from '../animations/SwirlBackground'
+const SwirlStyle = css.resolve`
+  canvas {
+    position: absolute;
+  }
+`
 
 export default function Hero({ tournamentData }) {
   const sectionRef = useRef(null)
@@ -10,7 +16,19 @@ export default function Hero({ tournamentData }) {
   return (
     <>
       <section ref={sectionRef} className="bg-dark bg-size-cover overflow-hidden hero">
-        <SwirlBackground baseRef={sectionRef} />
+        <Swirl
+          baseRef={sectionRef}
+          className={SwirlStyle.className}
+          settings={{
+            backgroundColor: '#121117',
+            baseHue: 200,
+            baseSpeed: 0.05,
+            opacity: 0.7,
+            rangeHue: 50,
+            rangeSpeed: 1,
+          }}
+        />
+
         <div className="pt-5 pt-md-6 pt-lg-7 pb-5">
           <div className="container position-relative zindex-5 pt-2 pb-4 pb-md-2">
             <div className="row justify-content-center">
@@ -39,6 +57,7 @@ export default function Hero({ tournamentData }) {
         </div>
       </section>
 
+      {SwirlStyle.styles}
       <style jsx>{`
         canvas {
           position: absolute;
