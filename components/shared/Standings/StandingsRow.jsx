@@ -27,11 +27,7 @@ export default function StandingsRow(props, index) {
         </tr>
 
         <style jsx>{`
-          tr > th {
-            max-width: 4rem;
-            min-width: 4rem;
-            width: 4rem;
-          }
+          tr > th,
           tr > td:last-child {
             max-width: 7rem;
             min-width: 7rem;
@@ -69,11 +65,7 @@ export default function StandingsRow(props, index) {
           color: yellow !important;
         }
 
-        tr > th {
-          max-width: 4rem;
-          min-width: 4rem;
-          width: 4rem;
-        }
+        tr > th,
         tr > td:last-child {
           max-width: 7rem;
           min-width: 7rem;
