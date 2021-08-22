@@ -1,4 +1,5 @@
 import numeral from 'numeral'
+import { Fragment } from 'react'
 
 import ResultsRowNumber from './ResultsRowNumber'
 
@@ -11,8 +12,8 @@ export default function ResultsRow({ name, performance, rank, score }, index) {
   const formattedScore = score !== null ? numeral(score).format('0,0') : '-'
 
   return (
-    <>
-      <tr key={key}>
+    <Fragment key={key}>
+      <tr>
         <td className="align-middle">{name}</td>
         <td className="align-middle text-end">
           <ResultsRowNumber value={formattedRank} />
@@ -26,6 +27,6 @@ export default function ResultsRow({ name, performance, rank, score }, index) {
           <ResultsRowNumber value={formattedScore} />
         </td>
       </tr>
-    </>
+    </Fragment>
   )
 }

@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import numeral from 'numeral'
+import { Fragment } from 'react'
 
 import Spinner from '../../elements/Spinner'
 import StandingsRowScore from './StandingsRowScore'
@@ -47,8 +48,8 @@ export default function StandingsRow(props, index) {
   const formattedScore = numeral(score).format('0,0')
 
   return (
-    <>
-      <tr key={key} onClick={event => goToPath(event, url)}>
+    <Fragment key={key}>
+      <tr onClick={event => goToPath(event, url)}>
         <th className="align-middle text-end" scope="row">
           <StandingsRowScore value={formattedRank} />
         </th>
@@ -79,6 +80,6 @@ export default function StandingsRow(props, index) {
           width: 7rem;
         }
       `}</style>
-    </>
+    </Fragment>
   )
 }
