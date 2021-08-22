@@ -15,7 +15,7 @@ const getMetaDescription = ({ fullResults, team }) => {
 
   return `${
     `${team.name} has scored a total of ${allTimeScore} points ` +
-    `during ${tournamentsCount} Weekly World Classical Team Battles.`
+    `during ${tournamentsCount} Weekly World Classicals Team Battles.`
   }`
 }
 
@@ -25,7 +25,7 @@ export default function IndexPage({ data: { fullResults, results, team } }) {
   return (
     <>
       <Head>
-        <title>{team.name} ● World Classical Team Battle</title>
+        <title>{team.name} ● World Classicals Team Battle</title>
         <meta content={metaDescription} name="description" />
       </Head>
 

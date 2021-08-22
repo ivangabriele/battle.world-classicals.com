@@ -7,10 +7,10 @@ function NotFoundPage({ message }) {
   return (
     <>
       <Head>
-        <title>Not Found ● World Classical Team Battle</title>
+        <title>Not Found ● World Classicals Team Battle</title>
         <meta
           content={
-            `The Weekly World Classical Team Battle has become the biggest Classical Chess Team Battle ever on ` +
+            `The Weekly World Classicals Team Battle has become the biggest Classical Chess Team Battle ever on ` +
             `Lichess. Gathering more than 100 teams, we are working hard towards the next goals to make it even more ` +
             `fun and succesful.`
           }
