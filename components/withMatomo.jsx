@@ -15,7 +15,7 @@ const instance = createInstance({
   },
   linkTracking: true,
   siteId: 1,
-  urlBase: 'https://matomo.ivangabriele.com',
+  urlBase: 'https://matomo.world-classicals.com',
 })
 
 function TrackedComponent({ Component, ...pageProps }) {
