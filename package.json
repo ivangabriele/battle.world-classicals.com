@@ -13,6 +13,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@datapunt/matomo-tracker-react": "0.5.1",
     "@reactnimations/coalesce": "1.1.3",
     "@reactnimations/swirl": "1.1.3",
     "bootstrap": "5.1.0",
@@ -28,7 +29,7 @@
     "styled-jsx": "4.0.0"
   },
   "devDependencies": {
-    "@ivangabriele/eslint-config-react": "1.2.0",
+    "@ivangabriele/eslint-config-react": "1.3.0",
     "@ivangabriele/prettier-config": "1.1.0",
     "eslint": "7.31.0",
     "eslint-config-airbnb": "18.2.1",
