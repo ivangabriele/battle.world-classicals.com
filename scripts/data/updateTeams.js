@@ -1,12 +1,13 @@
 const R = require('ramda')
 
-const lichessTeams = require('../../data/lichess/teams.json')
-const teamsBlacklist = require('../../data/teamsBlacklist.json')
 const fetchLichess = require('./helpers/fetchLichess')
+const readData = require('./helpers/readData')
 const writeData = require('./helpers/writeData')
 
 module.exports = async function updateTeams() {
-  const teamIds = require('../../data/teamIds.json')
+  const teamsBlacklist = await readData('./teamsBlacklist.json')
+  const lichessTeams = await readData('./lichess/teams.json')
+  const teamIds = await readData('./teamIds.json')
 
   const lichessTeamIds = R.map(R.prop('id'))(lichessTeams)
   const teamIdsWhiltelisted = R.difference(teamIds)(teamsBlacklist)

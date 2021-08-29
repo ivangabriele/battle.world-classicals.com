@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import generateKey from '../../../libs/helpers/generateKey'
 import StandingsRow from './StandingsRow'
 
-function Standings({ standings, title }) {
-  if (standings.length === 0) {
+function Standings({ data, title }) {
+  if (data.length === 0) {
     const placeholderData = new Array(10)
     placeholderData.fill(null, 0, 10)
 
@@ -26,7 +26,7 @@ function Standings({ standings, title }) {
 
             <div className="table-responsive">
               <table className="table table-dark">
-                <tbody>{standings.map(StandingsRow)}</tbody>
+                <tbody>{data.map(StandingsRow)}</tbody>
               </table>
             </div>
           </div>
@@ -43,7 +43,7 @@ function Standings({ standings, title }) {
 }
 
 Standings.propTypes = {
-  standings: PropTypes.arrayOf(
+  data: PropTypes.arrayOf(
     PropTypes.exact({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,

@@ -1,13 +1,13 @@
 import Standings from '../shared/Standings'
 
-export default function AllTimePlayerStandings({ playerResults, title }) {
-  const standings = playerResults.map(({ username, scores: [allTimeScore] }, index) => ({
+export default function AllTimePlayerStandings({ data, title }) {
+  const standings = data.map(({ totalScore, username }, index) => ({
     id: username,
     name: username,
     rank: index + 1,
-    score: allTimeScore,
+    score: totalScore,
     url: `/player/${username}`,
   }))
 
-  return <Standings standings={standings} title={title} />
+  return <Standings data={standings} title={title} />
 }

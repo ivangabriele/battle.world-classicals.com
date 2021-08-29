@@ -1,11 +1,12 @@
 const cleanPlayerUsernames = require('./cleanPlayerUsernames')
 const cleanTeamIds = require('./cleanTeamIds')
-const normalizePlayerResults = require('./normalizePlayerResults')
+const generatePlayerResults = require('./generatePlayerResults')
+const generatePublicInactiveTeamIds = require('./generatePublicInactiveTeamIds')
+const generateTeamPlayersResults = require('./generateTeamPlayersResults')
+const generateTeamResults = require('./generateTeamResults')
 const normalizePlayerUsernames = require('./normalizePlayerUsernames')
-const normalizePublicInactiveTeamIds = require('./normalizePublicInactiveTeamIds')
 const normalizeTeamIds = require('./normalizeTeamIds')
 const normalizeTeamIdsNames = require('./normalizeTeamIdsNames')
-const normalizeTeamResults = require('./normalizeTeamResults')
 const normalizeTournamentIds = require('./normalizeTournamentIds')
 const updatePlayers = require('./updatePlayers')
 const updatePlayerStandings = require('./updatePlayerStandings')
@@ -26,13 +27,15 @@ async function update() {
   await normalizePlayerUsernames()
   await updatePlayers()
 
-  await normalizeTeamResults()
-  await normalizePlayerResults()
+  await generateTeamResults()
+  await generatePlayerResults()
 
-  await normalizePublicInactiveTeamIds()
+  await generatePublicInactiveTeamIds()
 
   await cleanTeamIds()
   await cleanPlayerUsernames()
+
+  await generateTeamPlayersResults()
 }
 
 update()

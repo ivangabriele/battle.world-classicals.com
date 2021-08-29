@@ -1,9 +1,10 @@
 const fetchLichess = require('./helpers/fetchLichess')
 const hasData = require('./helpers/hasData')
+const readData = require('./helpers/readData')
 const writeData = require('./helpers/writeData')
 
 module.exports = async function updatePlayers() {
-  const playerUsernames = require('../../data/playerUsernames.json')
+  const playerUsernames = await readData('./playerUsernames.json')
 
   let hasUpdated = false
   for (const playerUsername of playerUsernames) {

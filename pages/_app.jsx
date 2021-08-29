@@ -1,4 +1,3 @@
-import { MatomoProvider, createInstance } from '@datapunt/matomo-tracker-react'
 import Head from 'next/head'
 
 import withMatomo from '../components/withMatomo'

@@ -1,14 +1,13 @@
-const fetch = require('isomorphic-unfetch')
+const fromNdjson = require('from-ndjson')
+const got = require('got')
 
-const normalizeLichessTournamentsList = require('../../../libs/helpers/normalizeLichessTournamentsList')
 const waitFor = require('./waitFor')
 
 module.exports = async function fetchLichess(path) {
   await waitFor(1)
 
   try {
-    const res = await fetch(`https://lichess.org/api${path}`)
-    const data = await res.json()
+    const data = await got.get(`https://lichess.org/api${path}`).json()
 
     if (data.error !== undefined) {
       throw new Error(`Fetched data with an error: ${data.error}`)
@@ -16,13 +15,12 @@ module.exports = async function fetchLichess(path) {
 
     return data
   } catch (err) {
-    if (err.type === 'invalid-json') {
+    if (err.name === 'ParseError') {
       await waitFor(1)
 
-      const res = await fetch(`https://lichess.org/api${path}`)
-      const data = await res.text()
+      const data = await got.get(`https://lichess.org/api${path}`).text()
 
-      return normalizeLichessTournamentsList(data)
+      return fromNdjson(data, { isStrict: true })
     }
 
     throw err

@@ -1,37 +1,37 @@
 const moment = require('moment')
 const R = require('ramda')
 
-const localTournaments = require('../../data/lichess/tournaments.json')
 const fetchLichess = require('./helpers/fetchLichess')
+const readData = require('./helpers/readData')
 const writeData = require('./helpers/writeData')
 
 module.exports = async function updateTournaments() {
+  const localLichessTournaments = await readData('./lichess/tournaments.json')
+
   const now = Number(moment().format('x'))
   const worldClassicalsTeamArenas = await fetchLichess(`/team/world-classicals/arena`)
-  const remoteTournaments = worldClassicalsTeamArenas
+  const remoteLichessTournaments = worldClassicalsTeamArenas
     .filter(({ fullName }) => fullName.endsWith(`Weekly World Classicals Team Battle`))
     .filter(({ finishesAt }) => finishesAt < now)
     // eslint-disable-next-line no-nested-ternary
     .sort((a, b) => (a.startsAt < b.startsAt ? -1 : b.startsAt > a.startsAt ? 1 : 0))
 
-  const localTournamentIds = R.map(R.prop('id'))(localTournaments)
-  const remoteTournamentIds = R.map(R.prop('id'))(remoteTournaments)
-  const newTournamentIds = R.difference(remoteTournamentIds, localTournamentIds)
+  const localLichessTournamentIds = R.map(R.prop('id'))(localLichessTournaments)
+  const remoteLichessTournamentIds = R.map(R.prop('id'))(remoteLichessTournaments)
+  const newLichessTournamentIds = R.difference(remoteLichessTournamentIds, localLichessTournamentIds)
 
-  if (newTournamentIds.length === 0) {
+  if (newLichessTournamentIds.length === 0) {
     console.info('Lichess Tournaments data is up to date.')
 
     return
   }
 
-  let index = -1
-  while (++index < newTournamentIds.length) {
-    const id = newTournamentIds[index]
+  for (const tournamentId of newLichessTournamentIds) {
+    console.info(`Updating Lichess Tournament data for: ${tournamentId}…`)
+    const lichessTournament = await fetchLichess(`/tournament/${tournamentId}`)
 
-    console.info(`Updating Lichess Tournament data for: ${id}…`)
-    const lichessTournament = await fetchLichess(`/tournament/${id}`)
-    localTournaments.push(lichessTournament)
+    localLichessTournaments.push(lichessTournament)
   }
 
-  await writeData('./lichess/tournaments.json', localTournaments)
+  await writeData('./lichess/tournaments.json', localLichessTournaments)
 }

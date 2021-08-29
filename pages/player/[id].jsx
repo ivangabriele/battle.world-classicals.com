@@ -8,35 +8,34 @@ import Navbar from '../../components/layouts/Navbar'
 import PlayerHeader from '../../components/sections/PlayerHeader'
 import Results from '../../components/shared/Result'
 import lichessTournaments from '../../data/lichess/tournaments.json'
-import playerResults from '../../data/playerResults.json'
 import playerUsernames from '../../data/playerUsernames.json'
 
-const getMetaDescription = ({ fullResults, player }) => {
-  const allTimeScore = numeral(fullResults.scores[0]).format('0,0')
-  const tournamentsCount = fullResults.scores[1].filter(score => score !== 0).length
-  const medianPerformance = numeral(R.median(fullResults.performances[1])).format('0,0')
+const getMetaDescription = ({ player, playerLegacy }) => {
+  const allTimeScore = numeral(player.scores[0]).format('0,0')
+  const tournamentsCount = player.scores[1].filter(score => score !== 0).length
+  const medianPerformance = numeral(R.median(player.performances[1])).format('0,0')
 
   return `${
-    `${player.title} ${player.username} has scored a total of ${allTimeScore} points ` +
+    `${playerLegacy.title} ${playerLegacy.username} has scored a total of ${allTimeScore} points ` +
     `during ${tournamentsCount} Weekly World Classicals Team Battles, `
   }${`with a median performance of ${medianPerformance}.`.trim()}`
 }
 
-export default function IndexPage({ data: { fullResults, player, results } }) {
-  const metaDescription = getMetaDescription({ fullResults, player })
+export default function IndexPage({ data: { player, playerLegacy, tournamentResults } }) {
+  const metaDescription = getMetaDescription({ player, playerLegacy })
 
   return (
     <>
       <Head>
-        <title>{player.username} ● World Classicals Team Battle</title>
+        <title>{playerLegacy.username} ● World Classicals Team Battle</title>
         <meta content={metaDescription} name="description" />
       </Head>
 
       <main className="page-wrapper">
         <Navbar />
 
-        <PlayerHeader name={player.username} />
-        <Results emoji="⚔️" results={results} title="Tournaments Results" />
+        <PlayerHeader name={playerLegacy.username} />
+        <Results data={tournamentResults} emoji="⚔️" title="Tournaments Results" />
       </main>
     </>
   )
@@ -47,25 +46,29 @@ export async function getStaticProps(context) {
     params: { id },
   } = context
 
-  const playerDataPath = path.join(process.cwd(), `data/lichess/players/${id}.json`)
-  const playerDataSource = await fs.readFile(playerDataPath, 'utf-8')
-  const playerData = JSON.parse(playerDataSource)
+  const playerPath = path.join(process.cwd(), `data/players/${id}.json`)
+  const playerSource = await fs.readFile(playerPath, 'utf-8')
+  const player = JSON.parse(playerSource)
 
-  const playerResult = playerResults.find(({ username: _username }) => _username === id)
-  const resultsData = playerResult.scores[1].map((_, index) => ({
-    name: lichessTournaments[index].fullName,
-    performance: playerResult.performances[1][index],
-    rank: playerResult.ranks[1][index],
-    score: playerResult.scores[1][index],
-  }))
-  const descendingResultsData = resultsData.reverse()
+  const playerLegacyPath = path.join(process.cwd(), `data/lichess/players/${id}.json`)
+  const playerLegacySource = await fs.readFile(playerLegacyPath, 'utf-8')
+  const playerLegacy = JSON.parse(playerLegacySource)
+
+  const tournamentResults = player.scores[1]
+    .map((_, index) => ({
+      name: lichessTournaments[index].fullName,
+      performance: player.performances[1][index],
+      rank: player.ranks[1][index],
+      score: player.scores[1][index],
+    }))
+    .reverse()
 
   return {
     props: {
       data: {
-        fullResults: playerResult,
-        player: playerData,
-        results: descendingResultsData,
+        player,
+        playerLegacy,
+        tournamentResults,
       },
     },
   }

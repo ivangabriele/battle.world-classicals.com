@@ -1,39 +1,49 @@
+import { promises as fs } from 'fs'
 import Head from 'next/head'
 import numeral from 'numeral'
+import path from 'path'
 
 import Navbar from '../../components/layouts/Navbar'
 import TeamHeader from '../../components/sections/TeamHeader'
 import Results from '../../components/shared/Result'
+import Standings from '../../components/shared/Standings'
 import lichessTeams from '../../data/lichess/teams.json'
 import lichessTournaments from '../../data/lichess/tournaments.json'
 import teamIds from '../../data/teamIds.json'
-import teamResults from '../../data/teamResults.json'
 
-const getMetaDescription = ({ fullResults, team }) => {
-  const allTimeScore = numeral(fullResults.scores[0]).format('0,0')
-  const tournamentsCount = fullResults.scores[1].filter(score => score !== 0).length
+const getMetaDescription = ({ team, teamLegacy }) => {
+  const allTimeScore = numeral(team.scores[0]).format('0,0')
+  const tournamentsCount = team.scores[1].filter(score => score !== 0).length
 
   return `${
-    `${team.name} has scored a total of ${allTimeScore} points ` +
+    `${teamLegacy.name} has scored a total of ${allTimeScore} points ` +
     `during ${tournamentsCount} Weekly World Classicals Team Battles.`
   }`
 }
 
-export default function IndexPage({ data: { fullResults, results, team } }) {
-  const metaDescription = getMetaDescription({ fullResults, team })
+export default function IndexPage({ data: { team, teamLegacy, tournamentResults } }) {
+  const metaDescription = getMetaDescription({ team, teamLegacy })
+  const playerStandings = team.players.map(({ scores: [totalScore], username }, index) => ({
+    id: username,
+    name: username,
+    rank: index + 1,
+    score: totalScore,
+    url: `/player/${username}`,
+  }))
 
   return (
     <>
       <Head>
-        <title>{team.name} ● World Classicals Team Battle</title>
+        <title>{teamLegacy.name} ● World Classicals Team Battle</title>
         <meta content={metaDescription} name="description" />
       </Head>
 
       <main className="page-wrapper">
         <Navbar />
 
-        <TeamHeader name={team.name} />
-        <Results emoji="⚔️" results={results} title="Tournaments Results" />
+        <TeamHeader name={teamLegacy.name} />
+        <Results data={tournamentResults} emoji="⚔️" title="Tournaments Results" />
+        <Standings data={playerStandings} emoji="⚔️" title="Players Standings" />
       </main>
     </>
   )
@@ -44,30 +54,26 @@ export async function getStaticProps(context) {
     params: { id },
   } = context
 
-  const teamData = lichessTeams.find(({ id: _id }) => _id === id)
-  const teamResult = teamResults.find(({ id: _id }) => _id === id)
-  if (teamResult === undefined) {
-    return {
-      notFound: true,
-      props: {
-        message: `This Team is not yet processed.`,
-      },
-    }
-  }
+  const teamPath = path.join(process.cwd(), `data/teams/${id}.json`)
+  const teamSource = await fs.readFile(teamPath, 'utf-8')
+  const team = JSON.parse(teamSource)
 
-  const resultsData = teamResult.scores[1].map((_, index) => ({
-    name: lichessTournaments[index].fullName,
-    rank: teamResult.ranks[1][index],
-    score: teamResult.scores[1][index],
-  }))
-  const descendingResultsData = resultsData.reverse()
+  const teamLegacy = lichessTeams.find(({ id: _id }) => _id === id)
+
+  const tournamentResults = team.scores[1]
+    .map((_, index) => ({
+      name: lichessTournaments[index].fullName,
+      rank: team.ranks[1][index],
+      score: team.scores[1][index],
+    }))
+    .reverse()
 
   return {
     props: {
       data: {
-        fullResults: teamResult,
-        results: descendingResultsData,
-        team: teamData,
+        team,
+        teamLegacy,
+        tournamentResults,
       },
     },
   }

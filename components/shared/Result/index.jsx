@@ -2,18 +2,15 @@ import PropTypes from 'prop-types'
 
 import ResultsRow from './ResultsRow'
 
-function Results({ emoji, results, title }) {
-  const withPerformance = results.length > 0 && results[0].performance !== undefined
+function Results({ data, emoji, title }) {
+  const withPerformance = data.length > 0 && data[0].performance !== undefined
 
   return (
     <>
       <section className="bg-dark pt-5 pt-md-6 pb-md-3">
         <div className="container py-2 py-md-0">
           <div className="row align-items-center">
-            <h2 className="text-light mb-3">
-              {emoji && <span className="me-2">{emoji}</span>}
-              {title}
-            </h2>
+            <h2 className="text-center text-light mb-5">{title}</h2>
 
             <div className="table-responsive">
               <table className="table table-dark">
@@ -25,7 +22,7 @@ function Results({ emoji, results, title }) {
                     <th>Score</th>
                   </tr>
                 </thead>
-                <tbody>{results.map(ResultsRow)}</tbody>
+                <tbody>{data.map(ResultsRow)}</tbody>
               </table>
             </div>
           </div>
@@ -34,9 +31,7 @@ function Results({ emoji, results, title }) {
 
       <style jsx>{`
         h2 {
-          font-size: 130%;
-          font-weight: 700;
-          white-space: nowrap;
+          font-weight: 500;
         }
 
         tr > th:not(:first-child) {
@@ -50,8 +45,7 @@ function Results({ emoji, results, title }) {
 }
 
 Results.propTypes = {
-  emoji: PropTypes.string,
-  results: PropTypes.arrayOf(
+  data: PropTypes.arrayOf(
     PropTypes.exact({
       name: PropTypes.string.isRequired,
       performance: PropTypes.number,
@@ -59,6 +53,7 @@ Results.propTypes = {
       score: PropTypes.number.isRequired,
     }),
   ).isRequired,
+  emoji: PropTypes.string,
   title: PropTypes.string.isRequired,
 }
 

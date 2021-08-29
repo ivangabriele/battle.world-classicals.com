@@ -1,14 +1,15 @@
 const R = require('ramda')
 
+const readData = require('./helpers/readData')
 const writeData = require('./helpers/writeData')
 
 module.exports = async function normalizeTeamIds() {
   console.info(`Normalizing Team Ids data…`)
-  const tournamentIds = require('../../data/tournamentIds.json')
+  const tournamentIds = await readData('./tournamentIds.json')
 
   const teamIds = []
   for (const tournamentId of tournamentIds) {
-    const lichessTeamStandings = require(`../../data/lichess/teamStandings/${tournamentId}.json`)
+    const lichessTeamStandings = await readData(`./lichess/teamStandings/${tournamentId}.json`)
     const lichessTeamStandingsTeamIds = R.map(R.prop('id'))(lichessTeamStandings.teams)
 
     teamIds.push(...lichessTeamStandingsTeamIds)

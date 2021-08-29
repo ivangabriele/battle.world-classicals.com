@@ -2,7 +2,7 @@ import Head from 'next/head'
 
 import Navbar from '../../components/layouts/Navbar'
 import AllTimePlayerStandings from '../../components/sections/AllTimePlayerStandings'
-import playerResults from '../../data/playerResults.json'
+import playerTotalScores from '../../data/playerTotalScores.json'
 
 export default function IndexPage() {
   return (
@@ -14,7 +14,7 @@ export default function IndexPage() {
       <main className="page-wrapper">
         <Navbar />
 
-        <AllTimePlayerStandings playerResults={playerResults} title="All-Time WCTB Player Standings" />
+        <AllTimePlayerStandings data={playerTotalScores} title="All-Time WCTB Player Standings" />
       </main>
     </>
   )
