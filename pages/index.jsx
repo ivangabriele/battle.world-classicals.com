@@ -17,12 +17,11 @@ export default function IndexPage({ data }) {
   return (
     <>
       <Head>
-        <title>World Classicals Team Battle ● The Lichess Tournament for Classical Chess Lovers</title>
+        <title>World Classicals Team Battle</title>
         <meta
           content={
-            `The Weekly World Classicals Team Battle has become the biggest Classical Chess Team Battle ever on ` +
-            `Lichess. Gathering more than 100 teams, we are working hard towards the next goals to make it even more ` +
-            `fun and succesful.`
+            `The World Classicals Team Battle is the biggest classical chess Team Battle on Lichess, ` +
+            `gathering more than 100 teams and 700 players from all over the world, each Saturday at 12pm UTC.`
           }
           name="description"
         />

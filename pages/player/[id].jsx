@@ -27,7 +27,7 @@ export default function IndexPage({ data: { player, playerLegacy, tournamentResu
   return (
     <>
       <Head>
-        <title>{playerLegacy.username} ● World Classicals Team Battle</title>
+        <title>Player: {playerLegacy.username} ● World Classicals Team Battle</title>
         <meta content={metaDescription} name="description" />
       </Head>
 

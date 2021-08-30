@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 function getLeftDHMS(eventDate) {
   const nowDate = moment()
-  const timeLeft = eventDate.diff(nowDate)
+  const timeLeft = eventDate.diff(nowDate) - (process.browser ? 0 : 750)
 
   if (timeLeft <= 0) {
     if (process.browser) {
@@ -37,6 +37,7 @@ export default function Countdown({ hasStarted, tournamentData }) {
 
   useEffect(() => {
     const countDownIntervalId = setInterval(() => countDown(eventDate, setTimer), 1000)
+
     return () => clearInterval(countDownIntervalId)
   })
 

@@ -33,8 +33,9 @@ export default function Hero({ tournamentData }) {
           <div className="container position-relative zindex-5 pt-2 pb-4 pb-md-2">
             <div className="row justify-content-center">
               <div className="col-xl-6 col-lg-7 col-md-8 text-center">
-                <h1 className="display-4 text-light mb-1">World Classicals</h1>
-                <h1 className="display-5 text-light mb-5">Team Battle</h1>
+                <h1 className="display-4 text-light mb-1">
+                  World Classicals<span className="display-5 text-light mb-5">Team Battle</span>
+                </h1>
                 <div className="d-inline-flex align-items-center mx-1 px-3 mb-4">
                   <span className="text-light">{`Each Saturday at ${todayAt1000.format(
                     'ha',
@@ -59,10 +60,15 @@ export default function Hero({ tournamentData }) {
 
       {SwirlStyle.styles}
       <style jsx>{`
+        h1 > span {
+          display: block;
+          padding-top: 0.5rem;
+        }
+
         .button-join {
           animation: none !important;
           display: inline-flex;
-          padding-top: 0.7rem;
+          padding-top: 0.6rem;
           transition: none;
         }
         .button-join:active > .icon-lichess,

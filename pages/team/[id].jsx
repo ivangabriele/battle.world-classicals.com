@@ -5,6 +5,7 @@ import path from 'path'
 
 import Navbar from '../../components/layouts/Navbar'
 import TeamHeader from '../../components/sections/TeamHeader'
+// import TeamPowerBar from '../../components/sections/TeamPowerBar'
 import Results from '../../components/shared/Result'
 import Standings from '../../components/shared/Standings'
 import lichessTeams from '../../data/lichess/teams.json'
@@ -34,7 +35,7 @@ export default function IndexPage({ data: { team, teamLegacy, tournamentResults 
   return (
     <>
       <Head>
-        <title>{teamLegacy.name} ● World Classicals Team Battle</title>
+        <title>Team: {teamLegacy.name} ● World Classicals Team Battle</title>
         <meta content={metaDescription} name="description" />
       </Head>
 
@@ -42,6 +43,7 @@ export default function IndexPage({ data: { team, teamLegacy, tournamentResults 
         <Navbar />
 
         <TeamHeader name={teamLegacy.name} />
+        {/* <TeamPowerBar /> */}
         <Results data={tournamentResults} emoji="⚔️" title="Tournaments Results" />
         <Standings data={playerStandings} emoji="⚔️" title="Players Standings" />
       </main>

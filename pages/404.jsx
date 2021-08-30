@@ -7,7 +7,7 @@ function NotFoundPage({ message }) {
   return (
     <>
       <Head>
-        <title>Not Found ● World Classicals Team Battle</title>
+        <title>Page Not Found ● World Classicals Team Battle</title>
         <meta
           content={
             `The Weekly World Classicals Team Battle has become the biggest Classical Chess Team Battle ever on ` +

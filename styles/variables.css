@@ -1,0 +1,14 @@
+:root {
+  --background: #121117;
+  --background-mono-a: #4e4a63;
+  --background-mono-b: #1b1633;
+  --background-mono-d: #352c63;
+  --background-mono-e: #8a82b0;
+  --background-shade-a: #8079a3;
+  --background-shade-b: #4e4a63;
+  --background-shade-d: #282633;
+  --background-shade-e: #282633;
+
+  --font-base: 'Cinzel', serif;
+  --font-title: 'Cinzel Decorative', serif;
+}
