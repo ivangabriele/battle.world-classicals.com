@@ -341,28 +341,43 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@reactnimations/coalesce@npm:1.1.3":
-  version: 1.1.3
-  resolution: "@reactnimations/coalesce@npm:1.1.3"
+"@reactnimations/coalesce@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@reactnimations/coalesce@npm:1.2.0"
   dependencies:
     "@babel/runtime": 7.15.3
+    lodash.debounce: 4.0.8
   peerDependencies:
     react: 17.0.2
     react-dom: 17.0.2
-  checksum: ef07f119fcde99ccb7f9daac15d05e624d273008a78e80f436bfaca7d207f8ceb2aa0cdb908570d306775e12d893ab757349085f8528f73e2facc5ecd8f3cf01
+  checksum: 81204b548ecd04b892b07f32890735738a9de93c1c23da8e9f7823cf45e8b8780d94a6d058a10ae51778fb5ffe26b61edbdc1799675e9c6ba69c806c02c4a74e
   languageName: node
   linkType: hard
 
-"@reactnimations/swirl@npm:1.1.3":
-  version: 1.1.3
-  resolution: "@reactnimations/swirl@npm:1.1.3"
+"@reactnimations/pipeline@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@reactnimations/pipeline@npm:1.2.0"
   dependencies:
     "@babel/runtime": 7.15.3
-    simplex-noise: 2.4.0
+    lodash.debounce: 4.0.8
   peerDependencies:
     react: 17.0.2
     react-dom: 17.0.2
-  checksum: f00c7fd9321e7efb872846140a3687478971b7a0d133b1dbb094efcdb008a4e17f47b3afe31c955fe05c8ea47e28d9ecaed7dd77e955fbdf8e3234edfbd64491
+  checksum: 353559281a75992ab02ecb1813f0eb9ff03215f9d6faf0b589aa98570b426784f688128a33f154970b561c6e567a804c4009464281d6911cba1f3cb5ebdd59bb
+  languageName: node
+  linkType: hard
+
+"@reactnimations/swirl@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@reactnimations/swirl@npm:1.2.0"
+  dependencies:
+    "@babel/runtime": 7.15.3
+    lodash.debounce: 4.0.8
+    simplex-noise: 3.0.0
+  peerDependencies:
+    react: 17.0.2
+    react-dom: 17.0.2
+  checksum: d049c213e87740ef10c4200eda2a6facd47530bc1e71fcb6e10365fd8e023a813bd301c132134ffc06803966bc270acfbc8cc3f7738c6fe16092097ada72ab57
   languageName: node
   linkType: hard
 
@@ -3387,6 +3402,13 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
+"lodash.debounce@npm:4.0.8":
+  version: 4.0.8
+  resolution: "lodash.debounce@npm:4.0.8"
+  checksum: a3f527d22c548f43ae31c861ada88b2637eb48ac6aa3eb56e82d44917971b8aa96fbb37aa60efea674dc4ee8c42074f90f7b1f772e9db375435f6c83a19b3bc6
+  languageName: node
+  linkType: hard
+
 "lodash.merge@npm:^4.6.2":
   version: 4.6.2
   resolution: "lodash.merge@npm:4.6.2"
@@ -4947,10 +4969,10 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"simplex-noise@npm:2.4.0":
-  version: 2.4.0
-  resolution: "simplex-noise@npm:2.4.0"
-  checksum: 78d38cb7ad2d5a5c4d60543bcf682c3120660e808c5304d4aa5e3da0ba0049ae8b3d27eae98dea7e9c6c90262dd62ea1779a92c95c7e10cbdaf48e7affd429f3
+"simplex-noise@npm:3.0.0":
+  version: 3.0.0
+  resolution: "simplex-noise@npm:3.0.0"
+  checksum: 9d2c467ac52689267f7547044020a7522967c71205c1f0d5cce76c65db40f72e9f78de16ba2520db4b2e0efffec6b8697b4fec037d09bf4d1ccb8d41a59c847e
   languageName: node
   linkType: hard
 
@@ -5797,8 +5819,9 @@ resolve@^2.0.0-next.3:
     "@datapunt/matomo-tracker-react": 0.5.1
     "@ivangabriele/eslint-config-react": 1.5.0
     "@ivangabriele/prettier-config": 1.1.0
-    "@reactnimations/coalesce": 1.1.3
-    "@reactnimations/swirl": 1.1.3
+    "@reactnimations/coalesce": 1.2.0
+    "@reactnimations/pipeline": 1.2.0
+    "@reactnimations/swirl": 1.2.0
     "@types/node": 16.7.5
     "@types/prettier": 2.3.2
     "@types/ramda": 0.27.44

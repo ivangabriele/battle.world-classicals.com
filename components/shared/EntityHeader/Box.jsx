@@ -18,12 +18,12 @@ export default function Box({ children }) {
           div {
             align-items: flex-end;
             justify-content: flex-start;
-            padding: 1rem 5rem 1.5rem 1.425rem;
+            padding: 1rem 2.5rem 1.5rem 1.425rem;
           }
         }
         @media (min-width: 1280px) {
           div {
-            padding: 1rem 5rem 1.5rem 0.5rem;
+            padding: 1rem 4rem 1.5rem 0.5rem;
           }
         }
       `}</style>

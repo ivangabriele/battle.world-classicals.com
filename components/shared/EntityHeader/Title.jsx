@@ -24,7 +24,7 @@ export default function Title({ children }) {
           h1 {
             align-self: start;
             font-size: 200%;
-            margin: 0 0 0 -13rem;
+            margin: 1rem 0 0 -13rem;
           }
         }
         @keyframes move {

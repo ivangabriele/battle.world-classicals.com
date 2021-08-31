@@ -42,7 +42,7 @@ export default function IndexPage({ data: { team, teamLegacy, tournamentResults 
       <main className="page-wrapper">
         <Navbar />
 
-        <TeamHeader name={teamLegacy.name} />
+        <TeamHeader data={tournamentResults} name={teamLegacy.name} />
         {/* <TeamPowerBar /> */}
         <Results data={tournamentResults} emoji="⚔️" title="Tournaments Results" />
         <Standings data={playerStandings} emoji="⚔️" title="Players Standings" />

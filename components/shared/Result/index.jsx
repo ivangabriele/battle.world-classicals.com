@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 import ResultsRow from './ResultsRow'
 
-function Results({ data, emoji, title }) {
+function Results({ data, title }) {
   const withPerformance = data.length > 0 && data[0].performance !== undefined
 
   return (

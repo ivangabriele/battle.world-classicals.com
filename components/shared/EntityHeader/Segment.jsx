@@ -45,14 +45,16 @@ export default function Segment({ children }) {
           font-weight: 400;
           letter-spacing: 3px;
           margin: 0;
+          text-shadow: 0 0 0.25rem black;
         }
 
         span {
           background-color: white;
+          box-shadow: 0 0 0.5rem black;
           display: block;
           flex-grow: 1;
           height: 1px;
-          margin: 0 0.5rem 0 0.5rem;
+          margin: 0 0.5rem 0 0.25rem;
         }
       `}</style>
     </>

@@ -58,6 +58,10 @@ export default function Navbar() {
       </nav>
 
       <style jsx>{`
+        * {
+          user-select: none;
+        }
+
         .brand {
           font-family: var(--font-title);
         }
