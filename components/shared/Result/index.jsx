@@ -2,8 +2,14 @@ import PropTypes from 'prop-types'
 
 import ResultsRow from './ResultsRow'
 
-function Results({ data, title }) {
-  const withPerformance = data.length > 0 && data[0].performance !== undefined
+const conciliateData = ({ ranks, scores }) =>
+  scores.map((score, index) => ({
+    rank: ranks[index],
+    score,
+  }))
+
+function Results({ ranks, scores, title }) {
+  const data = conciliateData({ ranks, scores })
 
   return (
     <>
@@ -18,11 +24,10 @@ function Results({ data, title }) {
                   <tr>
                     <th>Name</th>
                     <th>Rank</th>
-                    {withPerformance && <th>Perf</th>}
                     <th>Score</th>
                   </tr>
                 </thead>
-                <tbody>{data.map(ResultsRow)}</tbody>
+                <tbody>{data.map(ResultsRow).reverse()}</tbody>
               </table>
             </div>
           </div>
@@ -45,15 +50,8 @@ function Results({ data, title }) {
 }
 
 Results.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.exact({
-      name: PropTypes.string.isRequired,
-      performance: PropTypes.number,
-      rank: PropTypes.number.isRequired,
-      score: PropTypes.number.isRequired,
-    }),
-  ).isRequired,
-  emoji: PropTypes.string,
+  ranks: PropTypes.arrayOf(PropTypes.number).isRequired,
+  scores: PropTypes.arrayOf(PropTypes.number).isRequired,
   title: PropTypes.string.isRequired,
 }
 

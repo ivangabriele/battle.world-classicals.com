@@ -3,7 +3,6 @@ import { useRef } from 'react'
 import css from 'styled-jsx/css'
 
 import generateKey from '../../../libs/helpers/generateKey'
-import normalizeTeamName from '../../../libs/helpers/normalizeTeamName'
 import EntityHeader from '../../shared/EntityHeader'
 import { AWARD_TYPE } from '../../shared/EntityHeader/Award'
 
@@ -14,16 +13,14 @@ const PipelineStyle = css.resolve`
   }
 `
 
-export default function TeamHeader({ data, name }) {
+export default function TeamHeader({ name, ranks }) {
   const awards = [
-    { count: data.filter(({ rank }) => rank === 1).length, type: AWARD_TYPE.FIRST },
-    { count: data.filter(({ rank }) => rank === 2).length, type: AWARD_TYPE.SECOND },
-    { count: data.filter(({ rank }) => rank === 3).length, type: AWARD_TYPE.THIRD },
+    { count: ranks.filter(rank => rank === 1).length, type: AWARD_TYPE.FIRST },
+    { count: ranks.filter(rank => rank === 2).length, type: AWARD_TYPE.SECOND },
+    { count: ranks.filter(rank => rank === 3).length, type: AWARD_TYPE.THIRD },
   ]
 
   const headerRef = useRef(null)
-
-  const normalizedName = normalizeTeamName(name)
 
   return (
     <>
@@ -47,7 +44,7 @@ export default function TeamHeader({ data, name }) {
           <EntityHeader.Placeholder />
           <EntityHeader.Box>
             <EntityHeader.Segment>TEAM</EntityHeader.Segment>
-            <EntityHeader.Title>{normalizedName}</EntityHeader.Title>
+            <EntityHeader.Title>{name}</EntityHeader.Title>
             <EntityHeader.Awards>
               {awards[0].count !== 0 && <EntityHeader.Award count={awards[0].count} type={AWARD_TYPE.FIRST} />}
               {awards[1].count !== 0 && <EntityHeader.Award count={awards[1].count} type={AWARD_TYPE.SECOND} />}

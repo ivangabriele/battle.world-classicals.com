@@ -9,7 +9,6 @@ import Countdown from '../components/sections/Countdown'
 import Hero from '../components/sections/Hero'
 import LiveTeamsStandings from '../components/sections/LiveTeamStandings'
 import playerTotalScores from '../data/playerTotalScores.json'
-import teamIdsNames from '../data/teamIdsNames.json'
 import teamTotalScores from '../data/teamTotalScores.json'
 import normalizeLichessTournamentsList from '../libs/helpers/normalizeLichessTournamentsList'
 
@@ -36,11 +35,7 @@ export default function IndexPage({ data }) {
 
         {data.hasStarted && <LiveTeamsStandings tournamentId={data.tournament.id} />}
 
-        <AllTimeTeamStandings
-          data={teamTotalScores.slice(0, 10)}
-          teamIdsNames={teamIdsNames}
-          title="Top 10 All-Time Teams"
-        />
+        <AllTimeTeamStandings data={teamTotalScores.slice(0, 10)} title="Top 10 All-Time Teams" />
         <AllTimePlayerStandings data={playerTotalScores.slice(0, 10)} title="Top 10 All-Time Players" />
       </main>
     </>

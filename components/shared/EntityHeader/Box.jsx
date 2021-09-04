@@ -9,6 +9,7 @@ export default function Box({ children }) {
           justify-content: center;
           display: flex;
           height: 100%;
+          left: 0;
           padding: 0;
           position: absolute;
           top: 0;
@@ -18,12 +19,7 @@ export default function Box({ children }) {
           div {
             align-items: flex-end;
             justify-content: flex-start;
-            padding: 1rem 2.5rem 1.5rem 1.425rem;
-          }
-        }
-        @media (min-width: 1280px) {
-          div {
-            padding: 1rem 4rem 1.5rem 0.5rem;
+            padding: 1rem 2rem 1.5rem 2.4rem;
           }
         }
       `}</style>

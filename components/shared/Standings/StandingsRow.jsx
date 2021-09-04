@@ -16,8 +16,8 @@ export default function StandingsRow(props, index) {
 
   if (props === null) {
     return (
-      <>
-        <tr key={index}>
+      <Fragment key={index}>
+        <tr>
           <th className="align-middle text-end" scope="row" style={{ width: '2rem' }}>
             {index + 1}
           </th>
@@ -34,7 +34,7 @@ export default function StandingsRow(props, index) {
             width: 7rem;
           }
         `}</style>
-      </>
+      </Fragment>
     )
   }
 

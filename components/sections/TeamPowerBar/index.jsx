@@ -1,47 +1,35 @@
-import Box from './Box'
-import Separator from './Separator'
+import numeral from 'numeral'
 
-export default function TeamPowerBar() {
+import PowerBar from '../../shared/PowerBar'
+
+export default function TeamPowerBar({ bersekRate, gameCount, memberRating, winRate }) {
+  const formattedBerseckRate = `${bersekRate}%`
+  const formattedMemberRating = numeral(memberRating).format('0,0')
+  const formattedWinRate = `${winRate}%`
+
   return (
     <>
-      <section className="bg-dark">
-        <div className="container">
-          <Box title="Awards" />
-          <Separator />
-          <Box title="Awards" />
-          <Separator />
-          <Box title="Stats" />
-        </div>
-      </section>
-
-      <style jsx>{`
-        section {
-          background: linear-gradient(80deg, var(--background-mono-d) 0%, var(--background-mono-b) 100%);
-          border-bottom: 2px solid var(--background-shade-d);
-          border-top: 2px solid var(--background-shade-d);
-          display: flex;
-          height: fit-content;
-          justify-content: center;
-          width: 100%;
-          z-index: 2;
-        }
-
-        div {
-          align-items: center;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-evenly;
-          padding: 20px 0px;
-          position: relative;
-          width: 100%;
-          z-index: 3;
-        }
-        @media (min-width: 992px) {
-          div {
-            flex-direction: row;
-          }
-        }
-      `}</style>
+      <PowerBar>
+        <PowerBar.Box title="Attributes">
+          <PowerBar.Performance>
+            <PowerBar.Level description="Feature coming soon!" label="Power" level={0} />
+            <PowerBar.Level description="Feature coming soon!" label="Strength" level={0} />
+            <PowerBar.Level description="Feature coming soon!" label="Solidarity" level={0} />
+            <PowerBar.Level description="Feature coming soon!" label="Constancy" level={0} />
+            <PowerBar.Level description="Feature coming soon!" label="Loyalty" level={0} />
+            <PowerBar.Level description="Feature coming soon!" label="Influence" level={0} />
+          </PowerBar.Performance>
+        </PowerBar.Box>
+        <PowerBar.Separator />
+        <PowerBar.Box title="Statistics">
+          <PowerBar.Data>
+            <PowerBar.Figure icon="chessboard" label="Total Games Count" value={gameCount} />
+            <PowerBar.Figure icon="trophy-cup" label="Average Win Rate" value={formattedWinRate} />
+            <PowerBar.Figure icon="level-end-flag" label="Average Members Rating" value={formattedMemberRating} />
+            <PowerBar.Figure icon="serrated-slash" label="Average Berseck Rate" value={formattedBerseckRate} />
+          </PowerBar.Data>
+        </PowerBar.Box>
+      </PowerBar>
     </>
   )
 }

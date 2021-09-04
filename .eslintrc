@@ -1,5 +1,10 @@
 {
   "extends": "@ivangabriele/eslint-config-react",
+  "settings": {
+    "import/resolver": {
+      "node": { "extensions": [".js", ".jsx", ".mjs"] }
+    }
+  },
   "env": {
     "browser": true
   },
@@ -23,11 +28,18 @@
   },
   "overrides": [
     {
-      "files": ["./scripts/**/*.js"],
+      "files": ["./scripts/**/*.mjs"],
+      "env": {
+        "browser": false,
+        "node": true
+      },
       "rules": {
+        "class-methods-use-this": "off",
         "global-require": "off",
         "no-restricted-syntax": "off",
+        "no-underscore-dangle": "off",
 
+        "import/extensions": "off",
         "import/no-dynamic-require": "off",
         "import/no-extraneous-dependencies": "off"
       }

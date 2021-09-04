@@ -14,7 +14,7 @@ async function getTeamName(teamId) {
 async function getCurrentTeamsStandings(tournamentId) {
   const res = await fetch(`https://lichess.org/api/tournament/${tournamentId}`)
   const data = await res.json()
-  const teamsStandings = data.teamStanding
+  const teamsStandings = data.teamStanding.map(({ id, name, rank, score }) => ({ id, name, rank, score }))
 
   let index = -1
   while (++index < 10) {
@@ -60,5 +60,5 @@ export default function LiveTeamStandings({ tournamentId }) {
     setIsFirstLoad(false)
   }, [])
 
-  return <Standings standings={teamsStandings} title="Live WCTB Teams Standings" />
+  return <Standings data={teamsStandings} title="Live WCTB Teams Standings" />
 }
