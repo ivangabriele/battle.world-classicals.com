@@ -1,73 +1,47 @@
-export default function Navbar() {
+import classnames from 'classnames'
+import Nav from 'react-bootstrap/Nav'
+import Navbar from 'react-bootstrap/Navbar'
+import NavDropdown from 'react-bootstrap/NavDropdown'
+import css from 'styled-jsx/css'
+
+const NavbarBrandStyle = css.resolve`
+  a {
+    font-family: var(--font-title);
+  }
+`
+
+const noop = () => undefined
+
+export default function CustomNavbar() {
+  const navbarBrandClassName = classnames('me-0 pe-lg-2 me-lg-4', NavbarBrandStyle.className)
+
   return (
     <>
-      <nav className="header navbar navbar-expand-lg navbar-dark">
-        <button className="navbar-toggler ms-n2 me-2" type="button">
-          <span className="navbar-toggler-icon" />
-        </button>
+      <Navbar bg="dark" className="navbar-dark order-lg-1" expand="lg" sticky="top">
+        <Navbar.Toggle aria-controls="navbar" />
 
-        <a className="navbar-brand order-lg-1 me-0 pe-lg-2 me-lg-4 brand" href="/">
+        <Navbar.Brand className={navbarBrandClassName} href="/">
           WCTB
-        </a>
+        </Navbar.Brand>
 
-        {/* <div className="d-flex align-items-center order-lg-3">
-            <a className="btn btn-primary d-none d-sm-inline-block ms-3" href="/register-my-team">
-              Register my Team
-            </a>
-          </div> */}
+        <Navbar.Collapse id="navbar">
+          <Nav className="me-auto">
+            <NavDropdown id="nav-dropdown-standings" onToggle={noop} show title="Standings">
+              <NavDropdown.Item href="/standings/all-time-teams">All Time Teams</NavDropdown.Item>
+              <NavDropdown.Item href="/standings/all-time-players">All Time Players</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
 
-        <div className="collapse navbar-collapse order-lg-2" id="navbarCollapse1">
-          <ul className="navbar-nav me-auto">
-            {/* <li className="nav-item">
-                <a className="nav-link" href="/podium">
-                  Podium
-                </a>
-              </li> */}
-            <li className="nav-item dropdown">
-              <span className="nav-link dropdown-toggle">Standings</span>
-              <ul className="dropdown-menu">
-                <li>
-                  <a className="dropdown-item" href="/standings/all-time-teams">
-                    All Time Teams
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="/standings/all-time-players">
-                    All Time Players
-                  </a>
-                </li>
-                {/* <li>
-                    <a className="dropdown-item" href="/standings/by-tournament">
-                      By Tournament
-                    </a>
-                  </li> */}
-              </ul>
-            </li>
-            {/* <li className="nav-item">
-                <a className="nav-link" href="/teams">
-                  Teams
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/players">
-                  Players
-                </a>
-              </li> */}
-          </ul>
-        </div>
-      </nav>
-
-      <style jsx>{`
-        * {
+      {NavbarBrandStyle.styles}
+      <style global jsx>{`
+        nav {
           user-select: none;
         }
 
-        .brand {
-          font-family: var(--font-title);
-        }
-
-        .dropdown-toggle {
-          cursor: pointer;
+        .dropdown-toggle::after {
+          content: '';
         }
       `}</style>
     </>
