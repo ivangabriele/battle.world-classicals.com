@@ -39,15 +39,18 @@ export default function IndexPage({ data: { team } }) {
 
       <Main>
         <TeamHeader name={team.name} ranks={team.ranks[1]} />
-        <TeamPowerBar
-          bersekRate={team.bersekRates[0]}
-          gameCount={team.gameCounts[0]}
-          memberRating={team.memberRatings[0]}
-          winRate={team.winRates[0]}
-        />
 
-        <Results ranks={team.ranks[1]} scores={team.scores[1]} title="Tournaments Results" />
-        <Standings data={memberStandings} title="Members Standings" />
+        <main>
+          <TeamPowerBar
+            bersekRate={team.bersekRates[0]}
+            gameCount={team.gameCounts[0]}
+            memberRating={team.memberRatings[0]}
+            winRate={team.winRates[0]}
+          />
+
+          <Results ranks={team.ranks[1]} scores={team.scores[1]} title="Tournaments Results" />
+          <Standings data={memberStandings} title="Members Standings" />
+        </main>
       </Main>
     </>
   )

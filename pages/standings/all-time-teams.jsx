@@ -12,7 +12,9 @@ export default function IndexPage() {
       </Head>
 
       <Main>
-        <AllTimeTeamStandings data={teamTotalScores} title="All-Time WCTB Team Standings" />
+        <main>
+          <AllTimeTeamStandings data={teamTotalScores} title="All-Time WCTB Team Standings" />
+        </main>
       </Main>
     </>
   )

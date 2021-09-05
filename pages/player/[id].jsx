@@ -33,13 +33,17 @@ export default function IndexPage({ data: { player } }) {
 
       <Main>
         <PlayerHeader name={player.username} />
-        <PlayerPowerBar
-          bersekRate={player.bersekRates[0]}
-          gameCount={player.gameCounts[0]}
-          opponentRating={player.opponentRatings[0]}
-          winRate={player.winRates[0]}
-        />
-        <Results ranks={player.ranks[1]} scores={player.scores[1]} title="Tournaments Results" />
+
+        <main>
+          <PlayerPowerBar
+            bersekRate={player.bersekRates[0]}
+            gameCount={player.gameCounts[0]}
+            opponentRating={player.opponentRatings[0]}
+            winRate={player.winRates[0]}
+          />
+
+          <Results ranks={player.ranks[1]} scores={player.scores[1]} title="Tournaments Results" />
+        </main>
       </Main>
     </>
   )

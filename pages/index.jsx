@@ -31,10 +31,12 @@ export default function IndexPage({ data }) {
         <Hero tournamentData={data.tournament} />
         <Countdown hasStarted={data.hasStarted} tournamentData={data.tournament} />
 
-        {data.hasStarted && <LiveTeamsStandings tournamentId={data.tournament.id} />}
+        <main>
+          {data.hasStarted && <LiveTeamsStandings tournamentId={data.tournament.id} />}
 
-        <AllTimeTeamStandings data={teamTotalScores.slice(0, 10)} title="Top 10 All-Time Teams" />
-        <AllTimePlayerStandings data={playerTotalScores.slice(0, 10)} title="Top 10 All-Time Players" />
+          <AllTimeTeamStandings data={teamTotalScores.slice(0, 10)} title="Top 10 All-Time Teams" />
+          <AllTimePlayerStandings data={playerTotalScores.slice(0, 10)} title="Top 10 All-Time Players" />
+        </main>
       </Main>
     </>
   )
