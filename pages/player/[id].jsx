@@ -4,7 +4,7 @@ import numeral from 'numeral'
 import path from 'path'
 import * as R from 'ramda'
 
-import Navbar from '../../components/layouts/Navbar'
+import Main from '../../components/layouts/Main'
 import PlayerHeader from '../../components/sections/PlayerHeader'
 import PlayerPowerBar from '../../components/sections/PlayerPowerBar'
 import Results from '../../components/shared/Result'
@@ -31,9 +31,7 @@ export default function IndexPage({ data: { player } }) {
         <meta content={metaDescription} name="description" />
       </Head>
 
-      <main className="page-wrapper">
-        <Navbar />
-
+      <Main>
         <PlayerHeader name={player.username} />
         <PlayerPowerBar
           bersekRate={player.bersekRates[0]}
@@ -42,7 +40,7 @@ export default function IndexPage({ data: { player } }) {
           winRate={player.winRates[0]}
         />
         <Results ranks={player.ranks[1]} scores={player.scores[1]} title="Tournaments Results" />
-      </main>
+      </Main>
     </>
   )
 }

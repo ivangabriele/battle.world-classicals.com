@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import PropTypes from 'prop-types'
 
-import Navbar from '../components/layouts/Navbar'
+import Main from '../components/layouts/Main'
 
 function NotFoundPage({ message }) {
   return (
@@ -18,14 +18,12 @@ function NotFoundPage({ message }) {
         />
       </Head>
 
-      <main className="page-wrapper">
-        <Navbar />
-
-        <section className="bg-dark bg-size-cover overflow-hidden pt-5 pt-md-6 pt-lg-7 pb-5">
+      <Main>
+        <header className="bg-dark bg-size-cover overflow-hidden pt-5 pt-md-6 pt-lg-7 pb-5">
           <div className="d-flex justify-content-center align-items-center">
             <h1 className="d-inline-flex display-5 mb-5 text-light">{message}</h1>
           </div>
-        </section>
+        </header>
 
         <style jsx>{`
           section {
@@ -37,7 +35,7 @@ function NotFoundPage({ message }) {
             /*text-shadow: 0 0 3rem yellow;*/
           }
         `}</style>
-      </main>
+      </Main>
     </>
   )
 }

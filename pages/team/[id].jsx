@@ -3,7 +3,7 @@ import Head from 'next/head'
 import numeral from 'numeral'
 import path from 'path'
 
-import Navbar from '../../components/layouts/Navbar'
+import Main from '../../components/layouts/Main'
 import TeamHeader from '../../components/sections/TeamHeader'
 import TeamPowerBar from '../../components/sections/TeamPowerBar'
 import Results from '../../components/shared/Result'
@@ -37,9 +37,7 @@ export default function IndexPage({ data: { team } }) {
         <meta content={metaDescription} name="description" />
       </Head>
 
-      <main className="page-wrapper">
-        <Navbar />
-
+      <Main>
         <TeamHeader name={team.name} ranks={team.ranks[1]} />
         <TeamPowerBar
           bersekRate={team.bersekRates[0]}
@@ -47,9 +45,10 @@ export default function IndexPage({ data: { team } }) {
           memberRating={team.memberRatings[0]}
           winRate={team.winRates[0]}
         />
+
         <Results ranks={team.ranks[1]} scores={team.scores[1]} title="Tournaments Results" />
         <Standings data={memberStandings} title="Members Standings" />
-      </main>
+      </Main>
     </>
   )
 }

@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-import Navbar from '../../components/layouts/Navbar'
+import Main from '../../components/layouts/Main'
 import AllTimePlayerStandings from '../../components/sections/AllTimePlayerStandings'
 import playerTotalScores from '../../data/playerTotalScores.json'
 
@@ -11,11 +11,9 @@ export default function IndexPage() {
         <title>All-Time WCTB Player Standings ● World Classicals Team Battle</title>
       </Head>
 
-      <main className="page-wrapper">
-        <Navbar />
-
+      <Main>
         <AllTimePlayerStandings data={playerTotalScores} title="All-Time WCTB Player Standings" />
-      </main>
+      </Main>
     </>
   )
 }

@@ -2,7 +2,7 @@ import fetch from 'isomorphic-unfetch'
 import moment from 'moment'
 import Head from 'next/head'
 
-import Navbar from '../components/layouts/Navbar'
+import Main from '../components/layouts/Main'
 import AllTimePlayerStandings from '../components/sections/AllTimePlayerStandings'
 import AllTimeTeamStandings from '../components/sections/AllTimeTeamStandings'
 import Countdown from '../components/sections/Countdown'
@@ -27,9 +27,7 @@ export default function IndexPage({ data }) {
         <link as="image" crossOrigin href="/logos/lichess.svg" rel="preload" />
       </Head>
 
-      <main className="page-wrapper">
-        <Navbar />
-
+      <Main>
         <Hero tournamentData={data.tournament} />
         <Countdown hasStarted={data.hasStarted} tournamentData={data.tournament} />
 
@@ -37,7 +35,7 @@ export default function IndexPage({ data }) {
 
         <AllTimeTeamStandings data={teamTotalScores.slice(0, 10)} title="Top 10 All-Time Teams" />
         <AllTimePlayerStandings data={playerTotalScores.slice(0, 10)} title="Top 10 All-Time Players" />
-      </main>
+      </Main>
     </>
   )
 }
