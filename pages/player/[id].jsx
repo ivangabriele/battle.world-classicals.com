@@ -21,7 +21,7 @@ const getMetaDescription = player => {
   }${`with a median performance of ${medianPerformance}.`.trim()}`
 }
 
-export default function IndexPage({ data: { player } }) {
+export default function PlayerPage({ data: { player } }) {
   const metaDescription = getMetaDescription(player)
 
   return (
@@ -42,7 +42,7 @@ export default function IndexPage({ data: { player } }) {
             winRate={player.winRates[0]}
           />
 
-          <Results ranks={player.ranks[1]} scores={player.scores[1]} title="Tournaments Results" />
+          <Results ranks={player.ranks[1]} scores={player.scores[1]} title="Team Battle Results" />
         </main>
       </Main>
     </>

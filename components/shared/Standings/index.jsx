@@ -1,34 +1,32 @@
+import classnames from 'classnames'
 import PropTypes from 'prop-types'
 
-import generateKey from '../../../libs/helpers/generateKey'
-import StandingsRow from './StandingsRow'
+import Row from './Row'
 
 function Standings({ data, title }) {
-  if (data.length === 0) {
-    const placeholderData = new Array(10)
-    placeholderData.fill(null, 0, 10)
-
-    return (
-      <div key={generateKey()} className="table-responsive">
-        <table className="table table-dark">
-          <tbody>{placeholderData.map(StandingsRow)}</tbody>
-        </table>
-      </div>
-    )
-  }
+  const sectionClassName = classnames('bg-dark pb-md-3', title ? 'pt-5 pt-md-6' : null)
 
   return (
     <>
-      <section className="bg-dark pt-5 pt-md-6 pb-md-3">
-        <div className="container py-2 py-md-0">
-          <div className="row align-items-center">
-            <h2 className="text-center text-light mb-5">{title}</h2>
+      <section className={sectionClassName}>
+        <div className="container justify-content-center py-2 py-md-0">
+          {title && <h2 className="text-center text-light mb-5">{title}</h2>}
 
-            <div className="table-responsive">
-              <table className="table table-dark">
-                <tbody>{data.map(StandingsRow)}</tbody>
-              </table>
+          <div className="container-md" role="table">
+            <div role="rowgroup">
+              <div className="row visually-hidden" role="row">
+                <div className="col" role="columnheader">
+                  Rank
+                </div>
+                <div className="col" role="columnheader">
+                  Name
+                </div>
+                <div className="col" role="columnheader">
+                  Total Score
+                </div>
+              </div>
             </div>
+            <div role="rowgroup">{data.map(Row)}</div>
           </div>
         </div>
       </section>
@@ -42,6 +40,10 @@ function Standings({ data, title }) {
   )
 }
 
+Standings.defaultProps = {
+  title: null,
+}
+
 Standings.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.exact({
@@ -52,7 +54,7 @@ Standings.propTypes = {
       url: PropTypes.string.isRequired,
     }),
   ).isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
 }
 
 export default Standings

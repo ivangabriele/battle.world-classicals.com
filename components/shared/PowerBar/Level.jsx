@@ -51,9 +51,9 @@ export default function Level({ description, label, level }) {
 
         span {
           color: white;
-          font-family: var(--font-label);
+          font-family: var(--font-content);
           font-size: 85%;
-          font-weight: 700;
+          font-weight: 500;
           letter-spacing: 0.05rem;
           margin-bottom: 0.5rem;
         }

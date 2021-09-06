@@ -2,18 +2,21 @@ import Head from 'next/head'
 
 import Main from '../../components/layouts/Main'
 import AllTimePlayerStandings from '../../components/sections/AllTimePlayerStandings'
+import Header from '../../components/sections/Header'
 import playerTotalScores from '../../data/playerTotalScores.json'
 
-export default function IndexPage() {
+export default function StandingsAllTimePlayersPage() {
   return (
     <>
       <Head>
-        <title>All-Time WCTB Player Standings ● World Classicals Team Battle</title>
+        <title>All-Time WCTB Players Standings ● World Classicals Team Battle</title>
       </Head>
 
       <Main>
+        <Header segment="STANDINGS" title="All-Time Player Standings" />
+
         <main>
-          <AllTimePlayerStandings data={playerTotalScores} title="All-Time WCTB Player Standings" />
+          <AllTimePlayerStandings data={playerTotalScores} />
         </main>
       </Main>
     </>

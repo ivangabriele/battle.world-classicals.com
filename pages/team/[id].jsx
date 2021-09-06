@@ -20,7 +20,7 @@ const getMetaDescription = team => {
   }`
 }
 
-export default function IndexPage({ data: { team } }) {
+export default function TeamPage({ data: { team } }) {
   const metaDescription = getMetaDescription(team)
   const memberStandings = team.players.map(({ scores: [totalScore], username }, index) => ({
     id: username,
@@ -48,8 +48,8 @@ export default function IndexPage({ data: { team } }) {
             winRate={team.winRates[0]}
           />
 
-          <Results ranks={team.ranks[1]} scores={team.scores[1]} title="Tournaments Results" />
-          <Standings data={memberStandings} title="Members Standings" />
+          <Results ranks={team.ranks[1]} scores={team.scores[1]} title="Team Battle Results" />
+          <Standings data={memberStandings} title="Member Standings" />
         </main>
       </Main>
     </>

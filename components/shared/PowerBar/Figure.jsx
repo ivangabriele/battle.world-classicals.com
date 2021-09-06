@@ -38,6 +38,7 @@ export default function Figure({ icon, label, value }) {
           font-weight: 700;
           height: 3rem;
           justify-content: center;
+          letter-spacing: 0.075rem;
           line-height: 1;
           width: 6rem;
         }

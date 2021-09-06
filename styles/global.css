@@ -11,10 +11,14 @@ a:hover {
   color: yellow;
   text-decoration: none;
 }
+article a {
+  border-bottom: solid 1px white;
+}
+article a:hover {
+  border-bottom: solid 1px yellow;
+}
 
-h1,
-h2,
-h3 {
+h1 {
   font-family: var(--font-title);
 }
 

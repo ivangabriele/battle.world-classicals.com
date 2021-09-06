@@ -60,6 +60,14 @@ export default function Hero({ tournamentData }) {
 
       {SwirlStyle.styles}
       <style jsx>{`
+        * {
+          user-select: none;
+        }
+
+        h1,
+        h1 > span {
+          user-select: text;
+        }
         h1 > span {
           display: block;
           padding-top: 0.5rem;

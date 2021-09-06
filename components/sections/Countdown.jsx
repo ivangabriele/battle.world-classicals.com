@@ -48,7 +48,17 @@ export default function Countdown({ hasStarted, tournamentData }) {
           <div className="row align-items-center">
             <div className="text-center">
               <h3 className="mb-4">
-                {hasStarted ? `The ${nth} Battle will end in:` : `The ${nth} Battle will start in:`}
+                {hasStarted ? (
+                  <>
+                    <span>{`The ${nth} Battle`}</span>
+                    <span>will end in:</span>
+                  </>
+                ) : (
+                  <>
+                    <span>{`The ${nth} Battle`}</span>
+                    <span>will start in:</span>
+                  </>
+                )}
               </h3>
             </div>
             <div className="countdown h2 display-1 justify-content-center">
@@ -86,6 +96,14 @@ export default function Countdown({ hasStarted, tournamentData }) {
       </section>
 
       <style jsx>{`
+        * {
+          user-select: none;
+        }
+
+        h3 > span {
+          display: inline-block;
+        }
+
         .countdown-value-digit {
           min-width: 3rem;
         }
