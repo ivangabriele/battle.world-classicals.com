@@ -5,6 +5,8 @@ import readData from './helpers/readData.mjs'
 import spinner from './helpers/spinner.mjs'
 import writeData from './helpers/writeData.mjs'
 
+const mean = R.pipe(R.reject(R.isNil), R.mean, Math.round)
+
 export default async function generatePlayerStat() {
   spinner.start(`Generating Players Stat data…`)
 
@@ -27,6 +29,9 @@ export default async function generatePlayerStat() {
         opponentRatings: [0, []],
         winRates: [0, []],
       }
+      const allOpponentRatings = []
+      let totalBerseckCount = 0
+      let totalWinCount = 0
       let tournamentIndex = -1
       for (const tournamentId of tournamentIds) {
         tournamentIndex++
@@ -40,14 +45,14 @@ export default async function generatePlayerStat() {
           continue
         }
 
+        // Predicates
+        const isCurrentPlayerAsBlack = game => R.pathEq(['players', 'black', 'user', 'name'], playerUsername)(game)
+        const isCurrentPlayerAsWhite = game => R.pathEq(['players', 'white', 'user', 'name'], playerUsername)(game)
+        const isCurrentPlayer = game => isCurrentPlayerAsBlack(game) || isCurrentPlayerAsWhite(game)
+
         // Game Count
         const lichessTournamentGames = await readData(`./lichess/games/${tournamentId}.json`)
-        const lichessTournamentGamesForCurrentPlayer = R.filter(
-          R.or(
-            R.pathEq(['players', 'white', 'user', 'name'], playerUsername),
-            R.pathEq(['players', 'black', 'user', 'name'], playerUsername),
-          ),
-        )(lichessTournamentGames)
+        const lichessTournamentGamesForCurrentPlayer = R.filter(isCurrentPlayer)(lichessTournamentGames)
         const gameCount = lichessTournamentGamesForCurrentPlayer.length
 
         // Fix a strange Lichess bug giving a score of 0 to a player who didn't play any game at all
@@ -63,50 +68,56 @@ export default async function generatePlayerStat() {
         }
 
         // Berseck Rate
-        const lichessTournamentGamesAsWhiteForCurrentPlayer = R.filter(
-          R.pathEq(['players', 'white', 'user', 'name'], playerUsername),
-        )(lichessTournamentGamesForCurrentPlayer)
-        const lichessTournamentGamesAsBlackForCurrentPlayer = R.filter(
-          R.pathEq(['players', 'black', 'user', 'name'], playerUsername),
-        )(lichessTournamentGamesForCurrentPlayer)
-        const lichessTournamentGamesForCurrentPlayerBerseksCountAsWhite = R.pipe(
-          R.filter(R.pathSatisfies(R.equals(true), ['players', 'white', 'berserk'])),
-          R.length,
-        )(lichessTournamentGamesAsWhiteForCurrentPlayer)
+        const lichessTournamentGamesAsBlackForCurrentPlayer = R.filter(isCurrentPlayerAsBlack)(
+          lichessTournamentGamesForCurrentPlayer,
+        )
+        const lichessTournamentGamesAsWhiteForCurrentPlayer = R.filter(isCurrentPlayerAsWhite)(
+          lichessTournamentGamesForCurrentPlayer,
+        )
         const lichessTournamentGamesForCurrentPlayerBerseksCountAsBlack = R.pipe(
           R.filter(R.pathSatisfies(R.equals(true), ['players', 'black', 'berserk'])),
           R.length,
         )(lichessTournamentGamesAsBlackForCurrentPlayer)
-        const berseckRate = Math.round(
-          (100 *
-            (lichessTournamentGamesForCurrentPlayerBerseksCountAsWhite +
-              lichessTournamentGamesForCurrentPlayerBerseksCountAsBlack)) /
-            gameCount,
-        )
+        const lichessTournamentGamesForCurrentPlayerBerseksCountAsWhite = R.pipe(
+          R.filter(R.pathSatisfies(R.equals(true), ['players', 'white', 'berserk'])),
+          R.length,
+        )(lichessTournamentGamesAsWhiteForCurrentPlayer)
+        const lichessTournamentGamesForCurrentPlayerBerseksCount =
+          lichessTournamentGamesForCurrentPlayerBerseksCountAsWhite +
+          lichessTournamentGamesForCurrentPlayerBerseksCountAsBlack
+        const berseckRate = Math.round((100 * lichessTournamentGamesForCurrentPlayerBerseksCount) / gameCount)
+
+        // Total Berseck Count
+        totalBerseckCount += lichessTournamentGamesForCurrentPlayerBerseksCount
 
         // Opponent Rating
-        const lichessTournamentGamesForCurrentPlayerOpponentRatingsAsWhite = R.map(
-          R.path(['players', 'black', 'rating']),
-        )(lichessTournamentGamesAsWhiteForCurrentPlayer)
         const lichessTournamentGamesForCurrentPlayerOpponentRatingsAsBlack = R.map(
           R.path(['players', 'white', 'rating']),
         )(lichessTournamentGamesAsBlackForCurrentPlayer)
+        const lichessTournamentGamesForCurrentPlayerOpponentRatingsAsWhite = R.map(
+          R.path(['players', 'black', 'rating']),
+        )(lichessTournamentGamesAsWhiteForCurrentPlayer)
         const lichessTournamentGamesForCurrentPlayerOpponentRatings = [
           ...lichessTournamentGamesForCurrentPlayerOpponentRatingsAsWhite,
           ...lichessTournamentGamesForCurrentPlayerOpponentRatingsAsBlack,
         ]
         const opponentRating = R.pipe(R.mean, Math.round)(lichessTournamentGamesForCurrentPlayerOpponentRatings)
 
+        // All Opponent Ratings
+        allOpponentRatings.push(...lichessTournamentGamesForCurrentPlayerOpponentRatings)
+
         // Win Rate
         const lichessTournamentGamesWonByCurrentPlayer = R.filter(
-          R.or(
-            R.and(R.pathEq(['players', 'white', 'user', 'name'], playerUsername), R.propEq('winner', 'white')),
-            R.and(R.pathEq(['players', 'black', 'user', 'name'], playerUsername), R.propEq('winner', 'black')),
-          ),
+          game =>
+            (isCurrentPlayerAsBlack(game) && R.propEq('winner', 'black')(game)) ||
+            (isCurrentPlayerAsWhite(game) && R.propEq('winner', 'white')(game)),
         )(lichessTournamentGamesForCurrentPlayer)
         const winRate = Math.round(
           (100 * lichessTournamentGamesWonByCurrentPlayer.length) / lichessTournamentGamesForCurrentPlayer.length,
         )
+
+        // Total Win Count
+        totalWinCount += lichessTournamentGamesWonByCurrentPlayer.length
 
         playerWithStat.bersekRates[1].push(berseckRate)
         playerWithStat.gameCounts[1].push(gameCount)
@@ -121,14 +132,13 @@ export default async function generatePlayerStat() {
         continue
       }
 
-      playerWithStat.bersekRates[0] = R.pipe(R.reject(R.isNil), R.mean, Math.round)(playerWithStat.bersekRates[1])
-      playerWithStat.gameCounts[0] = R.sum(playerWithStat.gameCounts[1])
-      playerWithStat.opponentRatings[0] = R.pipe(
-        R.reject(R.isNil),
-        R.mean,
-        Math.round,
-      )(playerWithStat.opponentRatings[1])
-      playerWithStat.winRates[0] = R.pipe(R.reject(R.isNil), R.mean, Math.round)(playerWithStat.winRates[1])
+      const totalGameCount = R.sum(playerWithStat.gameCounts[1])
+      const percentage = R.pipe(R.multiply(100), R.divide(R.__, totalGameCount), Math.round)
+
+      playerWithStat.bersekRates[0] = percentage(totalBerseckCount)
+      playerWithStat.gameCounts[0] = totalGameCount
+      playerWithStat.opponentRatings[0] = mean(allOpponentRatings)
+      playerWithStat.winRates[0] = percentage(totalWinCount)
 
       await writeData(`./players/${playerUsername}.json`, playerWithStat)
     } catch (err) {

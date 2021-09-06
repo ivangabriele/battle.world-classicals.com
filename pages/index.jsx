@@ -24,7 +24,7 @@ export default function IndexPage({ data }) {
           }
           name="description"
         />
-        <link as="image" crossOrigin href="/logos/lichess.svg" rel="preload" />
+        <link as="image" crossOrigin="anonymous" href="/logos/lichess.svg" rel="preload" />
       </Head>
 
       <Main>

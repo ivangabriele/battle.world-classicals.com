@@ -4,6 +4,8 @@ import readData from './helpers/readData.mjs'
 import spinner from './helpers/spinner.mjs'
 import writeData from './helpers/writeData.mjs'
 
+const mean = R.pipe(R.reject(R.isNil), R.mean, Math.round)
+
 export default async function generateTeamsStat() {
   spinner.start(`Generating Teams Stat data…`)
 
@@ -27,6 +29,9 @@ export default async function generateTeamsStat() {
         memberRatings: [0, []],
         winRates: [0, []],
       }
+      const allMemberRatings = []
+      let totalBerseckCount = 0
+      let totalWinCount = 0
       let tournamentIndex = -1
       for (const tournamentId of tournamentIds) {
         tournamentIndex++
@@ -39,42 +44,45 @@ export default async function generateTeamsStat() {
 
           continue
         }
+        // Predicates
+        const isCurrentTeamAsBlack = game => R.pathEq(['players', 'black', 'team'], teamId)(game)
+        const isCurrentTeamAsWhite = game => R.pathEq(['players', 'white', 'team'], teamId)(game)
+        const isCurrentTeam = game => isCurrentTeamAsBlack(game) || isCurrentTeamAsWhite(game)
 
         // Game Count
         const lichessTournamentGames = await readData(`./lichess/games/${tournamentId}.json`)
-        const lichessTournamentGamesForCurrentTeam = R.filter(
-          R.or(R.pathEq(['players', 'white', 'team'], teamId), R.pathEq(['players', 'black', 'team'], teamId)),
-        )(lichessTournamentGames)
+        const lichessTournamentGamesForCurrentTeam = R.filter(isCurrentTeam)(lichessTournamentGames)
         const gameCount = lichessTournamentGamesForCurrentTeam.length
 
         // Berseck Rate
-        const lichessTournamentGamesAsWhiteForCurrentTeam = R.filter(R.pathEq(['players', 'white', 'team'], teamId))(
+        const lichessTournamentGamesAsBlackForCurrentTeam = R.filter(isCurrentTeamAsBlack)(
           lichessTournamentGamesForCurrentTeam,
         )
-        const lichessTournamentGamesAsBlackForCurrentTeam = R.filter(R.pathEq(['players', 'black', 'team'], teamId))(
+        const lichessTournamentGamesAsWhiteForCurrentTeam = R.filter(isCurrentTeamAsWhite)(
           lichessTournamentGamesForCurrentTeam,
         )
-        const lichessTournamentGamesForCurrentTeamBerseksCountAsWhite = R.pipe(
-          R.filter(R.pathSatisfies(R.equals(true), ['players', 'white', 'berserk'])),
-          R.length,
-        )(lichessTournamentGamesAsWhiteForCurrentTeam)
         const lichessTournamentGamesForCurrentTeamBerseksCountAsBlack = R.pipe(
           R.filter(R.pathSatisfies(R.equals(true), ['players', 'black', 'berserk'])),
           R.length,
         )(lichessTournamentGamesAsBlackForCurrentTeam)
-        const berseckRate = Math.round(
-          (100 *
-            (lichessTournamentGamesForCurrentTeamBerseksCountAsWhite +
-              lichessTournamentGamesForCurrentTeamBerseksCountAsBlack)) /
-            gameCount,
-        )
+        const lichessTournamentGamesForCurrentTeamBerseksCountAsWhite = R.pipe(
+          R.filter(R.pathSatisfies(R.equals(true), ['players', 'white', 'berserk'])),
+          R.length,
+        )(lichessTournamentGamesAsWhiteForCurrentTeam)
+        const lichessTournamentGamesForCurrentTeamBerseksCount =
+          lichessTournamentGamesForCurrentTeamBerseksCountAsWhite +
+          lichessTournamentGamesForCurrentTeamBerseksCountAsBlack
+        const berseckRate = Math.round((100 * lichessTournamentGamesForCurrentTeamBerseksCount) / gameCount)
+
+        // Total Berseck Count
+        totalBerseckCount += lichessTournamentGamesForCurrentTeamBerseksCount
 
         // Members Rating
-        const lichessTournamentGamesForCurrentTeamMemberRatingsAsWhite = R.map(R.path(['players', 'black', 'rating']))(
-          lichessTournamentGamesAsWhiteForCurrentTeam,
-        )
         const lichessTournamentGamesForCurrentTeamMemberRatingsAsBlack = R.map(R.path(['players', 'white', 'rating']))(
           lichessTournamentGamesAsBlackForCurrentTeam,
+        )
+        const lichessTournamentGamesForCurrentTeamMemberRatingsAsWhite = R.map(R.path(['players', 'black', 'rating']))(
+          lichessTournamentGamesAsWhiteForCurrentTeam,
         )
         const lichessTournamentGamesForCurrentTeamMemberRatings = [
           ...lichessTournamentGamesForCurrentTeamMemberRatingsAsWhite,
@@ -82,16 +90,21 @@ export default async function generateTeamsStat() {
         ]
         const memberRatings = R.pipe(R.mean, Math.round)(lichessTournamentGamesForCurrentTeamMemberRatings)
 
+        // All Member Ratings
+        allMemberRatings.push(...lichessTournamentGamesForCurrentTeamMemberRatings)
+
         // Win Rate
         const lichessTournamentGamesWonByCurrentTeam = R.filter(
-          R.or(
-            R.and(R.pathEq(['players', 'white', 'team'], teamId), R.propEq('winner', 'white')),
-            R.and(R.pathEq(['players', 'black', 'team'], teamId), R.propEq('winner', 'black')),
-          ),
+          game =>
+            (isCurrentTeamAsBlack(game) && R.propEq('winner', 'black')(game)) ||
+            (isCurrentTeamAsWhite(game) && R.propEq('winner', 'white')(game)),
         )(lichessTournamentGamesForCurrentTeam)
         const winRate = Math.round(
           (100 * lichessTournamentGamesWonByCurrentTeam.length) / lichessTournamentGamesForCurrentTeam.length,
         )
+
+        // Total Win Count
+        totalWinCount += lichessTournamentGamesWonByCurrentTeam.length
 
         teamWithStat.bersekRates[1].push(berseckRate)
         teamWithStat.gameCounts[1].push(gameCount)
@@ -99,10 +112,13 @@ export default async function generateTeamsStat() {
         teamWithStat.winRates[1].push(winRate)
       }
 
-      teamWithStat.bersekRates[0] = R.pipe(R.reject(R.isNil), R.mean, Math.round)(teamWithStat.bersekRates[1])
-      teamWithStat.gameCounts[0] = R.sum(teamWithStat.gameCounts[1])
-      teamWithStat.memberRatings[0] = R.pipe(R.reject(R.isNil), R.mean, Math.round)(teamWithStat.memberRatings[1])
-      teamWithStat.winRates[0] = R.pipe(R.reject(R.isNil), R.mean, Math.round)(teamWithStat.winRates[1])
+      const totalGameCount = R.sum(teamWithStat.gameCounts[1])
+      const percentage = R.pipe(R.multiply(100), R.divide(R.__, totalGameCount), Math.round)
+
+      teamWithStat.bersekRates[0] = percentage(totalBerseckCount)
+      teamWithStat.gameCounts[0] = totalGameCount
+      teamWithStat.memberRatings[0] = mean(allMemberRatings)
+      teamWithStat.winRates[0] = percentage(totalWinCount)
 
       await writeData(teamDataPath, teamWithStat)
     } catch (err) {

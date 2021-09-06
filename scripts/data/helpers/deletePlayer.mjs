@@ -1,6 +1,6 @@
 import R from 'ramda'
 
-import deleteData from './deleteData.mjs'
+// import deleteData from './deleteData.mjs'
 import readData from './readData.mjs'
 import writeData from './writeData.mjs'
 
@@ -26,5 +26,5 @@ export default async function deletePlayer(player) {
     await writeData(teamsDataPath, team)
   }
 
-  await deleteData(`./players/${player.username}.json`)
+  // await deleteData(`./players/${player.username}.json`)
 }
