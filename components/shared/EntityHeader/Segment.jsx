@@ -54,7 +54,7 @@ export default function Segment({ children }) {
           display: block;
           flex-grow: 1;
           height: 1px;
-          margin: 0 0.5rem 0 0.25rem;
+          margin: 0 0.5rem 0 0.5rem;
         }
       `}</style>
     </>

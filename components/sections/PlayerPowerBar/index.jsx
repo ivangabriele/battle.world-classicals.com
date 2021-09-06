@@ -4,6 +4,7 @@ import PowerBar from '../../shared/PowerBar'
 
 export default function PlayerPowerBar({ bersekRate, gameCount, opponentRating, winRate }) {
   const formattedBerseckRate = `${bersekRate}%`
+  const formattedGameCount = numeral(gameCount).format('0,0')
   const formattedOpponentRating = numeral(opponentRating).format('0,0')
   const formattedWinRate = `${winRate}%`
 
@@ -23,7 +24,7 @@ export default function PlayerPowerBar({ bersekRate, gameCount, opponentRating, 
         <PowerBar.Separator />
         <PowerBar.Box title="Statistics">
           <PowerBar.Data>
-            <PowerBar.Figure icon="chessboard" label="Total Games Count" value={gameCount} />
+            <PowerBar.Figure icon="chessboard" label="Total Games Count" value={formattedGameCount} />
             <PowerBar.Figure icon="trophy-cup" label="Average Win Rate" value={formattedWinRate} />
             <PowerBar.Figure icon="level-four" label="Average Opponents Rating" value={formattedOpponentRating} />
             <PowerBar.Figure icon="serrated-slash" label="Average Berseck Rate" value={formattedBerseckRate} />

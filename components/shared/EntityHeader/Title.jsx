@@ -18,7 +18,9 @@ export default function Title({ children }) {
           margin: -2rem 0 0 0;
           max-width: 80%;
           opacity: 1;
+          text-align: center;
           text-transform: capitalize;
+          user-select: text;
         }
         @media (min-width: 992px) {
           h1 {

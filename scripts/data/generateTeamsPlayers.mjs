@@ -9,6 +9,7 @@ export default async function generateTeamsPlayers() {
 
   const teamIds = await readData('./teamIds.json')
   const tournamentIds = await readData('./tournamentIds.json')
+  const teamCouples = await readData('./teamCouples.json')
 
   let index = -1
   const teamIdsLength = teamIds.length
@@ -18,12 +19,22 @@ export default async function generateTeamsPlayers() {
 
     const team = await readData(`./teams/${teamId}.json`)
 
+    const isCoupled = teamCouples[teamId] !== undefined
+    const teamIds = [teamId]
+    if (isCoupled) {
+      const formerTeamIds = teamCouples[teamId].wasKnownAs.map(({ id }) => id)
+      teamIds.push(...formerTeamIds)
+    }
+    const teamIdPredicate = !isCoupled ? _teamId => _teamId === teamId : _teamId => teamIds.includes(_teamId)
+
     const teamPlayers = []
     let tournamentIndex = -1
     for (const tournamentId of tournamentIds) {
       tournamentIndex++
       const lichessPlayerStandings = await readData(`./lichess/playerStandings/${tournamentId}.json`)
-      const lichessPlayerStandingsForCurrentTeam = R.filter(R.propEq('team', teamId))(lichessPlayerStandings)
+      const lichessPlayerStandingsForCurrentTeam = R.filter(R.propSatisfies(teamIdPredicate, 'team'))(
+        lichessPlayerStandings,
+      )
 
       for (const lichessPlayerStanding of lichessPlayerStandingsForCurrentTeam) {
         const teamPlayerResultIndex = R.findIndex(R.propEq('username', lichessPlayerStanding.username))(teamPlayers)

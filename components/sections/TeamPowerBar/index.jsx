@@ -3,9 +3,10 @@ import numeral from 'numeral'
 import PowerBar from '../../shared/PowerBar'
 
 export default function TeamPowerBar({ bersekRate, gameCount, memberRating, winRate }) {
-  const formattedBerseckRate = `${bersekRate}%`
-  const formattedMemberRating = numeral(memberRating).format('0,0')
-  const formattedWinRate = `${winRate}%`
+  const formattedBerseckRate = bersekRate === null ? '-' : `${bersekRate}%`
+  const formattedGameCount = numeral(gameCount).format('0,0')
+  const formattedMemberRating = memberRating === null ? '-' : numeral(memberRating).format('0,0')
+  const formattedWinRate = winRate === null ? '-' : `${winRate}%`
 
   return (
     <>
@@ -23,7 +24,7 @@ export default function TeamPowerBar({ bersekRate, gameCount, memberRating, winR
         <PowerBar.Separator />
         <PowerBar.Box title="Statistics">
           <PowerBar.Data>
-            <PowerBar.Figure icon="chessboard" label="Total Games Count" value={gameCount} />
+            <PowerBar.Figure icon="chessboard" label="Total Games Count" value={formattedGameCount} />
             <PowerBar.Figure icon="trophy-cup" label="Average Win Rate" value={formattedWinRate} />
             <PowerBar.Figure icon="level-end-flag" label="Average Members Rating" value={formattedMemberRating} />
             <PowerBar.Figure icon="serrated-slash" label="Average Berseck Rate" value={formattedBerseckRate} />
