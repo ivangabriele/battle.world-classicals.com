@@ -10,15 +10,21 @@ export default async function generatePlayersResult() {
   const playerUsernames = await readData('./playerUsernames.json')
   const tournamentIds = await readData('./tournamentIds.json')
 
+  let hasUpdated = false
   let index = -1
   const playerUsernamesLength = playerUsernames.length
+  const tournamentIdsLength = tournamentIds.length
   for (const playerUsername of playerUsernames) {
     ++index
+    const player = await readData(`./players/${playerUsername}.json`)
+    if (Array.isArray(player.scores) && player.scores[1].length === tournamentIdsLength) {
+      continue
+    }
+
     spinner.progress(`Generating Players Result data for: ${playerUsername}…`, index / playerUsernamesLength)
+    hasUpdated = true
 
     try {
-      const player = await readData(`./players/${playerUsername}.json`)
-
       const playerWithResult = {
         ...player,
         performances: [null, []],
@@ -63,5 +69,9 @@ export default async function generatePlayersResult() {
     }
   }
 
-  spinner.succeed(`Players Result data generated.`)
+  if (!hasUpdated) {
+    spinner.succeed('Players Result data up to date.')
+  } else {
+    spinner.succeed(`Players Result data generated.`)
+  }
 }

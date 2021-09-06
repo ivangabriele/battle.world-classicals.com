@@ -1,4 +1,3 @@
-import deleteData from './helpers/deleteData.mjs'
 import readData from './helpers/readData.mjs'
 import spinner from './helpers/spinner.mjs'
 import writeData from './helpers/writeData.mjs'
@@ -14,13 +13,10 @@ export default async function cleanTeamIds() {
   for (const teamId of teamIds) {
     ++index
     spinner.progress(`Cleaning Team Ids data for: ${teamId}…`, index / teamIdsLength)
-
     const dataPath = `./teams/${teamId}.json`
+
     const team = await readData(dataPath)
-
     if (team.scores[0] === 0) {
-      await deleteData(dataPath)
-
       continue
     }
 

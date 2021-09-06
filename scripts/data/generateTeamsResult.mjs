@@ -10,11 +10,19 @@ export default async function generateTeamsResult() {
   const tournamentIds = await readData('./tournamentIds.json')
   const teamCouples = await readData('./teamCouples.json')
 
+  let hasUpdated = false
   let index = -1
   const teamIdsLength = teamIds.length
+  const tournamentIdsLength = tournamentIds.length
   for (const teamId of teamIds) {
     ++index
+    const team = await readData(`./teams/${teamId}.json`)
+    if (Array.isArray(team.scores) && team.scores[1].length === tournamentIdsLength) {
+      continue
+    }
+
     spinner.progress(`Generating Teams Result data for: ${teamId}…`, index / teamIdsLength)
+    hasUpdated = true
 
     try {
       const isCoupled = teamCouples[teamId] !== undefined
@@ -24,8 +32,6 @@ export default async function generateTeamsResult() {
         teamIds.push(...formerTeamIds)
       }
       const teamIdPredicate = !isCoupled ? _teamId => _teamId === teamId : _teamId => teamIds.includes(_teamId)
-
-      const team = await readData(`./teams/${teamId}.json`)
 
       const teamWithResult = {
         ...team,
@@ -56,5 +62,9 @@ export default async function generateTeamsResult() {
     }
   }
 
-  spinner.succeed(`Teams Result data generated.`)
+  if (!hasUpdated) {
+    spinner.succeed('Teams Result data up to date.')
+  } else {
+    spinner.succeed(`Teams Result data generated.`)
+  }
 }
