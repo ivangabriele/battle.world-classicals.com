@@ -10,7 +10,8 @@ export default function Title({ children }) {
           animation-iteration-count: 1;
           animation-name: move;
           animation-timing-function: ease-out;
-          color: white;
+          background: linear-gradient(white, #38495a);
+          -webkit-background-clip: text;
           font-family: Cinzel;
           font-size: 150%;
           font-weight: 500;
@@ -21,6 +22,7 @@ export default function Title({ children }) {
           text-align: center;
           text-transform: capitalize;
           user-select: text;
+          -webkit-text-fill-color: transparent;
         }
         @media (min-width: 992px) {
           h1 {

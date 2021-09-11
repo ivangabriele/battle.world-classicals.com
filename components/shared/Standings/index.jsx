@@ -14,15 +14,15 @@ function Standings({ data, title }) {
 
           <div className="container-md" role="table">
             <div role="rowgroup">
-              <div className="row visually-hidden" role="row">
-                <div className="col" role="columnheader">
-                  Rank
-                </div>
-                <div className="col" role="columnheader">
+              <div className="row" role="row">
+                <div className="col col-name" role="columnheader">
                   Name
                 </div>
-                <div className="col" role="columnheader">
-                  Total Score
+                <div className="col col-number" role="columnheader">
+                  Rank
+                </div>
+                <div className="col col-number" role="columnheader">
+                  Score
                 </div>
               </div>
             </div>
@@ -34,6 +34,25 @@ function Standings({ data, title }) {
       <style jsx>{`
         h2 {
           font-weight: 500;
+        }
+
+        .row {
+          align-items: center;
+          background-color: var(--background-lighter);
+          border: solid 1px rgba(255, 255, 255, 0.05);
+          height: 50px;
+        }
+
+        .col-name {
+          display: flex;
+          flex-grow: 1;
+        }
+        .col-number {
+          flex-grow: 0;
+          /*flex-shrink: 0;*/
+          max-width: 87px;
+          min-width: 87px;
+          text-align: right;
         }
       `}</style>
     </>

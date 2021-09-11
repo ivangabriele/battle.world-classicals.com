@@ -16,7 +16,7 @@ export default function Number({ length, value }) {
         }
 
         span.pad {
-          opacity: 0.05;
+          visibility: hidden;
           padding: 0 0.125rem 0.125rem 0;
         }
       `}</style>
