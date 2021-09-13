@@ -1390,12 +1390,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bootstrap@npm:5.1.0":
-  version: 5.1.0
-  resolution: "bootstrap@npm:5.1.0"
+"bootstrap@npm:5.1.1":
+  version: 5.1.1
+  resolution: "bootstrap@npm:5.1.1"
   peerDependencies:
-    "@popperjs/core": ^2.9.3
-  checksum: 1e556b71c47b55f6411f789e6d43986f6a3646875f1bef47ee8b1bc16e5d395e75b275d207d6bda7d9752d0573eb4ee5faecb03ebea17dca6259ac8dd68a6aea
+    "@popperjs/core": ^2.10.1
+  checksum: 6429293514bcaaf0072568ec7851a58179c582a966109a55176afd29c03fc502eade0fdc2c46ea49efb24bf111a161c8735e80f3162f6455b81225720c6b556f
   languageName: node
   linkType: hard
 
@@ -4533,9 +4533,9 @@ fsevents@~2.3.1:
   languageName: node
   linkType: hard
 
-"next-sitemap@npm:1.6.164":
-  version: 1.6.164
-  resolution: "next-sitemap@npm:1.6.164"
+"next-sitemap@npm:1.6.168":
+  version: 1.6.168
+  resolution: "next-sitemap@npm:1.6.168"
   dependencies:
     "@corex/deepmerge": ^2.6.34
     matcher: ^4.0.0
@@ -4544,7 +4544,7 @@ fsevents@~2.3.1:
     next: "*"
   bin:
     next-sitemap: bin/next-sitemap
-  checksum: 6134ef0ce5a459094bd082f6e7a91abfb9ece007dd51f05eb8c72a06490f3615de462433518a34c200b554f073d1561e9aa5f46a9ca90e7b11b72b60dc1d83df
+  checksum: 2bdccf69a355915ed990c9235094cd395d90d1c80052ead8e3b0a16d0d6c4b7f10b7fa66efb3e82139de4bfefcf4b9d5388fa9e56a5db66bd8903accb4e67963
   languageName: node
   linkType: hard
 
@@ -5232,6 +5232,15 @@ fsevents@~2.3.1:
   bin:
     prettier: bin-prettier.js
   checksum: 17ce5784ac67621c292df58e2da60b2ee150c2d6aebea22a6ad9e52fcd6a5e66c349d0a8436ea3bd8ff9d778920a5f68000d7625b74f43558718a49755aa5259
+  languageName: node
+  linkType: hard
+
+"prettier@npm:2.4.0":
+  version: 2.4.0
+  resolution: "prettier@npm:2.4.0"
+  bin:
+    prettier: bin-prettier.js
+  checksum: ac1bf07566dad5f58469e6d8a954bd5c0f833935597deb00330e9f673e14e4cf81e07dee7eff5776c0edebe11358d199f332d9940be40c8b455516034e553ce0
   languageName: node
   linkType: hard
 
@@ -6404,14 +6413,14 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"swr@npm:1.0.0":
-  version: 1.0.0
-  resolution: "swr@npm:1.0.0"
+"swr@npm:1.0.1":
+  version: 1.0.1
+  resolution: "swr@npm:1.0.1"
   dependencies:
     dequal: 2.0.2
   peerDependencies:
     react: ^16.11.0 || ^17.0.0
-  checksum: 8ffb767ca5c2f0d5e2280d31a6f497fac2739cf7c3518b0266b8d5c619ea9a74b1953b82e13b47463f6dd4f122885f941ce785b2fbf4d45e4b2e1d88f62b9c74
+  checksum: 8aaa10c4c65cb9b46a143a52ac2728111fc8af96e83781df1f7b7d56aa027ef720b7feb230658616e479f224f684d4cbc5d2ca3265c40f95a3140dbdba801061
   languageName: node
   linkType: hard
 
@@ -7012,7 +7021,7 @@ resolve@^2.0.0-next.3:
     "@types/node": 16.7.5
     "@types/prettier": 2.3.2
     "@types/ramda": 0.27.44
-    bootstrap: 5.1.0
+    bootstrap: 5.1.1
     chalk: 4.1.2
     classnames: 2.3.1
     emoji-regex: 9.2.2
@@ -7036,11 +7045,11 @@ resolve@^2.0.0-next.3:
     moment: 2.29.1
     next: 11.1.2
     next-mdx-remote: 3.0.4
-    next-sitemap: 1.6.164
+    next-sitemap: 1.6.168
     numeral: 2.0.6
     ora: 6.0.0
     ordinal: 1.0.3
-    prettier: 2.3.2
+    prettier: 2.4.0
     prop-types: 15.7.2
     ramda: 0.27.1
     react: 17.0.2
@@ -7048,7 +7057,7 @@ resolve@^2.0.0-next.3:
     react-dom: 17.0.2
     react-tooltip: 4.2.21
     styled-jsx: 4.0.1
-    swr: 1.0.0
+    swr: 1.0.1
   languageName: unknown
   linkType: soft
 
