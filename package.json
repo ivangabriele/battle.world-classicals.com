@@ -17,7 +17,7 @@
     "@reactnimations/coalesce": "1.2.0",
     "@reactnimations/pipeline": "1.2.0",
     "@reactnimations/swirl": "1.2.0",
-    "bootstrap": "5.1.0",
+    "bootstrap": "5.1.1",
     "classnames": "2.3.1",
     "emoji-regex": "9.2.2",
     "globby": "12.0.2",
@@ -57,10 +57,10 @@
     "eslint-plugin-sort-keys-fix": "1.1.2",
     "from-ndjson": "1.0.4",
     "got": "11.8.2",
-    "next-sitemap": "1.6.164",
+    "next-sitemap": "1.6.168",
     "ora": "6.0.0",
-    "prettier": "2.3.2",
-    "swr": "1.0.0"
+    "prettier": "2.4.0",
+    "swr": "1.0.1"
   },
   "prettier": "@ivangabriele/prettier-config",
   "engines": {
