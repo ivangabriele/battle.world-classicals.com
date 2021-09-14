@@ -12,13 +12,14 @@ import playerUsernames from '../../data/playerUsernames.json'
 
 const getMetaDescription = player => {
   const allTimeScore = numeral(player.scores[0]).format('0,0')
-  const tournamentsCount = player.scores[1].filter(score => score !== 0).length
+  const tournamentsCount = player.scores[1].filter(score => score > 0).length
   const medianPerformance = numeral(R.median(player.performances[1])).format('0,0')
 
-  return `${
+  return (
     `${player.title} ${player.username} has scored a total of ${allTimeScore} points ` +
-    `during ${tournamentsCount} Weekly World Classicals Team Battles, `
-  }${`with a median performance of ${medianPerformance}.`.trim()}`
+    `in ${tournamentsCount} Weekly World Classicals Team Battles, ` +
+    `with a median performance of ${medianPerformance}.`
+  ).trim()
 }
 
 export default function PlayerPage({ data: { player } }) {

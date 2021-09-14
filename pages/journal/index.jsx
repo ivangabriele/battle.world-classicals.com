@@ -20,7 +20,7 @@ export default function JournalPage({ articles }) {
         <meta
           content={
             `The World Classicals Team Battle is the biggest classical chess Team Battle on Lichess, ` +
-            `gathering more than 100 teams and 700 players from all over the world, each Saturday at 12pm UTC.`
+            `gathering more than 150 teams and 700 players from all over the world, each Saturday at 12pm UTC.`
           }
           name="description"
         />

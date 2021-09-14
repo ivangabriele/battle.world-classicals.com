@@ -12,11 +12,11 @@ import teamIds from '../../data/teamIds.json'
 
 const getMetaDescription = team => {
   const allTimeScore = numeral(team.scores[0]).format('0,0')
-  const tournamentsCount = team.scores[1].filter(score => score !== 0).length
+  const tournamentsCount = team.scores[1].filter(score => score > 0).length
 
   return `${
     `${team.name} has scored a total of ${allTimeScore} points ` +
-    `during ${tournamentsCount} Weekly World Classicals Team Battles.`
+    `in ${tournamentsCount} Weekly World Classicals Team Battles.`
   }`
 }
 
