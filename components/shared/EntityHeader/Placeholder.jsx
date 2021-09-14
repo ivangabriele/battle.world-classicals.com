@@ -1,7 +1,11 @@
-export default function Placeholder() {
+import classnames from 'classnames'
+
+export default function Placeholder({ className }) {
+  const boxClassName = classnames('d-flex justify-content-center align-items-center pb-6 pt-6', className)
+
   return (
     <>
-      <div className="d-flex justify-content-center align-items-center pb-6 pt-6">
+      <div className={boxClassName}>
         <span aria-hidden="true">&nbsp;</span>
       </div>
 

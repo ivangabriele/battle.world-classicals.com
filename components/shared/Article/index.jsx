@@ -1,21 +1,29 @@
 import Blockquote from './Blockquote'
+import Intro from './Intro'
 import Link from './Link'
 import Pararaph from './Pararaph'
 
 function Article({ children }) {
   return (
     <>
-      <article className="Article">{children}</article>
+      <div>
+        <article className="Article">{children}</article>
+      </div>
 
       <style jsx>{`
+        div {
+          display: flex;
+          margin: 2rem 1rem 0 1rem;
+          justify-content: center;
+        }
+
         article.Article {
           animation-name: move;
           animation-duration: 1.5s;
           color: white;
           font-family: var(--font-content);
           font-size: 21px;
-          font-weight: 300;
-          margin: 0 auto;
+          font-weight: 200;
           max-width: 680px;
         }
 
@@ -36,6 +44,7 @@ function Article({ children }) {
 
 export default Object.assign(Article, {
   Blockquote,
+  Intro,
   Link,
   Pararaph,
 })

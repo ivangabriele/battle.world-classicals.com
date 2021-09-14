@@ -9,7 +9,7 @@ function Author({ children }) {
         p {
           font-style: italic;
           margin: -24px 0 42px 0;
-          padding: 0 0 0 50px;
+          padding: 0 0 4px 50px;
         }
 
         i {

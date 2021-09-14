@@ -1,7 +1,7 @@
-export default function Box({ children }) {
+export default function Box({ children, className }) {
   return (
     <>
-      <div>{children}</div>
+      <div className={className}>{children}</div>
 
       <style jsx>{`
         div {

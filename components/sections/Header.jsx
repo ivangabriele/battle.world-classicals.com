@@ -1,18 +1,22 @@
+import classnames from 'classnames'
 import css from 'styled-jsx/css'
 
 import EntityHeader from '../shared/EntityHeader'
 
-const EntityHeaderPLaceholderStyle = css.resolve`
-  div {
-    opacity: 0.5;
-    position: relative;
-  }
-`
+export default function Header({ className, segment, title }) {
+  const headerClassName = classnames('bg-dark bg-size-cover overflow-hidden hero', className)
 
-export default function Header({ segment, title }) {
+  const EntityHeaderPLaceholderStyle = css.resolve`
+    div {
+      background: black;
+      opacity: 0.85;
+      position: relative;
+    }
+  `
+
   return (
     <>
-      <header className="bg-dark bg-size-cover overflow-hidden hero">
+      <header className={headerClassName}>
         <div className="container-fluid">
           <EntityHeader.Placeholder className={EntityHeaderPLaceholderStyle.className} />
           <EntityHeader.Box>
@@ -26,6 +30,11 @@ export default function Header({ segment, title }) {
       <style jsx>{`
         * {
           user-select: none;
+        }
+
+        header {
+          background-position: center;
+          background-size: cover;
         }
 
         div {

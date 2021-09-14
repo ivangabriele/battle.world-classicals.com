@@ -7,7 +7,6 @@ import AllTimePlayerStandings from '../components/sections/AllTimePlayerStanding
 import AllTimeTeamStandings from '../components/sections/AllTimeTeamStandings'
 import Countdown from '../components/sections/Countdown'
 import Hero from '../components/sections/Hero'
-import LiveTeamsStandings from '../components/sections/LiveTeamStandings'
 import playerTotalScores from '../data/playerTotalScores.json'
 import teamTotalScores from '../data/teamTotalScores.json'
 import normalizeLichessTournamentsList from '../libs/helpers/normalizeLichessTournamentsList'
@@ -32,8 +31,6 @@ export default function IndexPage({ data }) {
         <Countdown hasStarted={data.hasStarted} tournamentData={data.tournament} />
 
         <main>
-          {data.hasStarted && <LiveTeamsStandings tournamentId={data.tournament.id} />}
-
           <AllTimeTeamStandings data={teamTotalScores.slice(0, 10)} title="Top 10 All-Time Teams" />
           <AllTimePlayerStandings data={playerTotalScores.slice(0, 10)} title="Top 10 All-Time Players" />
         </main>
@@ -57,7 +54,7 @@ async function getActiveTournamentBasicData() {
   return activeTournament
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const now = moment()
   const tournament = await getActiveTournamentBasicData()
   const hasStarted = tournament.startsAt <= Number(now.format('x'))

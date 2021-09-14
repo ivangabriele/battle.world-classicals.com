@@ -30,6 +30,7 @@ export default function CustomNavbar() {
               <NavDropdown.Item href="/standings/all-time-teams">All Time Teams</NavDropdown.Item>
               <NavDropdown.Item href="/standings/all-time-players">All Time Players</NavDropdown.Item>
             </NavDropdown>
+            <Nav.Link href="/journal">Journal</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
