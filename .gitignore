@@ -190,3 +190,5 @@ temp/
 /public/robots.txt
 /public/sitemap.xml
 /public/sitemap-*.xml
+
+*.tar.gz

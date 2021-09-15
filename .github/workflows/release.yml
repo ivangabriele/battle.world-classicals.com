@@ -1,0 +1,24 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Generate data archive
+        run: tar -cz --file=data.tar.gz ./data
+      - name: Generate public archive
+        run: tar -cz --file=public.tar.gz ./public
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            data.tar.gz
+            public.tar.gz
+          tag_name: v0.0.0
