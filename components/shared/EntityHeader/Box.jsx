@@ -1,10 +1,10 @@
-export default function Box({ children, className }) {
+export default function Box({ children }) {
   return (
     <>
-      <div className={className}>{children}</div>
+      <div className="Box">{children}</div>
 
       <style jsx>{`
-        div {
+        .Box {
           align-items: center;
           justify-content: center;
           display: flex;
@@ -16,7 +16,7 @@ export default function Box({ children, className }) {
           width: 100%;
         }
         @media (min-width: 992px) {
-          div {
+          .Box {
             align-items: flex-end;
             justify-content: flex-start;
             padding: 1rem 2rem 1.5rem 2.4rem;

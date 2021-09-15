@@ -5,11 +5,10 @@ import AllTimeTeamStandings from '../../components/sections/AllTimeTeamStandings
 import Footer from '../../components/sections/Footer'
 import Header from '../../components/sections/Header'
 import teamTotalScores from '../../data/teamTotalScores.json'
+import headerBackgroundImage from '../../public/headers/all-time-teams.jpg'
 
 export default function IndexPage() {
   const metaImage = 'https://battle.world-classicals.com/headers/all-time-players.jpg'
-
-  const backgroundImagePath = '/headers/all-time-teams.jpg'
 
   const attribution = {
     name: 'Hasan Almasi',
@@ -25,7 +24,7 @@ export default function IndexPage() {
       </Head>
 
       <Main>
-        <Header backgroundImagePath={backgroundImagePath} segment="STANDINGS" title="All-Time Team Standings" />
+        <Header backgroundImage={headerBackgroundImage} segment="STANDINGS" title="All-Time Team Standings" />
 
         <main>
           <AllTimeTeamStandings data={teamTotalScores} />

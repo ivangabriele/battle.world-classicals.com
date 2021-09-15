@@ -7,8 +7,10 @@ import '../styles/fonts.css'
 import '../styles/variables.css'
 import '../styles/global.css'
 
+const { NODE_ENV } = process.env
+
 export default function WwctbApp({ Component, pageProps }) {
-  const WrappedComponent = withMatomo(Component)
+  const WrappedComponent = NODE_ENV === 'production' ? withMatomo(Component) : Component
 
   return (
     <>

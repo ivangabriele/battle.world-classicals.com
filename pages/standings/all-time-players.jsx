@@ -5,11 +5,10 @@ import AllTimePlayerStandings from '../../components/sections/AllTimePlayerStand
 import Footer from '../../components/sections/Footer'
 import Header from '../../components/sections/Header'
 import playerTotalScores from '../../data/playerTotalScores.json'
+import headerBackgroundImage from '../../public/headers/all-time-players.jpg'
 
 export default function StandingsAllTimePlayersPage() {
   const metaImage = 'https://battle.world-classicals.com/headers/all-time-players.jpg'
-
-  const backgroundImagePath = '/headers/all-time-players.jpg'
 
   const attribution = {
     name: 'Irham Bahtiar',
@@ -25,7 +24,7 @@ export default function StandingsAllTimePlayersPage() {
       </Head>
 
       <Main>
-        <Header backgroundImagePath={backgroundImagePath} segment="STANDINGS" title="All-Time Player Standings" />
+        <Header backgroundImage={headerBackgroundImage} segment="STANDINGS" title="All-Time Player Standings" />
 
         <main>
           <AllTimePlayerStandings data={playerTotalScores} />

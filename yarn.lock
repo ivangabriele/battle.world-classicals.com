@@ -738,7 +738,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@restart/ui@npm:^0.2.1":
+"@restart/ui@npm:0.2.2, @restart/ui@npm:^0.2.1":
   version: 0.2.2
   resolution: "@restart/ui@npm:0.2.2"
   dependencies:
@@ -8734,6 +8734,7 @@ resolve@^2.0.0-next.3:
     "@reactnimations/coalesce": 1.2.0
     "@reactnimations/pipeline": 1.2.0
     "@reactnimations/swirl": 1.2.0
+    "@restart/ui": 0.2.2
     "@types/node": 16.7.5
     "@types/prettier": 2.3.2
     "@types/ramda": 0.27.44

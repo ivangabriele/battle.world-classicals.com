@@ -9,14 +9,13 @@ import Main from '../../components/layouts/Main'
 import Footer from '../../components/sections/Footer'
 import Header from '../../components/sections/Header'
 import Journal from '../../components/sections/Journal'
+import headerBackgroundImage from '../../public/headers/journal.jpg'
 
 const getDateFromRelativePath = filePath => filePath.match(/^data\/articles\/(\d{4}-\d{2}-\d{2})/)[1]
 const getSlugFromRelativePath = filePath => filePath.match(/^data\/articles\/\d{4}-\d{2}-\d{2}-([^.]+)/)[1]
 
 export default function JournalPage({ articles }) {
   const metaImage = 'https://battle.world-classicals.com/headers/journal.jpg'
-
-  const backgroundImagePath = '/headers/journal.jpg'
 
   const attribution = {
     name: 'Irham Bahtiar',
@@ -39,7 +38,7 @@ export default function JournalPage({ articles }) {
       </Head>
 
       <Main>
-        <Header backgroundImagePath={backgroundImagePath} segment="JOURNAL" title="Recent Articles" />
+        <Header backgroundImage={headerBackgroundImage} segment="JOURNAL" title="Recent Articles" />
 
         <main>
           <Journal articles={articles} />
