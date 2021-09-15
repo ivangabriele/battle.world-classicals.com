@@ -69,8 +69,5 @@
     "swr": "1.0.1"
   },
   "prettier": "@ivangabriele/prettier-config",
-  "engines": {
-    "node": "16"
-  },
   "packageManager": "yarn@3.0.1"
 }
