@@ -30,8 +30,12 @@ const getDateFromRelativePath = filePath => filePath.match(/^data\/articles\/(\d
 const getSlugFromRelativePath = filePath => filePath.match(/^data\/articles\/\d{4}-\d{2}-\d{2}-([^.]+)/)[1]
 const matchSlug = slug => filePath => new RegExp(`^data\\/articles\\/\\d{4}-\\d{2}-\\d{2}-${slug}`).test(filePath)
 
+const getMetaDescription = intro => intro.replace(/\n/g, ' ').trim()
+
 export default function BlogArticlePage({ data, source }) {
   const metaTitle = `${data.title} by ${data.author} ● World Classicals Team Battle`
+  const metaDescription = getMetaDescription(data.intro)
+  const metaImage = `https://battle.world-classicals.com//articles/${data.id}.jpg`
   // const photographerUrl = `https://unsplash.com/@${data.photographer_username}?${attributionQueryParams}`
   // const unsplashUrl = `https://unsplash.com/?${attributionQueryParams}`
 
@@ -45,7 +49,9 @@ export default function BlogArticlePage({ data, source }) {
     <>
       <Head>
         <title>{metaTitle}</title>
-        <meta content={data.intro} name="description" />
+        <meta content={metaDescription} name="description" />
+        <meta content={metaImage} property="og:image" />
+        <meta content={metaImage} property="twitter:image" />
       </Head>
 
       <Main>
