@@ -6,6 +6,7 @@ import Main from '../components/layouts/Main'
 import AllTimePlayerStandings from '../components/sections/AllTimePlayerStandings'
 import AllTimeTeamStandings from '../components/sections/AllTimeTeamStandings'
 import Countdown from '../components/sections/Countdown'
+import Footer from '../components/sections/Footer'
 import Hero from '../components/sections/Hero'
 import playerTotalScores from '../data/playerTotalScores.json'
 import teamTotalScores from '../data/teamTotalScores.json'
@@ -34,6 +35,8 @@ export default function IndexPage({ data }) {
           <AllTimeTeamStandings data={teamTotalScores.slice(0, 10)} title="Top 10 All-Time Teams" />
           <AllTimePlayerStandings data={playerTotalScores.slice(0, 10)} title="Top 10 All-Time Players" />
         </main>
+
+        <Footer />
       </Main>
     </>
   )

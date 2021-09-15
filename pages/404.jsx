@@ -2,6 +2,7 @@ import Head from 'next/head'
 import PropTypes from 'prop-types'
 
 import Main from '../components/layouts/Main'
+import Footer from '../components/sections/Footer'
 import Header from '../components/sections/Header'
 
 function NotFoundPage({ message, title }) {
@@ -16,6 +17,10 @@ function NotFoundPage({ message, title }) {
 
       <Main>
         <Header segment="ERROR" title={title} />
+
+        <main />
+
+        <Footer />
       </Main>
     </>
   )
