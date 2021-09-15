@@ -5,7 +5,7 @@ import Main from '../components/layouts/Main'
 import Header from '../components/sections/Header'
 
 function NotFoundPage({ message, title }) {
-  const metaTitle = `${title} ● World Classicals Team Battle`
+  const metaTitle = `${title} • World Classicals Team Battle`
 
   return (
     <>

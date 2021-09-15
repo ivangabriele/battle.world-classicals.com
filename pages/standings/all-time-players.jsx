@@ -9,7 +9,7 @@ export default function StandingsAllTimePlayersPage() {
   return (
     <>
       <Head>
-        <title>All-Time WCTB Players Standings ● World Classicals Team Battle</title>
+        <title>All-Time WCTB Players Standings</title>
       </Head>
 
       <Main>

@@ -16,7 +16,7 @@ export default function JournalPage({ articles }) {
   return (
     <>
       <Head>
-        <title>Journal ● World Classicals Team Battle</title>
+        <title>World Classicals Team Battle Journal</title>
         <meta
           content={
             `The World Classicals Team Battle is the biggest classical chess Team Battle on Lichess, ` +

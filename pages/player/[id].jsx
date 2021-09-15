@@ -28,7 +28,7 @@ export default function PlayerPage({ data: { player } }) {
   return (
     <>
       <Head>
-        <title>Player: {player.username} ● World Classicals Team Battle</title>
+        <title>WCTB Player: {player.username}</title>
         <meta content={metaDescription} name="description" />
       </Head>
 

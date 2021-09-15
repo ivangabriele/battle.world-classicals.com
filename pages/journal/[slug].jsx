@@ -33,7 +33,7 @@ const matchSlug = slug => filePath => new RegExp(`^data\\/articles\\/\\d{4}-\\d{
 const getMetaDescription = intro => intro.replace(/\n/g, ' ').trim()
 
 export default function BlogArticlePage({ data, source }) {
-  const metaTitle = `${data.title} by ${data.author} ● World Classicals Team Battle`
+  const metaTitle = `${data.title} by ${data.author}`
   const metaDescription = getMetaDescription(data.intro)
   const metaImage = `https://battle.world-classicals.com//articles/${data.id}.jpg`
   // const photographerUrl = `https://unsplash.com/@${data.photographer_username}?${attributionQueryParams}`

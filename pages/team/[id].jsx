@@ -33,7 +33,7 @@ export default function TeamPage({ data: { team } }) {
   return (
     <>
       <Head>
-        <title>Team: {team.name} ● World Classicals Team Battle</title>
+        <title>WCTB Team: {team.name}</title>
         <meta content={metaDescription} name="description" />
       </Head>
 

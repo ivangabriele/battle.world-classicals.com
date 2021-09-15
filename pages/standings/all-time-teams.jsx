@@ -9,7 +9,7 @@ export default function IndexPage() {
   return (
     <>
       <Head>
-        <title>All-Time WCTB Teams Standings ● World Classicals Team Battle</title>
+        <title>All-Time WCTB Teams Standings</title>
       </Head>
 
       <Main>
