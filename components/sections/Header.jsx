@@ -8,8 +8,8 @@ export default function Header({ className, segment, title }) {
 
   const EntityHeaderPLaceholderStyle = css.resolve`
     div {
-      background: black;
-      opacity: 0.85;
+      background-color: ${className ? 'black' : 'transparent'};
+      opacity: ${className ? 0.85 : 1};
       position: relative;
     }
   `
