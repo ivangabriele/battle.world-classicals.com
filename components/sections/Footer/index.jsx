@@ -21,10 +21,11 @@ function Footer({ attribution }) {
               Creative Commons Attribution-ShareAlike 4.0 International License
             </a>
             . Our source code — available on{' '}
-            <a href="https://github.com/ivangabriele/battle.world-classicals.com">Github</a> — is licensed under{' '}
-            <a href="https://creativecommons.org/licenses/by-sa/4.0/">AGPL v3.0 or later</a>. We <strong>only</strong>{' '}
-            collect anonymous statistics within <a href="https://matomo.org">Matomo</a>. We <strong>only</strong> use
-            functionnality cookies, as per <a href="https://gdpr.eu/cookies/">European Union GDPR definition</a>.
+            <a href="https://github.com/ivangabriele/battle.world-classicals.com">Github</a> — is licensed under a{' '}
+            <a href="https://www.gnu.org/licenses/agpl-3.0.en.html">GNU Affero General Public License</a>. We{' '}
+            <strong>only</strong> collect anonymous statistics within <a href="https://matomo.org">Matomo</a>. We{' '}
+            <strong>only</strong> use functionnality cookies, as per{' '}
+            <a href="https://gdpr.eu/cookies/">European Union GDPR definition</a>.
           </p>
         </div>
         <div>
