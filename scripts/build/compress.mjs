@@ -1,7 +1,6 @@
 import { existsSync, promises as fs } from 'fs'
 import imagemin from 'imagemin'
 import imageminMozjpeg from 'imagemin-mozjpeg'
-import shelljs from 'shelljs'
 
 async function makeDir(path) {
   if (!existsSync(path)) {
@@ -10,17 +9,14 @@ async function makeDir(path) {
 }
 
 async function removeDir(path) {
-  if (!existsSync(path)) {
-    await fs.unlink(path, { recursive: true })
+  if (existsSync(path)) {
+    await fs.rm(path, { force: true, recursive: true })
   }
 }
 
-function run(command) {
-  shelljs.echo(`Running: \`${command}\`…`)
-  const result = shelljs.exec(command)
-
-  if (result.code !== 0) {
-    shelljs.exit(1)
+async function removeFile(path) {
+  if (existsSync(path)) {
+    await fs.rm(path, { force: true })
   }
 }
 
@@ -29,7 +25,9 @@ async function comporess() {
     await removeDir('./.temp')
 
     await makeDir('./.temp/public/articles')
-    const articleImages = await imagemin(['./public/articles/*.jpg'], {
+    await makeDir('./.temp/public/headers')
+
+    const articleImages = await imagemin(['./public/articles/*.raw.jpg'], {
       destination: './.temp/public/articles',
       plugins: [
         imageminMozjpeg({
@@ -40,12 +38,14 @@ async function comporess() {
     })
     await Promise.all(
       articleImages.map(async ({ destinationPath, sourcePath }) => {
-        await fs.rename(destinationPath, sourcePath.replace(/\.raw/, ''))
+        const newPath = sourcePath.replace(/\.raw/, '')
+
+        await removeFile(newPath)
+        await fs.rename(destinationPath, newPath)
       }),
     )
 
-    await makeDir('./.temp/public/headers')
-    const headerImages = await imagemin(['./public/headers/*.jpg'], {
+    const headerImages = await imagemin(['./public/headers/*.raw.jpg'], {
       destination: './.temp/public/headers',
       plugins: [
         imageminMozjpeg({
@@ -56,15 +56,54 @@ async function comporess() {
     })
     await Promise.all(
       headerImages.map(async ({ destinationPath, sourcePath }) => {
-        await fs.rename(destinationPath, sourcePath.replace(/\.raw/, ''))
+        const newPath = sourcePath.replace(/\.raw/, '')
+
+        await removeFile(newPath)
+        await fs.rename(destinationPath, newPath)
+      }),
+    )
+
+    const articleImagesLow = await imagemin(['./public/articles/*.raw.jpg'], {
+      destination: './.temp/public/articles',
+      plugins: [
+        imageminMozjpeg({
+          progressive: false,
+          quality: 10,
+        }),
+      ],
+    })
+    await Promise.all(
+      articleImagesLow.map(async ({ destinationPath, sourcePath }) => {
+        const newPath = sourcePath.replace(/\.raw/, '.low')
+
+        await removeFile(newPath)
+        await fs.rename(destinationPath, newPath)
+      }),
+    )
+
+    const headerImagesLow = await imagemin(['./public/headers/*.raw.jpg'], {
+      destination: './.temp/public/headers',
+      plugins: [
+        imageminMozjpeg({
+          progressive: false,
+          quality: 10,
+        }),
+      ],
+    })
+    await Promise.all(
+      headerImagesLow.map(async ({ destinationPath, sourcePath }) => {
+        const newPath = sourcePath.replace(/\.raw/, '.low')
+
+        await removeFile(newPath)
+        await fs.rename(destinationPath, newPath)
       }),
     )
 
     await removeDir('./.temp')
   } catch (err) {
-    shelljs.echo(`[scripts/build/compress()] Error: ${err.message}`)
+    console.error(`[scripts/build/compress()] Error: ${err.message}`)
 
-    shelljs.exit(1)
+    process.exit(1)
   }
 }
 
