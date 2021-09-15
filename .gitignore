@@ -172,6 +172,8 @@ temp/
 ################################################################################
 # Custom
 
+/.temp
+
 /data/lichess/games/*
 !/data/lichess/games/.gitkeep
 /data/lichess/playerStandings/*
@@ -184,6 +186,7 @@ temp/
 !/data/lichess/teamStandings/.gitkeep
 /data/lichess/tournaments/*
 !/data/lichess/tournaments/.gitkeep
+
 /public/robots.txt
 /public/sitemap.xml
 /public/sitemap-*.xml
