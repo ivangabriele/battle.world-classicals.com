@@ -11,15 +11,7 @@ export default function AllTimeTeamStandings({ data, title }) {
 
   return (
     <>
-      <div>
-        <Standings data={standings} title={title} />
-      </div>
-
-      <style jsx>{`
-        div {
-          padding: 2rem 0 0 0;
-        }
-      `}</style>
+      <Standings data={standings} title={title} />
     </>
   )
 }

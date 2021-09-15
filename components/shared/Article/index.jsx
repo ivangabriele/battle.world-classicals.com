@@ -13,7 +13,7 @@ function Article({ children }) {
       <style jsx>{`
         div {
           display: flex;
-          margin: 2rem 1rem 0 1rem;
+          flex-direction: row;
           justify-content: center;
         }
 

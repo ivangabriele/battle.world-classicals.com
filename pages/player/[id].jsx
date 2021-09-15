@@ -5,6 +5,7 @@ import path from 'path'
 import * as R from 'ramda'
 
 import Main from '../../components/layouts/Main'
+import Footer from '../../components/sections/Footer'
 import PlayerHeader from '../../components/sections/PlayerHeader'
 import PlayerPowerBar from '../../components/sections/PlayerPowerBar'
 import Results from '../../components/shared/Result'
@@ -45,7 +46,15 @@ export default function PlayerPage({ data: { player } }) {
 
           <Results ranks={player.ranks[1]} scores={player.scores[1]} title="Team Battle Results" />
         </main>
+
+        <Footer />
       </Main>
+
+      <style jsx>{`
+        main {
+          padding: 0 0 2rem 0;
+        }
+      `}</style>
     </>
   )
 }

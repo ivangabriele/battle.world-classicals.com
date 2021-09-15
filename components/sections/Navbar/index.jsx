@@ -17,7 +17,7 @@ export default function CustomNavbar() {
 
   return (
     <>
-      <Navbar bg="dark" className="navbar-dark order-lg-1" expand="lg">
+      <Navbar bg="dark" className="navbar-dark" expand="lg">
         <Navbar.Toggle aria-controls="navbar" />
 
         <Navbar.Brand className={navbarBrandClassName} href="/">

@@ -6,18 +6,15 @@ import { MDXRemote } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import Head from 'next/head'
 import path from 'path'
-import css from 'styled-jsx/css'
 
 import Main from '../../components/layouts/Main'
+import Footer from '../../components/sections/Footer'
 import Header from '../../components/sections/Header'
 import Article from '../../components/shared/Article'
 import Pararaph from '../../components/shared/Article/Link'
 import convertUsernamesToLink from '../../libs/helpers/convertUsernamesToLink'
 
 // const attributionQueryParams = new URLSearchParams([
-//   ['utm_source', 'battle.world-classicals.com'],
-//   ['utm_medium', 'referral'],
-// ]).toString()
 
 const components = {
   a: Pararaph.Link,
@@ -35,15 +32,14 @@ const getMetaDescription = intro => intro.replace(/\n/g, ' ').trim()
 export default function BlogArticlePage({ data, source }) {
   const metaTitle = `${data.title} by ${data.author}`
   const metaDescription = getMetaDescription(data.intro)
-  const metaImage = `https://battle.world-classicals.com//articles/${data.id}.jpg`
-  // const photographerUrl = `https://unsplash.com/@${data.photographer_username}?${attributionQueryParams}`
-  // const unsplashUrl = `https://unsplash.com/?${attributionQueryParams}`
+  const metaImage = `https://battle.world-classicals.com/articles/${data.id}.jpg`
 
-  const HeaderStyle = css.resolve`
-    header {
-      background-image: url('/articles/${data.id}.jpg');
-    }
-  `
+  const backgroundImagePath = `/articles/${data.id}.jpg`
+
+  const attribution = {
+    name: data.photographer_name,
+    username: data.photographer_username,
+  }
 
   return (
     <>
@@ -55,21 +51,17 @@ export default function BlogArticlePage({ data, source }) {
       </Head>
 
       <Main>
-        <Header className={HeaderStyle.className} segment="JOURNAL" title={data.title} />
+        <Header backgroundImagePath={backgroundImagePath} segment="JOURNAL" title={data.title} />
 
         <main>
           <Article>
             <Article.Intro>{data.intro}</Article.Intro>
             <MDXRemote {...source} components={components} />
-
-            {/* <p>
-              Photo by <a href={photographerUrl}>{data.photographer_name}</a> on <a href={unsplashUrl}>Unsplash</a>.
-            </p> */}
           </Article>
         </main>
-      </Main>
 
-      {HeaderStyle.styles}
+        <Footer attribution={attribution} />
+      </Main>
     </>
   )
 }

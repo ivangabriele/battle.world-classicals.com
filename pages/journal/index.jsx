@@ -6,6 +6,7 @@ import Head from 'next/head'
 import path from 'path'
 
 import Main from '../../components/layouts/Main'
+import Footer from '../../components/sections/Footer'
 import Header from '../../components/sections/Header'
 import Journal from '../../components/sections/Journal'
 
@@ -13,6 +14,15 @@ const getDateFromRelativePath = filePath => filePath.match(/^data\/articles\/(\d
 const getSlugFromRelativePath = filePath => filePath.match(/^data\/articles\/\d{4}-\d{2}-\d{2}-([^.]+)/)[1]
 
 export default function JournalPage({ articles }) {
+  const metaImage = 'https://battle.world-classicals.com/headers/journal.jpg'
+
+  const backgroundImagePath = '/headers/journal.jpg'
+
+  const attribution = {
+    name: 'Irham Bahtiar',
+    username: 'bahtiarirham',
+  }
+
   return (
     <>
       <Head>
@@ -24,15 +34,30 @@ export default function JournalPage({ articles }) {
           }
           name="description"
         />
+        <meta content={metaImage} property="og:image" />
+        <meta content={metaImage} property="twitter:image" />
       </Head>
 
       <Main>
-        <Header segment="JOURNAL" title="Recent Articles" />
+        <Header backgroundImagePath={backgroundImagePath} segment="JOURNAL" title="Recent Articles" />
 
         <main>
           <Journal articles={articles} />
         </main>
+
+        <Footer attribution={attribution} />
       </Main>
+
+      <style jsx>{`
+        main {
+          padding: 0 2rem 2rem 2rem;
+        }
+        @media (min-width: 768px) {
+          main {
+            padding: 1rem;
+          }
+        }
+      `}</style>
     </>
   )
 }

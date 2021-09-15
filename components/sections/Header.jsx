@@ -1,22 +1,22 @@
-import classnames from 'classnames'
+import PropTypes from 'prop-types'
 import css from 'styled-jsx/css'
 
 import EntityHeader from '../shared/EntityHeader'
 
-export default function Header({ className, segment, title }) {
-  const headerClassName = classnames('bg-dark bg-size-cover overflow-hidden hero', className)
+function Header({ backgroundImagePath, segment, title }) {
+  const hasBackground = backgroundImagePath !== null
 
   const EntityHeaderPLaceholderStyle = css.resolve`
     div {
-      background-color: ${className ? 'black' : 'transparent'};
-      opacity: ${className ? 0.85 : 1};
+      background-color: ${hasBackground ? 'black' : 'transparent'};
+      opacity: ${hasBackground ? 0.85 : 1};
       position: relative;
     }
   `
 
   return (
     <>
-      <header className={headerClassName}>
+      <header className="bg-dark bg-size-cover overflow-hidden hero">
         <div className="container-fluid">
           <EntityHeader.Placeholder className={EntityHeaderPLaceholderStyle.className} />
           <EntityHeader.Box>
@@ -25,6 +25,12 @@ export default function Header({ className, segment, title }) {
           </EntityHeader.Box>
         </div>
       </header>
+
+      <style jsx>{`
+        header {
+          background-image: ${hasBackground ? `url('${backgroundImagePath}')` : 'none'};
+        }
+      `}</style>
 
       {EntityHeaderPLaceholderStyle.styles}
       <style jsx>{`
@@ -45,3 +51,15 @@ export default function Header({ className, segment, title }) {
     </>
   )
 }
+
+Header.defaultProps = {
+  backgroundImagePath: null,
+}
+
+Header.propTypes = {
+  backgroundImagePath: PropTypes.string,
+  segment: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+}
+
+export default Header

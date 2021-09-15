@@ -9,7 +9,7 @@ function Standings({ data, title }) {
   return (
     <>
       <section className={sectionClassName}>
-        <div className="container justify-content-center py-2 py-md-0">
+        <div className="container justify-content-center">
           {title && <h2 className="text-center text-light mb-5">{title}</h2>}
 
           <div className="container-md" role="table">

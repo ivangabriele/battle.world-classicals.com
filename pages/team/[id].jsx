@@ -4,6 +4,7 @@ import numeral from 'numeral'
 import path from 'path'
 
 import Main from '../../components/layouts/Main'
+import Footer from '../../components/sections/Footer'
 import TeamHeader from '../../components/sections/TeamHeader'
 import TeamPowerBar from '../../components/sections/TeamPowerBar'
 import Results from '../../components/shared/Result'
@@ -51,7 +52,15 @@ export default function TeamPage({ data: { team } }) {
           <Results ranks={team.ranks[1]} scores={team.scores[1]} title="Team Battle Results" />
           <Standings data={memberStandings} title="Member Standings" />
         </main>
+
+        <Footer />
       </Main>
+
+      <style jsx>{`
+        main {
+          padding: 0 0 2rem 0;
+        }
+      `}</style>
     </>
   )
 }

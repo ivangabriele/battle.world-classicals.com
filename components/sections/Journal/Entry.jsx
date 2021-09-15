@@ -22,18 +22,18 @@ export default function Entry({ date, id, intro, slug, time, title }) {
 
       <style jsx>{`
         .box {
-          padding: 1rem 0 0 0;
-          width: 100%;
+          padding: 2rem 0 0 0;
+          max-width: 100%;
         }
         @media (min-width: 768px) {
           .box {
             padding: 1rem;
-            width: 50%;
+            max-width: 50%;
           }
         }
         @media (min-width: 992px) {
           .box {
-            width: 33.33%;
+            max-width: 33.33%;
           }
         }
 
