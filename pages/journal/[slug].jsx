@@ -14,8 +14,6 @@ import Article from '../../components/shared/Article'
 import Pararaph from '../../components/shared/Article/Link'
 import convertUsernamesToLink from '../../libs/helpers/convertUsernamesToLink'
 
-// const attributionQueryParams = new URLSearchParams([
-
 const components = {
   a: Pararaph.Link,
   author: Article.Blockquote.Author,
