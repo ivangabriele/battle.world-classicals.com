@@ -1,0 +1,26 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test_a11y:
+    name: Test Accessibility
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          cache: yarn
+          node-version: 16
+      - name: Install
+        run: yarn
+      - name: Wait for Vercel deployment
+        run: node ./scripts/ci/waitForVercelDeployment.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Test
+        run: yarn test:a11y
+        env:
+          PUBLIC_URL: https://battle.world-classicals.com

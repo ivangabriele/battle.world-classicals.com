@@ -6,7 +6,7 @@
 
 import shelljs from 'shelljs'
 
-const { NODE_ENV, npm_package_version: VERSION, VERCEL } = process.env
+const { NODE_ENV, VERCEL, VERCEL_GIT_COMMIT_SHA: GIT_COMMIT_ID } = process.env
 const IS_PROD = NODE_ENV === 'production'
 const IS_VERCEL = VERCEL !== undefined
 const RELEASES_DOWNLOAD_URL = 'https://github.com/ivangabriele/battle.world-classicals.com/releases/download'
@@ -23,8 +23,8 @@ function run(command) {
 ;(() => {
   try {
     if (IS_VERCEL) {
-      run(`curl -s -L ${RELEASES_DOWNLOAD_URL}/v${VERSION}/data.tar.gz -o ./data.tar.gz`)
-      run(`curl -s -L ${RELEASES_DOWNLOAD_URL}/v${VERSION}/public.tar.gz -o ./public.tar.gz`)
+      run(`curl -s -L ${RELEASES_DOWNLOAD_URL}/commit.${GIT_COMMIT_ID}/data.tar.gz -o ./data.tar.gz`)
+      run(`curl -s -L ${RELEASES_DOWNLOAD_URL}/commit.${GIT_COMMIT_ID}/public.tar.gz -o ./public.tar.gz`)
       run(`tar -x --file=data.tar.gz`)
       run(`tar -x --file=public.tar.gz`)
     }
