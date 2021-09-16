@@ -1,8 +1,7 @@
 # Vercel doesn't support Git LFS, therefore this custom CI workflow
 # https://github.com/vercel/vercel/discussions/3716
 
-
-name: Release
+name: Release & Deploy
 
 on:
   push:
@@ -27,4 +26,16 @@ jobs:
           files: |
             data.tar.gz
             public.tar.gz
-          tag_name: v0.0.0
+          tag_name: commit.${{ github.sha }}
+
+  # deploy:
+  #   name: Deploy
+  #   needs: release
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #       with:
+  #         lfs: true
+  #     - name: Trigger deploy hook
+  #       run: curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_Piy9MStkmuqQKKSCgP1EdKA86vUy/61Z6tZlZjF

@@ -8,10 +8,12 @@
     "data:update": "node ./scripts/data/index.mjs",
     "dev": "next dev",
     "prebuild": "yarn compress",
-    "build": "node ./scripts/build/build.mjs",
+    "build": "node ./scripts/ci/build.mjs",
     "postbuild": "next-sitemap --config next-sitemap.config.js",
     "start": "next start -p $PORT",
-    "lint": "next lint"
+    "test:a11y": "pa11y-ci --config ./pa11y.config.js",
+    "test:a11y:debug": "pa11y-ci --config ./pa11y.config.js --json > pa11y.results.json",
+    "test:lint": "next lint"
   },
   "dependencies": {
     "@datapunt/matomo-tracker-react": "0.5.1",
@@ -40,11 +42,14 @@
     "styled-jsx": "4.0.1"
   },
   "devDependencies": {
+    "@actions/core": "1.5.0",
+    "@actions/github": "5.0.0",
     "@ivangabriele/eslint-config-react": "1.5.0",
     "@ivangabriele/prettier-config": "1.1.0",
     "@types/node": "16.7.5",
     "@types/prettier": "2.3.2",
     "@types/ramda": "0.27.44",
+    "bhala": "1.0.0-alpha.1",
     "chalk": "4.1.2",
     "eslint": "7.32.0",
     "eslint-config-airbnb": "18.2.1",
@@ -61,6 +66,7 @@
     "got": "11.8.2",
     "next-sitemap": "1.6.168",
     "ora": "6.0.0",
+    "pa11y-ci": "2.4.2",
     "prettier": "2.4.0",
     "shelljs": "0.8.4"
   },
