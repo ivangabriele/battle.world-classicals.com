@@ -1,5 +1,3 @@
-import fetch from 'isomorphic-unfetch'
-import moment from 'moment'
 import Head from 'next/head'
 
 import Main from '../components/layouts/Main'
@@ -10,9 +8,8 @@ import Footer from '../components/sections/Footer'
 import Hero from '../components/sections/Hero'
 import playerTotalScores from '../data/playerTotalScores.json'
 import teamTotalScores from '../data/teamTotalScores.json'
-import normalizeLichessTournamentsList from '../libs/helpers/normalizeLichessTournamentsList'
 
-export default function IndexPage({ data }) {
+export default function IndexPage() {
   return (
     <>
       <Head>
@@ -28,8 +25,8 @@ export default function IndexPage({ data }) {
       </Head>
 
       <Main>
-        <Hero tournamentData={data.tournament} />
-        <Countdown hasStarted={data.hasStarted} tournamentData={data.tournament} />
+        <Hero />
+        <Countdown />
 
         <main>
           <AllTimeTeamStandings data={teamTotalScores.slice(0, 10)} title="Top 10 All-Time Teams" />
@@ -40,34 +37,4 @@ export default function IndexPage({ data }) {
       </Main>
     </>
   )
-}
-
-async function getActiveTournamentBasicData() {
-  const now = Number(moment().format('x'))
-  const res = await fetch(`https://lichess.org/api/team/world-classicals/arena`)
-  const rawData = await res.text()
-  const worldClassicalsTeamArenas = normalizeLichessTournamentsList(rawData)
-  const sortedActiveTournaments = worldClassicalsTeamArenas
-    .filter(({ fullName }) => fullName.endsWith(`Weekly World Classicals Team Battle`))
-    .filter(({ finishesAt }) => finishesAt >= now)
-    // eslint-disable-next-line no-nested-ternary
-    .sort((a, b) => (a.startsAt < b.startsAt ? -1 : b.startsAt > a.startsAt ? 1 : 0))
-  const activeTournament = sortedActiveTournaments[0]
-
-  return activeTournament
-}
-
-export async function getStaticProps() {
-  const now = moment()
-  const tournament = await getActiveTournamentBasicData()
-  const hasStarted = tournament.startsAt <= Number(now.format('x'))
-
-  return {
-    props: {
-      data: {
-        hasStarted,
-        tournament,
-      },
-    },
-  }
 }

@@ -1,6 +1,23 @@
 import moment from 'moment'
 import { useEffect, useState } from 'react'
 
+import getActiveTournamentBasicData from '../../libs/helpers/getActiveTournamentBasicData'
+
+export async function getStaticProps() {
+  const now = moment()
+  const tournament = await getActiveTournamentBasicData()
+  const hasStarted = tournament.startsAt <= Number(now.format('x'))
+
+  return {
+    props: {
+      data: {
+        hasStarted,
+        tournament,
+      },
+    },
+  }
+}
+
 function getLeftDHMS(eventDate) {
   const nowDate = moment()
   const timeLeft = eventDate.diff(nowDate) - (process.browser ? 0 : 750)
@@ -21,22 +38,49 @@ function getLeftDHMS(eventDate) {
   return [leftDays, leftHours, leftMinutes, leftSeconds]
 }
 
-function countDown(eventDate, setTimer) {
+const countDown = (eventDate, setTimer) => {
   const leftDHMS = getLeftDHMS(eventDate)
 
   setTimer(leftDHMS)
 }
 
-export default function Countdown({ hasStarted, tournamentData }) {
-  const { finishesAt, fullName, startsAt } = tournamentData
-  const nth = fullName.match(/^\d+[a-z]+/)[0]
+export default function Countdown() {
+  const [state, setState] = useState({
+    eventDate: null,
+    hasStarted: null,
+    isLoading: true,
+    nth: null,
+  })
 
-  const eventDate = hasStarted ? moment(finishesAt) : moment(startsAt)
-
-  const [[leftDays, leftHours, leftMinutes, leftSeconds], setTimer] = useState(getLeftDHMS(eventDate))
+  const [[leftDays, leftHours, leftMinutes, leftSeconds], setTimer] = useState(['--', '--', '--', '--'])
 
   useEffect(() => {
-    const countDownIntervalId = setInterval(() => countDown(eventDate, setTimer), 1000)
+    ;(async () => {
+      const tournament = await getActiveTournamentBasicData()
+      const { finishesAt, fullName, startsAt } = tournament
+      const nth = fullName.match(/^\d+[a-z]+/)[0]
+
+      const now = moment()
+      const hasStarted = tournament.startsAt <= Number(now.format('x'))
+      const eventDate = hasStarted ? moment(finishesAt) : moment(startsAt)
+
+      countDown(eventDate, setTimer)
+
+      setState({
+        eventDate,
+        hasStarted,
+        isLoading: false,
+        nth,
+      })
+    })()
+  }, [])
+
+  useEffect(() => {
+    if (state.isLoading) {
+      return () => undefined
+    }
+
+    const countDownIntervalId = setInterval(() => countDown(state.eventDate, setTimer), 1000)
 
     return () => clearInterval(countDownIntervalId)
   })
@@ -48,14 +92,16 @@ export default function Countdown({ hasStarted, tournamentData }) {
           <div className="row align-items-center">
             <div className="text-center">
               <h3 className="mb-4">
-                {hasStarted ? (
+                {state.isLoading && <span>...</span>}
+                {!state.isLoading && state.hasStarted && (
                   <>
-                    <span>{`The ${nth} Battle`}</span>
+                    <span>{`The ${state.nth} Battle`}</span>
                     <span>will end in:</span>
                   </>
-                ) : (
+                )}
+                {!state.isLoading && !state.hasStarted && (
                   <>
-                    <span>{`The ${nth} Battle`}</span>
+                    <span>{`The ${state.nth} Battle`}</span>
                     <span>will start in:</span>
                   </>
                 )}

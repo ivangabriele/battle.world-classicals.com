@@ -1,7 +1,11 @@
 import Swirl from '@reactnimations/swirl'
 import moment from 'moment'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import css from 'styled-jsx/css'
+
+import getActiveTournamentBasicData from '../../libs/helpers/getActiveTournamentBasicData'
+
+const TODAY_AT_1000 = moment().startOf('day').add(12, 'hours')
 
 const SwirlStyle = css.resolve`
   canvas {
@@ -9,9 +13,23 @@ const SwirlStyle = css.resolve`
   }
 `
 
-export default function Hero({ tournamentData }) {
+export default function Hero() {
   const sectionRef = useRef(null)
-  const todayAt1000 = moment().startOf('day').add(12, 'hours')
+  const [state, setState] = useState({
+    isLoading: true,
+    tournanentId: null,
+  })
+
+  useEffect(() => {
+    ;(async () => {
+      const tournament = await getActiveTournamentBasicData()
+
+      setState({
+        isLoading: false,
+        tournanentId: tournament.id,
+      })
+    })()
+  }, [])
 
   return (
     <>
@@ -37,14 +55,14 @@ export default function Hero({ tournamentData }) {
                   World Classicals<span className="display-5 text-light mb-5">Team Battle</span>
                 </h1>
                 <div className="d-inline-flex align-items-center mx-1 px-3 mb-4">
-                  <span className="text-light">{`Each Saturday at ${todayAt1000.format(
+                  <span className="text-light">{`Each Saturday at ${TODAY_AT_1000.format(
                     'ha',
                   )} (10am UTC), on Lichess.`}</span>
                 </div>
                 <div className="pt-2">
                   <a
                     className="btn btn-outline-light button-join"
-                    href={`https://lichess.org/tournament/${tournamentData.id}`}
+                    href={`https://lichess.org/tournament/${state.tournanentId}`}
                     rel="noreferrer"
                     target="_blank"
                   >
