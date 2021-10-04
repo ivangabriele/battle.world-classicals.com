@@ -1,9 +1,9 @@
 import { SSRProvider } from '@restart/ui/ssr'
-import Nav from 'react-bootstrap/Nav'
+// import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
-import NavDropdown from 'react-bootstrap/NavDropdown'
+// import NavDropdown from 'react-bootstrap/NavDropdown'
 
-const noop = () => undefined
+// const noop = () => undefined
 
 export default function CustomNavbar() {
   return (
@@ -16,7 +16,7 @@ export default function CustomNavbar() {
           WCTB
         </Navbar.Brand>
 
-        <Navbar.Collapse id="navbar">
+        {/* <Navbar.Collapse id="navbar">
           <Nav className="me-auto">
             <NavDropdown id="nav-dropdown-standings" onToggle={noop} show title="Standings">
               <NavDropdown.Item href="/standings/all-time-teams">All Time Teams</NavDropdown.Item>
@@ -24,7 +24,7 @@ export default function CustomNavbar() {
             </NavDropdown>
             <Nav.Link href="/journal">Journal</Nav.Link>
           </Nav>
-        </Navbar.Collapse>
+        </Navbar.Collapse> */}
       </Navbar>
 
       <style global jsx>{`

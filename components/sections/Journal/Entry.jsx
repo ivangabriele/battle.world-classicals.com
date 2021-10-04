@@ -5,7 +5,7 @@ export default function Entry({ date, id, intro, slug, time, title }) {
   return (
     <Fragment key={id}>
       <div className="box">
-        <Link href={`/journal/${slug}`}>
+        <Link href={`/${slug}`}>
           <div className="entry">
             <p>{intro}</p>
             <h2>{title}</h2>
