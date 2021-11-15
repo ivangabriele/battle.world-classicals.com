@@ -489,10 +489,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ivangabriele/prettier-config@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@ivangabriele/prettier-config@npm:1.1.0"
-  checksum: b8fc9a091e3a507e29dc1221a60f0ab04ed3a03a62ec1b9803498f2a0eed64e8af66d01ab60fc19d1f35a95a6fe767cadc779b58d065319c8e8692f4426c2211
+"@ivangabriele/prettier-config@npm:2.0.2":
+  version: 2.0.2
+  resolution: "@ivangabriele/prettier-config@npm:2.0.2"
+  dependencies:
+    prettier: 2.4.1
+  checksum: 0f81739ab5e9e001cd2739b8c0a9b936eb58534ca3aa43c34b6ca55369a237a2adf8f1cec7fa895321665d5658ea8dd0e701b2c49f8cb4cfe634f61304555ca4
   languageName: node
   linkType: hard
 
@@ -7796,7 +7798,7 @@ resolve@^2.0.0-next.3:
     "@actions/github": 5.0.0
     "@datapunt/matomo-tracker-react": 0.5.1
     "@ivangabriele/eslint-config-react": 1.5.0
-    "@ivangabriele/prettier-config": 1.1.0
+    "@ivangabriele/prettier-config": 2.0.2
     "@reactnimations/coalesce": 1.2.0
     "@reactnimations/pipeline": 1.2.0
     "@reactnimations/swirl": 1.2.0
