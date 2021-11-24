@@ -44,7 +44,7 @@
   "devDependencies": {
     "@actions/core": "1.6.0",
     "@actions/github": "5.0.0",
-    "@ivangabriele/eslint-config-react": "1.5.0",
+    "@ivangabriele/eslint-config-react": "2.1.4",
     "@ivangabriele/prettier-config": "1.1.0",
     "@types/node": "16.11.6",
     "@types/prettier": "2.4.1",
