@@ -50,7 +50,7 @@
     "@types/prettier": "2.4.1",
     "@types/ramda": "0.27.46",
     "bhala": "1.0.2",
-    "chalk": "4.1.2",
+    "chalk": "5.0.0",
     "eslint": "7.32.0",
     "eslint-config-airbnb": "18.2.1",
     "eslint-config-next": "12.0.3",
