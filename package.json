@@ -29,7 +29,7 @@
     "isomorphic-unfetch": "3.1.0",
     "ky": "0.28.6",
     "moment": "2.29.1",
-    "next": "12.0.3",
+    "next": "12.0.5",
     "next-mdx-remote": "3.0.7",
     "numeral": "2.0.6",
     "ordinal": "1.0.3",
