@@ -51,7 +51,7 @@
     "@types/ramda": "0.27.46",
     "bhala": "1.0.2",
     "chalk": "4.1.2",
-    "eslint": "7.32.0",
+    "eslint": "8.6.0",
     "eslint-config-airbnb": "18.2.1",
     "eslint-config-next": "12.0.3",
     "eslint-config-prettier": "8.3.0",
